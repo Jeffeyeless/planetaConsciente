@@ -13,7 +13,12 @@ class Usuario extends Model
     protected $primaryKey = 'id_usuario';
 
     protected $fillable = [
-        'nombre', 'apellidos', 'correo', 'contraseña', 'rol'
+        'nombre',
+        'apellidos',
+        'correo',
+        'contraseña',
+        'rol',
+        'fecha_registro'
     ];
 
     protected $hidden = [
@@ -21,6 +26,7 @@ class Usuario extends Model
     ];
 
     protected $casts = [
+        'email_verified_at' => 'datetime',
         'fecha_registro' => 'datetime',
     ];
 }
