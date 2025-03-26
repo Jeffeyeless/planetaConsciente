@@ -30,13 +30,9 @@ class UsuarioController extends Controller
         $credentials = $request->validate([
             'correo' => 'required|email:rfc,dns|max:255',
             'contraseña' => 'required|string',
-        ], [
-            'correo.required' => 'El correo electrónico es obligatorio',
-            'correo.email' => 'Debe ingresar un correo electrónico válido',
-            'contraseña.required' => 'La contraseña es obligatoria',
         ]);
 
-        if (Auth::attempt($credentials, $request->filled('remember'))) {
+        if (Auth::attempt(['correo' => $credentials['correo'], 'password' => $credentials['contraseña']], $request->filled('remember'))) {
             $request->session()->regenerate();
             
             // Registrar el inicio de sesión
