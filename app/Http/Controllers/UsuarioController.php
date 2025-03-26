@@ -126,6 +126,12 @@ class UsuarioController extends Controller
         $this->usuarioService->eliminarUsuario($id);
 
         return redirect()->route('usuarios.index')
-                         ->with('success', 'Usuario eliminado exitosamente.');
+     
+        ->with('success', 'Usuario eliminado exitosamente.');
     }
+    protected function redirectTo()
+{
+    return '/home'; // Puedes cambiarlo por otra vista, como '/dashboard'
+}
+
 }
