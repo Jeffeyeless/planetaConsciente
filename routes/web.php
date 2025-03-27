@@ -2,12 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\CalculadoraController;
 
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
+// Hacer que la página principal cargue la calculadora
+Route::get('/', [CalculadoraController::class, 'index'])->name('calculadora.index');
 
 // Rutas de autenticación
 Route::get('/login', [UsuarioController::class, 'showLoginForm'])->name('login');
@@ -26,3 +24,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/usuarios/{id}', [UsuarioController::class, 'update'])->name('usuarios.update');
     Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy'])->name('usuarios.destroy');
 });
+
+// Rutas de la Calculadora de Huella de Carbono
+Route::get('/calculadora', [CalculadoraController::class, 'index'])->name('calculadora.index');
+Route::post('/calculadora/responder', [CalculadoraController::class, 'responder'])->name('calculadora.responder');
+Route::get('/calculadora/resultado', [CalculadoraController::class, 'resultado'])->name('calculadora.resultado');

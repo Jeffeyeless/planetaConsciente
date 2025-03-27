@@ -10,20 +10,10 @@ class Calculadora extends Model
     use HasFactory;
 
     protected $table = 'calculadoras';
-    protected $primaryKey = 'id_calculadora';
 
-    protected $fillable = [
-        'resultado',
-        'clasificacion',
-        'detalles',
-    ];
+    protected $fillable = ['respuestas'];
 
     protected $casts = [
-        'detalles' => 'array',
-        'resultado' => 'float',
+        'respuestas' => 'array', // Convierte automáticamente JSON en array
     ];
-
-    public $timestamps = true;
-
-
 }
