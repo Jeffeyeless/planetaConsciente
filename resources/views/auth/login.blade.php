@@ -6,7 +6,7 @@
 <style>
     /* Fondo con degradado azul */
     body {
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    background: linear-gradient(135deg,rgb(255, 255, 255),rgb(176, 226, 147));
     min-height: 100vh;
     display: flex;
     flex-direction: column; /* 🔹 Esto mantiene el formulario centrado */
@@ -30,7 +30,7 @@
     .login-box h4 {
     font-weight: bold;
     margin-bottom: 20px;
-    color:rgb(30, 114, 58); /* 🔹 Un azul fuerte para destacar */
+    color:#1e723a; /* 🔹 Un azul fuerte para destacar */
     font-size: 30px; /* 🔹 Aumenta el tamaño */
     text-transform: uppercase; /* 🔹 Convierte el texto en mayúsculas */
     letter-spacing: 1.8px; /* 🔹 Espaciado entre letras */
