@@ -1,28 +1,25 @@
 <?php
 
+use App\Http\Controllers\NoticiaController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UsuarioController;
-
-
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Rutas de autenticación
-Route::get('/login', [UsuarioController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [UsuarioController::class, 'login']);
-Route::post('/logout', [UsuarioController::class, 'logout'])->name('logout');
+// Rutas CRUD para noticias
+Route::resource('noticias', NoticiaController::class);
 
-// Rutas de registro
-Route::get('/register', [UsuarioController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [UsuarioController::class, 'register']);
-
-// Rutas CRUD para usuarios (protegidas por autenticación)
-Route::middleware(['auth'])->group(function () {
-    Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
-    Route::get('/usuarios/{id}', [UsuarioController::class, 'show'])->name('usuarios.show');
-    Route::get('/usuarios/{id}/edit', [UsuarioController::class, 'edit'])->name('usuarios.edit');
-    Route::put('/usuarios/{id}', [UsuarioController::class, 'update'])->name('usuarios.update');
-    Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy'])->name('usuarios.destroy');
+Route::prefix('noticias')->group(function () {
+    Route::get('/', [NoticiaController::class, 'index'])->name('noticias.index');
+    Route::get('/{id}', [NoticiaController::class, 'show'])->name('noticias.show');
+    
+    // Rutas protegidas para administradores
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/crear', [NoticiaController::class, 'create'])->name('noticias.create');
+        Route::post('/', [NoticiaController::class, 'store'])->name('noticias.store');
+        Route::get('/{id}/editar', [NoticiaController::class, 'edit'])->name('noticias.edit');
+        Route::put('/{id}', [NoticiaController::class, 'update'])->name('noticias.update');
+        Route::delete('/{id}', [NoticiaController::class, 'destroy'])->name('noticias.destroy');
+    });
 });

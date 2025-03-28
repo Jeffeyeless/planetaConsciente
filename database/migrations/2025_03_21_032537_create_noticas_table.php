@@ -9,14 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('noticias', function (Blueprint $table) {
-            $table->id('id_noticia');
-            $table->string('titulo');
+            $table->id('id_noticia'); 
+            $table->string('titulo', 255);
+            $table->string('resumen', 500);
             $table->text('contenido');
-            $table->string('fuente')->nullable();
             $table->date('fecha_publicacion');
+            $table->string('fuente', 100)->nullable();
+            $table->string('imagen_url')->nullable();
             $table->timestamps();
         });
     }
@@ -24,7 +26,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('noticias');
     }
