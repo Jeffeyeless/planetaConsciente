@@ -2,64 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Evento;
 use Illuminate\Http\Request;
+use App\Models\Evento;
+use App\Models\Reto;
+use App\Models\Organizacion;
+use Carbon\Carbon;
 
 class EventoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function retosYEventos()
     {
-        //
+        $eventos = Evento::where('fecha', '>=', now()->startOfMonth())
+                      ->where('fecha', '<=', now()->addMonth()->endOfMonth())
+                      ->orderBy('fecha')
+                      ->get();
+        
+        $retosMensuales = Reto::where('mes', now()->month)
+                             ->where('año', now()->year)
+                             ->get();
+        
+        $organizaciones = Organizacion::where('activo', true)
+                                    ->orderBy('nombre')
+                                    ->get();
+        
+        return view('retos-eventos', compact('eventos', 'retosMensuales', 'organizaciones'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    
+    public function obtenerRetosMensuales(Request $request)
     {
-        //
+        $mes = $request->input('mes');
+        $año = $request->input('año');
+        
+        $retos = Reto::where('mes', $mes)
+                    ->where('año', $año)
+                    ->get();
+        
+        return response()->json($retos);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    
+    public function detallesEvento($id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Evento $evento)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Evento $evento)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Evento $evento)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Evento $evento)
-    {
-        //
+        $evento = Evento::with('retos')->findOrFail($id);
+        
+        return response()->json([
+            'evento' => $evento,
+            'retos' => $evento->retos
+        ]);
     }
 }

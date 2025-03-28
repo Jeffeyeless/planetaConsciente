@@ -2,27 +2,27 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Evento extends Model
 {
-    use HasFactory;
-
     protected $table = 'eventos';
-
-    protected $primaryKey = 'id_evento';
-
     protected $fillable = [
         'titulo',
-        'ubicacion',
+        'descripcion',
         'fecha',
-        'descripción'
+        'ubicacion',
+        'latitud',
+        'longitud',
+        'tipo',
+        'sitio_web',
+        'imagen'
     ];
-
-    protected $casts = [
-        'fecha' => 'string',
-    ];
-
-    public $timestamps = true;
+    
+    protected $dates = ['fecha'];
+    
+    public function retos()
+    {
+        return $this->hasMany(Reto::class, 'evento_id');
+    }
 }
