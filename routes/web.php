@@ -28,7 +28,11 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy'])->name('usuarios.destroy');
 
 });
-// rutas para retos y eventos
-Route::get('/retos-eventos', [EventoController::class, 'retosYEventos'])->name('retos-eventos');
-Route::get('/evento/{id}', [EventoController::class, 'detallesEvento'])->name('evento.detalles');
-Route::get('/retos-mensuales', [EventoController::class, 'obtenerRetosMensuales'])->name('retos.mensuales');
+// Ruta principal para Retos y Eventos
+Route::get('/retos-eventos', [EventoController::class, 'index'])->name('retos-eventos.index');
+
+// Ruta para obtener detalles de un evento específico
+Route::get('/eventos/{id}', [EventoController::class, 'show'])->name('eventos.show');
+
+// Ruta para obtener retos mensuales (AJAX)
+Route::get('/retos-mensuales', [EventoController::class, 'getRetosMensuales'])->name('retos.mensuales');

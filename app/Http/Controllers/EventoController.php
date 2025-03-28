@@ -10,25 +10,47 @@ use Carbon\Carbon;
 
 class EventoController extends Controller
 {
+    /**
+     * Muestra la página principal de Retos y Eventos
+     */
     public function index()
     {
+        // Obtener eventos del mes actual y próximo mes
         $eventos = Evento::where('fecha', '>=', now()->startOfMonth())
                       ->where('fecha', '<=', now()->addMonth()->endOfMonth())
                       ->orderBy('fecha')
                       ->get();
         
+        // Obtener retos del mes actual
         $retosMensuales = Reto::where('mes', now()->month)
                              ->where('año', now()->year)
                              ->get();
         
+        // Obtener organizaciones ambientales activas
         $organizaciones = Organizacion::where('activo', true)
                                     ->orderBy('nombre')
                                     ->get();
         
-        return view('retos-eventos', compact('eventos', 'retosMensuales', 'organizaciones'));
+        return view('retos-eventos.index', compact('eventos', 'retosMensuales', 'organizaciones'));
     }
     
-    public function obtenerRetosMensuales(Request $request)
+    /**
+     * Muestra los detalles de un evento específico
+     */
+    public function show($id)
+    {
+        $evento = Evento::with('retos')->findOrFail($id);
+        
+        return response()->json([
+            'evento' => $evento,
+            'retos' => $evento->retos
+        ]);
+    }
+    
+    /**
+     * Obtiene los retos mensuales para AJAX
+     */
+    public function getRetosMensuales(Request $request)
     {
         $mes = $request->input('mes');
         $año = $request->input('año');
@@ -38,15 +60,5 @@ class EventoController extends Controller
                     ->get();
         
         return response()->json($retos);
-    }
-    
-    public function detallesEvento($id)
-    {
-        $evento = Evento::with('retos')->findOrFail($id);
-        
-        return response()->json([
-            'evento' => $evento,
-            'retos' => $evento->retos
-        ]);
     }
 }

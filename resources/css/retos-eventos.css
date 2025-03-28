@@ -1,0 +1,487 @@
+/* Estilos generales para la sección */
+.section-title {
+    color: var(--primary);
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-subtitle {
+    color: var(--primary-light);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+/* Estilos para el calendario */
+.calendar-container {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    padding: 1.5rem;
+}
+
+/* Estilos para la lista de eventos */
+.events-list-container {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    padding: 1.5rem;
+}
+
+.events-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.event-card {
+    border-left: 4px solid var(--accent);
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.event-card:hover {
+    background-color: var(--secondary);
+    transform: translateX(5px);
+}
+
+.event-title {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 1.125rem;
+    margin-bottom: 0.25rem;
+}
+
+.event-date, .event-location {
+    color: var(--text-light);
+    font-size: 0.875rem;
+}
+
+.event-type {
+    background-color: var(--secondary);
+    color: var(--accent-dark);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+}
+
+/* Estilos para los detalles del evento */
+.event-details-container {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    padding: 1.5rem;
+}
+
+.event-details-title {
+    color: var(--primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.event-details-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .event-details-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.event-info-item {
+    color: var(--text);
+    margin-bottom: 0.5rem;
+}
+
+.info-label {
+    font-weight: 600;
+}
+
+.event-description {
+    color: var(--text);
+    margin-bottom: 1rem;
+}
+
+.info-link {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.info-link:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+}
+
+/* Estilos para los retos asociados */
+.challenges-list {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.challenge-item {
+    background-color: var(--secondary);
+    border-radius: 8px;
+    padding: 0.75rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.challenge-icon-container {
+    background-color: var(--accent-light);
+    border-radius: 9999px;
+    padding: 0.5rem;
+    margin-right: 0.75rem;
+}
+
+.challenge-icon {
+    color: var(--accent);
+}
+
+.challenge-item-title {
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.challenge-item-description {
+    color: var(--text-light);
+    font-size: 0.875rem;
+}
+
+/* Estilos para el mapa */
+.map-container {
+    height: 300px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.map-note {
+    color: var(--text-light);
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+/* Estilos para los retos mensuales */
+.monthly-challenges-container {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    padding: 1.5rem;
+}
+
+.monthly-challenges-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.month-navigation {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.nav-button {
+    background-color: var(--secondary);
+    border-radius: 9999px;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.nav-button:hover {
+    background-color: var(--accent-light);
+}
+
+.challenges-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+@media (min-width: 640px) {
+    .challenges-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .challenges-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.challenge-card {
+    background-color: var(--secondary);
+    border: 1px solid var(--accent-light);
+    border-radius: 12px;
+    padding: 1rem;
+    transition: var(--transition);
+}
+
+.challenge-card:hover {
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-3px);
+}
+
+.challenge-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.challenge-icon {
+    background-color: var(--accent-light);
+    border-radius: 9999px;
+    padding: 0.5rem;
+    margin-right: 0.75rem;
+    color: var(--accent);
+}
+
+.challenge-title {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.challenge-description {
+    color: var(--text);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.challenge-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.difficulty-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+}
+
+.difficulty-badge.fácil {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.difficulty-badge.moderado {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.difficulty-badge.difícil {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.details-button {
+    color: var(--accent);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.details-button:hover {
+    color: var(--accent-dark);
+}
+
+/* Estilos para organizaciones */
+.organizations-container {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    padding: 1.5rem;
+}
+
+.organizations-description {
+    color: var(--text);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.organizations-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+    .organizations-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .organizations-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.organization-card {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.organization-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.organization-logo-container {
+    height: 10rem;
+    background-color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.organization-logo {
+    max-height: 5rem;
+    max-width: 80%;
+}
+
+.organization-info {
+    padding: 1rem;
+}
+
+.organization-name {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+}
+
+.organization-description {
+    color: var(--text-light);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.organization-links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.website-link {
+    color: var(--accent);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.website-link:hover {
+    color: var(--accent-dark);
+}
+
+.donate-button {
+    background-color: var(--accent);
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    transition: var(--transition);
+}
+
+.donate-button:hover {
+    background-color: var(--accent-dark);
+}
+
+/* Estilos para el modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    width: 90%;
+    max-width: 32rem;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 1.5rem 0 1.5rem;
+}
+
+.modal-title {
+    color: var(--primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.close-btn {
+    color: var(--text-light);
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.close-btn:hover {
+    color: var(--text);
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Botones */
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
