@@ -10,7 +10,7 @@ use Carbon\Carbon;
 
 class EventoController extends Controller
 {
-    public function retosYEventos()
+    public function index()
     {
         $eventos = Evento::where('fecha', '>=', now()->startOfMonth())
                       ->where('fecha', '<=', now()->addMonth()->endOfMonth())
