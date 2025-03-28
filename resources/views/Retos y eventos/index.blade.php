@@ -28,27 +28,27 @@
                 </h3>
                 
                 <div class="space-y-4">
-                    @foreach($events as $event)
+                    @foreach($eventos as $evento)
                     <div class="event-card border-l-4 border-green-500 pl-4 py-2 cursor-pointer hover:bg-gray-50 transition duration-200" 
-                         data-event-id="{{ $event->id }}"
-                         data-lat="{{ $event->latitude }}"
-                         data-lng="{{ $event->longitude }}"
-                         data-title="{{ $event->title }}"
-                         data-date="{{ $event->date->format('Y-m-d') }}">
+                         data-event-id="{{ $evento->id }}"
+                         data-lat="{{ $evento->latitud }}"
+                         data-lng="{{ $evento->longitud }}"
+                         data-title="{{ $evento->titulo }}"
+                         data-date="{{ $evento->fecha->format('Y-m-d') }}">
                         <div class="flex justify-between items-start">
                             <div>
-                                <h4 class="font-bold text-lg" style="color: var(--primary);">{{ $event->title }}</h4>
+                                <h4 class="font-bold text-lg" style="color: var(--primary);">{{ $evento->titulo }}</h4>
                                 <p class="text-gray-600">
                                     <i class="far fa-calendar-alt mr-1"></i>
-                                    {{ $event->date->format('d M Y, h:i A') }}
+                                    {{ $evento->fecha->format('d M Y, h:i A') }}
                                 </p>
                                 <p class="text-gray-600">
                                     <i class="fas fa-map-marker-alt mr-1"></i>
-                                    {{ $event->location }}
+                                    {{ $evento->ubicacion }}
                                 </p>
                             </div>
                             <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
-                                {{ $event->type }}
+                                {{ $evento->tipo }}
                             </span>
                         </div>
                     </div>
@@ -135,18 +135,18 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                @foreach($monthlyChallenges as $challenge)
+                @foreach($retosMensuales as $reto)
                 <div class="challenge-card bg-green-50 border border-green-100 rounded-lg p-4 hover:shadow-md transition duration-200">
                     <div class="flex items-center mb-3">
                         <div class="bg-green-100 p-3 rounded-full mr-3">
-                            <i class="fas fa-{{ $challenge->icon }} text-green-600"></i>
+                            <i class="fas fa-{{ $reto->icono }} text-green-600"></i>
                         </div>
-                        <h4 class="font-bold" style="color: var(--primary);">{{ $challenge->title }}</h4>
+                        <h4 class="font-bold" style="color: var(--primary);">{{ $reto->titulo }}</h4>
                     </div>
-                    <p class="text-gray-700 text-sm mb-3">{{ $challenge->description }}</p>
+                    <p class="text-gray-700 text-sm mb-3">{{ $reto->descripcion }}</p>
                     <div class="flex justify-between items-center">
                         <span class="text-xs bg-green-200 text-green-800 px-2 py-1 rounded-full">
-                            {{ $challenge->difficulty }}
+                            {{ $reto->dificultad }}
                         </span>
                         <button class="text-green-600 hover:text-green-800 text-sm font-medium">
                             Más detalles <i class="fas fa-arrow-right ml-1"></i>
@@ -171,19 +171,19 @@
             </p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach($organizations as $org)
+                @foreach($organizaciones as $org)
                 <div class="org-card border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition duration-300">
                     <div class="h-40 bg-green-100 flex items-center justify-center">
-                        <img src="{{ asset($org->logo) }}" alt="{{ $org->name }}" class="max-h-20 max-w-full">
+                        <img src="{{ asset($org->logo) }}" alt="{{ $org->nombre }}" class="max-h-20 max-w-full">
                     </div>
                     <div class="p-4">
-                        <h4 class="font-bold text-lg mb-2" style="color: var(--primary);">{{ $org->name }}</h4>
-                        <p class="text-gray-600 text-sm mb-4">{{ Str::limit($org->description, 100) }}</p>
+                        <h4 class="font-bold text-lg mb-2" style="color: var(--primary);">{{ $org->nombre }}</h4>
+                        <p class="text-gray-600 text-sm mb-4">{{ Str::limit($org->descripcion, 100) }}</p>
                         <div class="flex justify-between">
-                            <a href="{{ $org->website }}" target="_blank" class="text-green-600 hover:text-green-800 text-sm font-medium">
+                            <a href="{{ $org->sitio_web }}" target="_blank" class="text-green-600 hover:text-green-800 text-sm font-medium">
                                 <i class="fas fa-globe mr-1"></i> Sitio web
                             </a>
-                            <a href="{{ $org->donation_link }}" target="_blank" class="bg-green-500 hover:bg-green-600 text-white text-xs py-1 px-3 rounded-full transition duration-300">
+                            <a href="{{ $org->enlace_donacion }}" target="_blank" class="bg-green-500 hover:bg-green-600 text-white text-xs py-1 px-3 rounded-full transition duration-300">
                                 <i class="fas fa-donate mr-1"></i> Donar
                             </a>
                         </div>
@@ -239,12 +239,12 @@
                 right: 'next'
             },
             events: [
-                @foreach($events as $event)
+                @foreach($eventos as $evento)
                 {
-                    title: '{{ $event->title }}',
-                    start: '{{ $event->date->format('Y-m-d') }}',
+                    title: '{{ $evento->titulo }}',
+                    start: '{{ $evento->fecha->format('Y-m-d') }}',
                     color: '#4caf7d',
-                    id: '{{ $event->id }}'
+                    id: '{{ $evento->id }}'
                 },
                 @endforeach
             ],
