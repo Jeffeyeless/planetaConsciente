@@ -738,7 +738,7 @@
                 <button class="nav-button" onclick="location.href='/ambiente'">
                     <i class="fas fa-leaf"></i> MEDIO AMBIENTE
                 </button>
-                <button class="nav-button" onclick="location.href='/eventos'">
+                <button class="nav-button" onclick="location.href='/retos-eventos'">
                     <i class="fas fa-calendar-alt"></i> EVENTOS
                 </button>
                 <button class="nav-button" onclick="location.href='/noticias'">
@@ -785,7 +785,7 @@
                 <ul class="footer-links">
                     <li><a href="/" class="footer-link"><i class="fas fa-chevron-right"></i> Inicio</a></li>
                     <li><a href="/ambiente" class="footer-link"><i class="fas fa-chevron-right"></i> Medio Ambiente</a></li>
-                    <li><a href="/eventos" class="footer-link"><i class="fas fa-chevron-right"></i> Próximos Eventos</a></li>
+                    <li><a href="/retos-eventos" class="footer-link"><i class="fas fa-chevron-right"></i> Próximos Eventos</a></li>
                     <li><a href="/noticias" class="footer-link"><i class="fas fa-chevron-right"></i> Noticias</a></li>
                     <li><a href="/calculadora" class="footer-link"><i class="fas fa-chevron-right"></i> Calculadora Ecológica</a></li>
                 </ul>

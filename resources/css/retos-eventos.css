@@ -485,3 +485,71 @@
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
+.info-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+}
+
+.info-grid {
+    margin-bottom: 2rem;
+}
+
+.info-section {
+    margin-bottom: 1.5rem;
+}
+
+.info-label {
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.info-content {
+    color: var(--text);
+    padding-left: 1rem;
+}
+
+.badge-new {
+    background-color: var(--accent-light);
+    color: var(--accent-dark);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.organization-table {
+    margin-top: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.organization-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.organization-table th, 
+.organization-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.organization-table th {
+    background-color: var(--secondary);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.organization-table tr:last-child td {
+    border-bottom: none;
+}
+
+.organization-table tr:hover {
+    background-color: rgba(76, 175, 125, 0.05);
+}

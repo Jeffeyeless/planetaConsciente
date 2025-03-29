@@ -9,16 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
             center: 'title',
             right: 'next'
         },
-        events: [
-            @foreach($eventos as $evento)
-            {
-                title: '{{ $evento->titulo }}',
-                start: '{{ $evento->fecha->format('Y-m-d') }}',
-                color: '#4caf7d',
-                id: '{{ $evento->id }}'
-            },
-            @endforeach
-        ],
+        events: JSON.parse(document.getElementById('event-data').textContent),
         eventClick: function(info) {
             const eventId = info.event.id;
             showEventDetails(eventId);
