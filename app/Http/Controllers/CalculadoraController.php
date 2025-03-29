@@ -8,7 +8,6 @@ use App\Models\Calculadora;
 
 class CalculadoraController extends Controller
 {
-    // Página principal de la calculadora
     public function index()
     {
         $preguntaActual = request('pregunta', 0);
@@ -24,7 +23,6 @@ class CalculadoraController extends Controller
         ]);
     }
 
-    // Procesar la respuesta y avanzar a la siguiente pregunta
     public function responder(Request $request)
     {
         $preguntaActual = (int) $request->input('pregunta_actual', 0);
@@ -33,7 +31,7 @@ class CalculadoraController extends Controller
         $respuestas = Session::get('respuestas', []);
 
         $validaciones = ['required'];
-        
+
         if ($tipo === 'numero') {
             $validaciones[] = 'numeric';
             $validaciones[] = 'min:0';
@@ -43,17 +41,14 @@ class CalculadoraController extends Controller
 
         $request->validate(['respuesta' => $validaciones]);
 
-        // Guardar la respuesta en sesión
         $respuestas[$preguntaActual] = $request->input('respuesta');
         Session::put('respuestas', $respuestas);
 
-        // Si hay más preguntas, continuar; de lo contrario, calcular resultado
         return ($preguntaActual < count($preguntas) - 1) 
             ? redirect()->route('calculadora.index', ['pregunta' => $preguntaActual + 1])
             : redirect()->route('calculadora.resultado');
     }
 
-    // Mostrar el resultado de la huella de carbono
     public function resultado()
     {
         $respuestas = Session::get('respuestas', []);
@@ -63,23 +58,37 @@ class CalculadoraController extends Controller
         foreach ($respuestas as $indice => $valor) {
             if (isset($factores[$indice])) {
                 $factor = is_array($factores[$indice]) ? ($factores[$indice][$valor] ?? 0) : $factores[$indice];
-                $huella += (float)$valor * (float)$factor; // Aseguramos que ambos sean números
+                $huella += (float)$valor * (float)$factor;
             }
         }
 
-        // Guardar en la base de datos solo si hay respuestas
-        if (!empty($respuestas)) {
-            Calculadora::create(['respuestas' => json_encode($respuestas)]);
+        // Clasificación de la huella de carbono
+        if ($huella < 3000) {
+            $clasificacion = 'Baja';
+        } elseif ($huella >= 3000 && $huella <= 6000) {
+            $clasificacion = 'Media';
+        } else {
+            $clasificacion = 'Alta';
         }
 
-        $promedioMundial = 4500;
-        $comparacion = ($huella < $promedioMundial) ? 'bajo' : 'alto';
         $kmEquivalentes = $huella * 0.25;
 
-        return view('calculadora.resultado', compact('huella', 'promedioMundial', 'comparacion', 'kmEquivalentes'));
+        // Guardar en la base de datos
+        if (!empty($respuestas)) {
+            Calculadora::create([
+                'nombre' => $respuestas[0] ?? 'Anónimo',
+                'correo' => $respuestas[1] ?? 'sincorreo@example.com',
+                'detalles' => json_encode($respuestas, JSON_UNESCAPED_UNICODE), // Se guardan respuestas en JSON
+                'resultado' => $huella, // Se guarda el resultado
+                'clasificacion' => $clasificacion, // Se guarda la clasificación
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        return view('calculadora.resultado', compact('huella', 'clasificacion', 'kmEquivalentes'));
     }
 
-    // Preguntas de la calculadora
     private function preguntas()
     {
         return [
@@ -105,27 +114,26 @@ class CalculadoraController extends Controller
         ];
     }
 
-    // Factores de conversión para la huella de carbono
     private function factores()
     {
         return [
-            1 => 2000,
-            2 => [1 => 1.5, 2 => 1.8, 3 => 0.5],
-            3 => 0.3,
-            4 => 2.2,
-            5 => [1 => 1.2, 2 => 0.5, 3 => 0],
-            6 => 500,
-            7 => 0.5,
-            8 => [1 => 0, 2 => 1.0],
-            9 => 2.0,
-            10 => 0.4,
-            11 => 1.5,
-            12 => 0.8,
-            13 => 0.6,
-            14 => 0.3,
-            15 => -0.5,
-            16 => 0.7,
-            17 => 0.1
+            2 => [1 => 2.3, 0 => 0], 
+            3 => [1 => 10, 2 => 15, 3 => 0], 
+            4 => 1.5, 
+            5 => 10, 
+            6 => [1 => 0.5, 2 => 0.2, 3 => 0], 
+            7 => 1500, 
+            8 => 5, 
+            9 => [1 => 0, 2 => 20], 
+            10 => 10, 
+            11 => 5, 
+            12 => 15, 
+            13 => 0.5, 
+            14 => 5, 
+            15 => 2, 
+            16 => -0.3, 
+            17 => 2, 
+            18 => 0.01 
         ];
     }
 }
