@@ -7,7 +7,7 @@
     <!-- Encabezado Principal -->
     <div class="text-center mb-10">
         <h1 class="text-4xl font-bold text-primary mb-3">PLANETA CONSCIENTE</h1>
-        <h2 class="text-2xl text-primary-light">Eventos Ambientales</h2>
+        <h2 class="text-2xl text-primary-light">Calendario de Eventos Ambientales</h2>
     </div>
 
     <!-- Sección de Fecha y Sistema -->
