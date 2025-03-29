@@ -13,11 +13,13 @@ class CreateCalculadorasTable extends Migration
      */
     public function up()
     {
-        Schema::create('calculadoras', function (Blueprint $table) {
-            $table->id();
-            $table->json('respuestas'); // Almacena las respuestas en formato JSON
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('calculadoras')) {
+            Schema::create('calculadoras', function (Blueprint $table) {
+                $table->id();
+                $table->json('respuestas'); // Almacena las respuestas en formato JSON
+                $table->timestamps();
+            });
+        }
     }
 
     /**
