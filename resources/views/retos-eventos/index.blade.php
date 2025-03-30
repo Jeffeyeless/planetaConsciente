@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Électricamente de Eventos Ambientales')
+@section('title', 'Retos y eventos ambientales')
 
 @section('content')
 <style>
@@ -143,21 +143,35 @@
 <div class="layout-container">
     <!-- Encabezado -->
     <div class="encabezado-principal seccion-independiente">
-      <h1 class="titulo-principal">Électricamente de Eventos Ambientales</h1>
+      <h1 class="titulo-principal">Calendario de Eventos Ambientales</h1>
     </div>
     
     <!-- Caja Fecha (arriba a la izquierda) -->
     <div class="seccion-independiente">
       <h3 class="seccion-titulo">Fecha</h3>
       <ul class="lista-detalles">
-        <li>Facultad del Meso</li>
+        <li>Siguientes eventos</li>
       </ul>
     </div>
     
     <!-- Caja Pruebas (arriba a la derecha) -->
     <div class="seccion-independiente">
-      <h3 class="seccion-titulo">Pruebas Ambientales Mensuales</h3>
-      <span class="badge-nuevo">Plazco 2023</span>
+      <h3 class="seccion-titulo">Retos Ambientales Mensuales</h3>
+      <span class="badge-nuevo">Temporada 2025</span>
+      <ul class="lista-detalles">
+        <li>✅ Usa botella reutilizable todo el mes</li>
+      <li>♻️ Separa correctamente tus residuos (orgánicos, reciclables, no reciclables)</li>
+      <li>🛍️ Compra a granel evitando empaques plásticos</li>
+      </ul>
+      <div class="mes-card mb-6">
+        <h4 class="mes-titulo">💧 Febrero - Ahorro de Agua</h4>
+        <ul class="lista-retos">
+          <li>🚿 Reduce tiempo de ducha a 5 minutos</li>
+          <li>🌧️ Instala un sistema de captación de agua lluvia</li>
+          <li>🍃 Riega plantas con agua reutilizada</li>
+        </ul>
+        <span class="badge-dificultad moderado">Dificultad: Moderado</span>
+      </div>
     </div>
     
     <!-- Caja Organizaciones (centro izquierda) -->
@@ -166,6 +180,11 @@
       <p class="text-gray-700">
         La empresa estará organizada mediante una participación en el mercado ambiental. De todos los casos, dependemos que puedas ser voluntarios o funcionario de la Fundación.
       </p>
+      <ul class="lista-retos">
+        <li>https://www.worldwildlife.org/</li>
+        <li>https://www.unep.org/</li>
+        <li>https://natura.org.co/</li>
+      </ul>
     </div>
     
     <!-- Caja Tabla (centro derecha) -->
