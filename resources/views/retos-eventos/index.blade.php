@@ -174,46 +174,8 @@
     💧 Soluciones para la crisis hídrica
   </li>
 </ul>
-
-<!-- Botón opcional -->
-<a href="/eventos/bogota" class="boton-evento">
-  Ver todos los eventos →
-</a>
 </div>
-<!-- Modal para mostrar todos los eventos -->
-<div id="modalEventos" class="modal">
-  <div class="modal-contenido">
-    <span class="cerrar-modal">&times;</span>
-    <h2>Todos los Eventos en Bogotá</h2>
-    <div class="lista-eventos-modal">
-      <!-- Aquí puedes incluir todos tus eventos -->
-      <div class="evento-modal">
-        <strong>15 Julio 2024</strong> - 
-        <span class="destacado">Feria Ambiental</span><br>
-        📍 Plaza de Bolívar (10:00 AM - 4:00 PM)<br>
-        ♻️ Talleres de reciclaje electrónico
-      </div>
-      
-      <div class="evento-modal">
-        <strong>28 Julio 2024</strong> - 
-        <span class="destacado">Siembratón</span><br>
-        📍 Parque Nacional (8:00 AM - 12:00 PM)<br>
-        🌱 Plantación de 1,000 árboles nativos
-      </div>
-      
-      <div class="evento-modal">
-        <strong>5 Agosto 2024</strong> - 
-        <span class="destacado">Foro: Agua Urbana</span><br>
-        📍 Biblioteca Virgilio Barco (3:00 PM - 6:00 PM)<br>
-        💧 Soluciones para la crisis hídrica
-      </div>
-      
-      <!-- Puedes agregar más eventos aquí -->
-    </div>
-  </div>
-</div>
-  
-  <!-- Caja Pruebas (arriba a la derecha) -->
+    <!-- Caja Pruebas (arriba a la derecha) -->
   <div class="seccion-independiente">
     <h3 class="seccion-titulo">Retos Ambientales Mensuales</h3>
     <span class="badge-nuevo">Temporada 2025</span>
@@ -295,8 +257,4 @@
 <link href="{{ asset('css/retos-eventos.css') }}" rel="stylesheet">
 <link href="{{ asset('css/Boton-eventos.css') }}" rel="stylesheet">
 <script src="js/Boton-eventos.js"></script>
-@section('scripts')
-    @parent
-    <script src="{{ mix('js/Boton-eventos.js') }}"></script>
-@endsection
 @endsection
