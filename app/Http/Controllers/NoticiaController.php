@@ -14,9 +14,7 @@ class NoticiaController extends Controller
         return view('noticias.index', compact('noticias'));
     }
 
-    public function show($id)
-    {
-        $noticia = Noticia::findOrFail($id);
+    public function show(Noticia $noticia) {
         return view('noticias.show', compact('noticia'));
     }
 
@@ -46,14 +44,11 @@ class NoticiaController extends Controller
                          ->with('success', 'Noticia creada exitosamente');
     }
 
-    public function edit($id)
-    {
-        $noticia = Noticia::findOrFail($id);
+    public function edit(Noticia $noticia) {
         return view('noticias.form', ['noticia' => $noticia, 'editMode' => true]);
     }
 
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, Noticia $noticia) {
         $noticia = Noticia::findOrFail($id);
         
         $validated = $request->validate([
@@ -79,8 +74,7 @@ class NoticiaController extends Controller
                          ->with('success', 'Noticia actualizada exitosamente');
     }
 
-    public function destroy($id)
-    {
+    public function destroy(Noticia $noticia) {
         $noticia = Noticia::findOrFail($id);
         
         if ($noticia->imagen_url) {

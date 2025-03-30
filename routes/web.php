@@ -11,22 +11,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
-// Rutas CRUD para noticias
-Route::resource('noticias', NoticiaController::class);
-
-Route::prefix('noticias')->group(function () {
-    Route::get('/', [NoticiaController::class, 'index'])->name('noticias.index');
-    Route::get('/{id}', [NoticiaController::class, 'show'])->name('noticias.show');
-    
-    // Rutas protegidas para administradores
-    Route::middleware(['auth'])->group(function () {
-        Route::get('/crear', [NoticiaController::class, 'create'])->name('noticias.create');
-        Route::post('/', [NoticiaController::class, 'store'])->name('noticias.store');
-        Route::get('/{id}/editar', [NoticiaController::class, 'edit'])->name('noticias.edit');
-        Route::put('/{id}', [NoticiaController::class, 'update'])->name('noticias.update');
-        Route::delete('/{id}', [NoticiaController::class, 'destroy'])->name('noticias.destroy');
-    });
-});
-
-
-
+// Rutas para noticias
+Route::get('/noticias', [NoticiaController::class, 'index'])->name('noticias.index');
+Route::get('/noticias/crear', [NoticiaController::class, 'create'])->name('noticias.create');
+Route::post('/noticias', [NoticiaController::class, 'store'])->name('noticias.store');
+Route::get('/noticias/{noticia}', [NoticiaController::class, 'show'])->name('noticias.show');
+Route::get('/noticias/{noticia}/editar', [NoticiaController::class, 'edit'])->name('noticias.edit');
+Route::put('/noticias/{noticia}', [NoticiaController::class, 'update'])->name('noticias.update');
+Route::delete('/noticias/{noticia}', [NoticiaController::class, 'destroy'])->name('noticias.destroy');
