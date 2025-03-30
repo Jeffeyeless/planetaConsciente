@@ -180,6 +180,38 @@
   Ver todos los eventos →
 </a>
 </div>
+<!-- Modal para mostrar todos los eventos -->
+<div id="modalEventos" class="modal">
+  <div class="modal-contenido">
+    <span class="cerrar-modal">&times;</span>
+    <h2>Todos los Eventos en Bogotá</h2>
+    <div class="lista-eventos-modal">
+      <!-- Aquí puedes incluir todos tus eventos -->
+      <div class="evento-modal">
+        <strong>15 Julio 2024</strong> - 
+        <span class="destacado">Feria Ambiental</span><br>
+        📍 Plaza de Bolívar (10:00 AM - 4:00 PM)<br>
+        ♻️ Talleres de reciclaje electrónico
+      </div>
+      
+      <div class="evento-modal">
+        <strong>28 Julio 2024</strong> - 
+        <span class="destacado">Siembratón</span><br>
+        📍 Parque Nacional (8:00 AM - 12:00 PM)<br>
+        🌱 Plantación de 1,000 árboles nativos
+      </div>
+      
+      <div class="evento-modal">
+        <strong>5 Agosto 2024</strong> - 
+        <span class="destacado">Foro: Agua Urbana</span><br>
+        📍 Biblioteca Virgilio Barco (3:00 PM - 6:00 PM)<br>
+        💧 Soluciones para la crisis hídrica
+      </div>
+      
+      <!-- Puedes agregar más eventos aquí -->
+    </div>
+  </div>
+</div>
   
   <!-- Caja Pruebas (arriba a la derecha) -->
   <div class="seccion-independiente">
@@ -238,7 +270,19 @@
     <h3 class="seccion-titulo">SE CONSCIENTE</h3>
     <p class="text-gray-700">
       "Cuidar el planeta es cuidar nuestro futuro. Pequeñas acciones crean grandes cambios. ¡Únete y haz la diferencia!" 🌱💚    </p>
-  </div>
+      <div style="text-align: center; margin: 20px 0;">
+        <img 
+          src="https://w.wallhaven.cc/full/we/wallhaven-wep1lr.jpg" 
+          alt="Imagen ambiental"
+          style="
+            max-width: 100%;
+            height: auto;
+            width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+          "
+        >
+      </div>
 </div>
 @endsection
 
@@ -249,4 +293,10 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap" async defer></script>
 <script src="{{ asset('js/retos-eventos.js') }}"></script>
 <link href="{{ asset('css/retos-eventos.css') }}" rel="stylesheet">
+<link href="{{ asset('css/Boton-eventos.css') }}" rel="stylesheet">
+<script src="js/Boton-eventos.js"></script>
+@section('scripts')
+    @parent
+    <script src="{{ mix('js/Boton-eventos.js') }}"></script>
+@endsection
 @endsection

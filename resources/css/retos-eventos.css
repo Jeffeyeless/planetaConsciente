@@ -129,4 +129,20 @@
     .grid {
       grid-template-columns: 1fr !important;
     }
+    .imagen-mediana {
+      max-width: 100%;
+      height: auto;
+      width: 600px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin: 0 auto;
+      display: block;
+    }
+    
+    @media (max-width: 768px) {
+      .imagen-mediana {
+        width: 100%;
+        border-radius: 4px;
+      }
+    }
   }
