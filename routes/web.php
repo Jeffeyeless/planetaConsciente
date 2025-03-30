@@ -7,6 +7,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
 // Rutas CRUD para noticias
 Route::resource('noticias', NoticiaController::class);
 
@@ -23,3 +27,6 @@ Route::prefix('noticias')->group(function () {
         Route::delete('/{id}', [NoticiaController::class, 'destroy'])->name('noticias.destroy');
     });
 });
+
+
+

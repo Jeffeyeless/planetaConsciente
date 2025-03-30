@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Planeta Consciente')</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <style>
     :root {
         --primary: #1a3a2f;
@@ -174,6 +178,69 @@
 
     .nav-button i {
         font-size: 0.9rem;
+    }
+
+    /* User dropdown styles */
+    .user-dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+    }
+
+    .user-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background: white;
+        min-width: 200px;
+        border-radius: 6px;
+        box-shadow: var(--shadow-lg);
+        z-index: 1000;
+        display: none;
+        padding: 10px 0;
+        margin-top: 10px;
+    }
+
+    .dropdown-menu.show {
+        display: block;
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    .dropdown-item {
+        padding: 10px 20px;
+        color: var(--text);
+        text-decoration: none;
+        display: block;
+        transition: var(--transition);
+    }
+
+    .dropdown-item:hover {
+        background-color: var(--secondary);
+        color: var(--accent-dark);
+    }
+
+    .dropdown-divider {
+        height: 1px;
+        background-color: rgba(0,0,0,0.1);
+        margin: 5px 0;
     }
 
     /* Main Content */
@@ -415,6 +482,73 @@
         100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
     }
 
+    /* Auth forms */
+    .auth-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .auth-form .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .auth-form label {
+        font-weight: 500;
+        color: var(--primary);
+    }
+
+    .auth-form input {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: var(--transition);
+    }
+
+    .auth-form input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(76, 175, 125, 0.2);
+    }
+
+    .auth-form button {
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+        color: white;
+        border: none;
+        padding: 14px;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: var(--transition);
+        margin-top: 10px;
+    }
+
+    .auth-form button:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .auth-links {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+    }
+
+    .auth-links a {
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: var(--transition);
+    }
+
+    .auth-links a:hover {
+        text-decoration: underline;
+    }
+
     /* Responsive design */
     @media (max-width: 992px) {
         .navbar-container {
@@ -497,219 +631,7 @@
             margin-top: 150px;
         }
     }
-
-    /* Auth forms */
-    .auth-form {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        
-    }
-
-    .auth-form .form-group {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .auth-form label {
-        font-weight: 500;
-        color: var(--primary);
-    }
-
-    .auth-form input {
-        padding: 12px 15px;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        font-size: 1rem;
-        transition: var(--transition);
-    }
-
-    .auth-form input:focus {
-        outline: none;
-        border-color: var(--accent);
-        box-shadow: 0 0 0 3px rgba(76, 175, 125, 0.2);
-    }
-
-    .auth-form button {
-        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-        color: white;
-        border: none;
-        padding: 14px;
-        font-size: 1rem;
-        font-weight: 600;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: var(--transition);
-        margin-top: 10px;
-    }
-
-    .auth-form button:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-md);
-    }
-
-    .auth-links {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 15px;
-    }
-
-    .auth-links a {
-        color: var(--accent);
-        text-decoration: none;
-        font-size: 0.9rem;
-        transition: var(--transition);
-    }
-
-    .auth-links a:hover {
-        text-decoration: underline;
-    }
-    .calculator {
-    padding: 40px;
-    text-align: center;
-    background: linear-gradient(135deg,rgb(255, 255, 255) 0%, #111 100%); /* Mantén el fondo oscuro para resaltar los elementos */
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgb(255, 255, 255);
-    max-width: 800px;
-    margin: 80px auto 20px; /* Mayor separación del navbar */
-}
-
-/* ✨ Estilo del título */
-.calculator h2 {
-    color: #34d399; /* Verde brillante */
-    font-size: 2.5rem;
-    font-weight: 700;
-    position: relative;
-    display: inline-block;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 30px; /* Espacio debajo del título */
-}
-
-.calculator h2::after {
-    content: '';
-    position: absolute;
-    bottom: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 4px;
-    background: #10b981; /* Verde más oscuro */
-    border-radius: 2px;
-}
-
-/* 📝 Estilo del texto de la pregunta */
-.calculator .question {
-    color: #10b981 !important; /* Verde para la pregunta */
-    font-size: 20rem; /* Tamaño más grande */
-    font-weight: 600;
-    margin-bottom: 30px; /* Más espacio debajo de la pregunta */
-    text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.3);
-}
-
-/* 📜 Estilo del formulario */
-.calculator input,
-.calculator select {
-    width: 100%;
-    padding: 15px;
-    font-size: 1.2rem;
-    border-radius: 10px;
-    border: 2px solid #333;
-    background: #fff; /* Fondo blanco para los campos de entrada */
-    color: #333 !important; /* Color del texto negro */
-    outline: none;
-    transition: all 0.3s ease-in-out;
-    margin-bottom: 30px; /* Espacio debajo de los campos de entrada */
-}
-
-.calculator input:focus,
-.calculator select:focus {
-    border-color: #34d399; /* Verde claro al hacer foco */
-    box-shadow: 0 0 15px rgba(52, 211, 153, 0.5); /* Sombra verde */
-}
-
-/* 🔘 Botón con efectos dinámicos */
-.calculator button {
-    background: linear-gradient(135deg, #34d399 0%, #10b981 100%); /* Gradiente verde */
-    color: #fff;
-    font-size: 1.2rem;
-    font-weight: 700;
-    padding: 15px 40px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(52, 211, 153, 0.5);
-    margin-top: 30px; /* Espacio arriba del botón */
-}
-
-/* 🌟 Efecto de brillo al pasar el mouse */
-.calculator button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: 0.5s;
-}
-
-.calculator button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(52, 211, 153, 0.7); /* Sombra verde al pasar el mouse */
-}
-
-.calculator button:hover::before {
-    left: 100%;
-}
-
-/* 📱 Diseño responsivo */
-@media (max-width: 768px) {
-    .calculator {
-        padding: 30px;
-        margin: 60px auto 20px; /* Ajuste para móviles */
-    }
-
-    .calculator h2 {
-        color: #34d399; /* Verde para el título */
-        font-size: 2rem;
-        margin-bottom: 20px;
-        text-align: center;
-    }
-
-    .calculator h4 {
-        color: #34d399; /* Verde para el título */
-        font-size: 2rem;
-        margin-bottom: 20px;
-        text-align: center;
-    }
-
-    .calculator .question {
-        color: #10b981 !important; /* Cambiar el color de la pregunta a verde */
-        font-size: 200rem;
-        font-weight: 600;
-        margin-bottom: 30px;
-        text-shadow: 2px 2px 8px rgba(0, 255, 0, 0.3);
-    }
-
-    .calculator input,
-    .calculator select {
-        font-size: 1rem;
-        margin-bottom: 25px; /* Menos espacio en móviles */
-    }
-
-    .calculator button {
-        font-size: 1rem;
-        padding: 12px 30px;
-        margin-top: 20px; /* Menos espacio arriba del botón */
-    }
-}
-
-</style>
+    </style>
 </head>
 <body>
     <!-- Preloader -->
@@ -747,9 +669,40 @@
                 <button class="nav-button" onclick="location.href='/formulario'">
                     <i class="fas fa-edit"></i> FORMULARIO
                 </button>
-                <button class="nav-button" onclick="location.href='/login'">
-                    <i class="fas fa-user"></i> USUARIO
-                </button>
+                
+                <!-- Authentication Links -->
+                @guest
+                    <button class="nav-button" onclick="location.href='{{ route('login') }}'">
+                        <i class="fas fa-sign-in-alt"></i> INICIAR SESIÓN
+                    </button>
+                    @if (Route::has('register'))
+                        <button class="nav-button" onclick="location.href='{{ route('register') }}'">
+                            <i class="fas fa-user-plus"></i> REGISTRARSE
+                        </button>
+                    @endif
+                @else
+                    <div class="user-dropdown">
+                        <div class="dropdown-toggle nav-button">
+                            <div class="user-avatar">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
+                            {{ Auth::user()->name }}
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item"><i class="fas fa-user"></i> Perfil</a>
+                            <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Configuración</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </div>
+                @endguest
+                
                 <button class="nav-button" onclick="location.href='/admin'">
                     <i class="fas fa-lock"></i> ADMIN
                 </button>
@@ -803,7 +756,7 @@
         </div>
         
         <div class="copyright">
-            &copy; 2023 Planeta Consciente. Todos los derechos reservados.
+            &copy; {{ date('Y') }} Planeta Consciente. Todos los derechos reservados.
         </div>
     </footer>
 
@@ -811,6 +764,12 @@
     <a href="https://wa.me/573144358851" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
+
+    <!-- Scripts -->
+    <!-- jQuery (opcional, solo si tu proyecto lo necesita) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Bootstrap JS Bundle (incluye Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         // Preloader
@@ -871,6 +830,24 @@
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // User dropdown toggle
+        document.querySelector('.dropdown-toggle')?.addEventListener('click', function() {
+            const dropdownMenu = this.nextElementSibling;
+            dropdownMenu.classList.toggle('show');
+        });
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', function(e) {
+            if (!e.target.matches('.dropdown-toggle') && !e.target.closest('.dropdown-toggle')) {
+                const dropdowns = document.querySelectorAll('.dropdown-menu');
+                dropdowns.forEach(dropdown => {
+                    if (dropdown.classList.contains('show')) {
+                        dropdown.classList.remove('show');
+                    }
+                });
+            }
         });
     </script>
 </body>

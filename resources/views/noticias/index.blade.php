@@ -66,4 +66,5 @@
     updateDateTime();
     setInterval(updateDateTime, 60000);
 </script>
+<link href="{{ asset('css/noticias.css') }}" rel="stylesheet">
 @endsection
