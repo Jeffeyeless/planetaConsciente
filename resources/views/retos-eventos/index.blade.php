@@ -17,77 +17,54 @@
       font-family: 'Playfair Display', serif;
     }
   </style>
-<div class="container mx-auto px-4 py-8">
-    <!-- Encabezado Principal -->
+<div class="container-conscienta">
     <div class="text-center mb-10">
-        <h1 class="text-4xl font-bold text-primary mb-3">PLANETA CONSCIENTE</h1>
-        <h2 class="text-2xl text-primary-light">Calendario de Eventos Ambientales</h2>
+      <h1 class="titulo-principal">PLANETA CONSCIENTE</h1>
+      <h2 class="subtitulo">Calendario de Eventos Ambientales</h2>
     </div>
-
-    <!-- Sección de Fecha y Sistema -->
-    <div class="grid md:grid-cols-2 gap-8 mb-10">
-        <!-- Fecha -->
-        <div class="content">
-            <h3 class="section-subtitle">Fecha eventos</h3>
-            <ul class="space-y-2 text-gray-700 pl-5">
-                <li class="list-disc">Revisión del Meta</li>
-            </ul>
-        </div>
-        
-        <!-- Sistema -->
-        <div class="content">
-            <h3 class="section-subtitle">Sistema</h3>
-            <ul class="space-y-2 text-gray-700 pl-5">
-                <li class="list-disc">Día de formación: <span class="text-accent">[Fecha]</span></li>
-                <li class="list-disc">Adecuación: <span class="text-accent">[Detalles]</span></li>
-                <li class="list-disc">Pérdida: <span class="text-accent">[Información]</span></li>
-                <li class="list-disc">Vía de la información para el sistema electrónico</li>
-            </ul>
-        </div>
+  
+    <div class="grid md:grid-cols-2 gap-6 mb-8">
+      <!-- Fecha -->
+      <div class="seccion-card">
+        <h3 class="seccion-titulo">Fecha</h3>
+        <ul class="lista-detalles">
+          <li>Revisión del Meta</li>
+        </ul>
+      </div>
+      
+      <!-- Sistema -->
+      <div class="seccion-card">
+        <h3 class="seccion-titulo">Sistema</h3>
+        <ul class="lista-detalles">
+          <li>Día de formación: <span class="destacado">15/05/2024</span></li>
+          <li>Adecuación: <span class="destacado">Sistema fotovoltaico</span></li>
+          <li>Pérdida: <span class="destacado">2% anual</span></li>
+          <li>Vía de la información para el sistema electrónico</li>
+        </ul>
+      </div>
     </div>
-
+  
     <!-- Puntos Ambientales -->
-    <div class="content mb-10">
-        <h3 class="section-subtitle">Puntos Ambientales Mensuales</h3>
-        <span class="inline-block bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">
-            Nuevo 2023
-        </span>
+    <div class="seccion-card mb-8">
+      <h3 class="seccion-titulo">Puntos Ambientales Mensuales</h3>
+      <span class="badge-nuevo">Nuevo 2023</span>
     </div>
-
-    <!-- Organizaciones Ambientales -->
-    <div class="content mb-10">
-        <h3 class="section-subtitle">Organizaciones Ambientales</h3>
-        <p class="text-gray-700">
-            La empresa estará organizada mediante una participación en el mercado ambiental. De todos los casos, dependemos que puedas ser voluntario o funcionario de la Fundación.
-        </p>
+  
+    <!-- Organizaciones -->
+    <div class="seccion-card mb-8">
+      <h3 class="seccion-titulo">Organizaciones Ambientales</h3>
+      <p class="text-gray-700">
+        La empresa estará organizada mediante una participación en el mercado ambiental...
+      </p>
     </div>
-
-    <!-- Tabla Elaborador/Cursión -->
-    <div class="content overflow-hidden shadow-md rounded-lg">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-secondary">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-primary uppercase tracking-wider">Elaborador</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-primary uppercase tracking-wider">Cursión</th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">1.000</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">50% de lo que se debe llevar a</td>
-                </tr>
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2.000</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">40% concesivo</td>
-                </tr>
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">3.000</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">60% concesivo/objetivo</td>
-                </tr>
-            </tbody>
-        </table>
+  
+    <!-- Tabla -->
+    <div class="seccion-card overflow-hidden">
+      <table class="tabla-conscienta">
+        <!-- Contenido de la tabla -->
+      </table>
     </div>
-</div>
+  </div>
 <style>
     .info-card {
         background: white;
@@ -171,5 +148,6 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap" async defer></script>
 <script src="{{ asset('js/retos-eventos.js') }}"></script>
 <link href="{{ asset('css/retos-eventos.css') }}" rel="stylesheet">
+
 @endsection
 @endsection

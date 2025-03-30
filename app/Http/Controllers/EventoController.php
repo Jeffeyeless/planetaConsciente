@@ -14,51 +14,53 @@ class EventoController extends Controller
      * Muestra la página principal de Retos y Eventos
      */
     public function index()
-    {
-        // Obtener eventos del mes actual y próximo mes
-        $eventos = Evento::where('fecha', '>=', now()->startOfMonth())
-                      ->where('fecha', '<=', now()->addMonth()->endOfMonth())
-                      ->orderBy('fecha')
-                      ->get();
-        
-        // Obtener retos del mes actual
-        $retosMensuales = Reto::where('mes', now()->month)
-                             ->where('año', now()->year)
-                             ->get();
-        
-        // Obtener organizaciones ambientales activas
-        $organizaciones = Organizacion::where('activo', true)
-                                    ->orderBy('nombre')
-                                    ->get();
-        
-        return view('retos-eventos.index', compact('eventos', 'retosMensuales', 'organizaciones'));
-    }
+{
+    // Eventos (sin cambios)
+    $eventos = Evento::where('fecha', '>=', now()->startOfMonth())
+                  ->where('fecha', '<=', now()->addMonth()->endOfMonth())
+                  ->orderBy('fecha')
+                  ->get();
     
+    // Retos (sin cambios)
+    $retosMensuales = Reto::where('mes', now()->month)
+                         ->where('año', now()->year)
+                         ->get();
+    
+    // Organizaciones (sin cambios)
+    $organizaciones = Organizacion::where('activo', true)
+                                ->orderBy('nombre')
+                                ->get();
+    
+    // Nuevos datos ambientales (ejemplo)
+    $datosAmbientales = [
+        'fecha_revision' => now()->format('d/m/Y'), // Fecha dinámica
+        'puntos_clave' => 'Reducción de huella de carbono',
+        'metas' => '50% menos plásticos en 2025',
+    ];
+    
+    return view('retos-eventos.index', compact(
+        'eventos', 
+        'retosMensuales', 
+        'organizaciones',
+        'datosAmbientales' // Pasamos datos ecológicos
+    ));
+}
+
     /**
-     * Muestra los detalles de un evento específico
+     * Muestra la página de un evento específico
      */
     public function show($id)
     {
-        $evento = Evento::with('retos')->findOrFail($id);
-        
-        return response()->json([
-            'evento' => $evento,
-            'retos' => $evento->retos
-        ]);
+        $evento = Evento::findOrFail($id);
+        return view('retos-eventos.show', compact('evento'));
     }
-    
+
     /**
-     * Obtiene los retos mensuales para AJAX
+     * Muestra la página de un reto específico
      */
-    public function getRetosMensuales(Request $request)
+    public function showReto($id)
     {
-        $mes = $request->input('mes');
-        $año = $request->input('año');
-        
-        $retos = Reto::where('mes', $mes)
-                    ->where('año', $año)
-                    ->get();
-        
-        return response()->json($retos);
+        $reto = Reto::findOrFail($id);
+        return view('retos-eventos.show-reto', compact('reto'));
     }
 }
