@@ -783,7 +783,7 @@
             <div class="footer-col">
                 <h3 class="footer-title">Enlaces rápidos</h3>
                 <ul class="footer-links">
-                    <li><a href="/" class="footer-link"><i class="fas fa-chevron-right"></i> Inicio</a></li>
+                    <li><a href="/inicio" class="footer-link"><i class="fas fa-chevron-right"></i> Inicio</a></li>
                     <li><a href="/ambiente" class="footer-link"><i class="fas fa-chevron-right"></i> Medio Ambiente</a></li>
                     <li><a href="/retos-eventos" class="footer-link"><i class="fas fa-chevron-right"></i> Próximos Eventos</a></li>
                     <li><a href="/noticias" class="footer-link"><i class="fas fa-chevron-right"></i> Noticias</a></li>

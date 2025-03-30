@@ -141,85 +141,104 @@
 </style>
 
 <div class="layout-container">
-    <!-- Encabezado -->
-    <div class="encabezado-principal seccion-independiente">
-      <h1 class="titulo-principal">Calendario de Eventos Ambientales</h1>
-    </div>
-    
-    <!-- Caja Fecha (arriba a la izquierda) -->
-    <div class="seccion-independiente">
-      <h3 class="seccion-titulo">Fecha</h3>
-      <ul class="lista-detalles">
-        <li>Siguientes eventos</li>
-      </ul>
-    </div>
-    
-    <!-- Caja Pruebas (arriba a la derecha) -->
-    <div class="seccion-independiente">
-      <h3 class="seccion-titulo">Retos Ambientales Mensuales</h3>
-      <span class="badge-nuevo">Temporada 2025</span>
-      <ul class="lista-detalles">
-        <li>✅ Usa botella reutilizable todo el mes</li>
+  <!-- Encabezado -->
+  <div class="encabezado-principal seccion-independiente">
+    <h1 class="titulo-principal">Retos y Eventos Ambientales</h1>
+  </div>
+  
+  <!-- Caja Eventos en Bogotá -->
+<div class="seccion-independiente">
+<h3 class="seccion-titulo">📅 Próximos Eventos en Bogotá</h3>
+<ul class="lista-detalles">
+  <!-- Evento 1 -->
+  <li class="evento-item">
+    <strong>15 Julio 2024</strong> - 
+    <span class="destacado">Feria Ambiental</span><br>
+    📍 Plaza de Bolívar (10:00 AM - 4:00 PM)<br>
+    ♻️ Talleres de reciclaje electrónico
+  </li>
+
+  <!-- Evento 2 -->
+  <li class="evento-item">
+    <strong>28 Julio 2024</strong> - 
+    <span class="destacado">Siembratón</span><br>
+    📍 Parque Nacional (8:00 AM - 12:00 PM)<br>
+    🌱 Plantación de 1,000 árboles nativos
+  </li>
+
+  <!-- Evento 3 -->
+  <li class="evento-item">
+    <strong>5 Agosto 2024</strong> - 
+    <span class="destacado">Foro: Agua Urbana</span><br>
+    📍 Biblioteca Virgilio Barco (3:00 PM - 6:00 PM)<br>
+    💧 Soluciones para la crisis hídrica
+  </li>
+</ul>
+
+<!-- Botón opcional -->
+<a href="/eventos/bogota" class="boton-evento">
+  Ver todos los eventos →
+</a>
+</div>
+  
+  <!-- Caja Pruebas (arriba a la derecha) -->
+  <div class="seccion-independiente">
+    <h3 class="seccion-titulo">Retos Ambientales Mensuales</h3>
+    <span class="badge-nuevo">Temporada 2025</span>
+    <ul class="lista-detalles">
+      <li>✅ Usa botella reutilizable todo el mes</li>
       <li>♻️ Separa correctamente tus residuos (orgánicos, reciclables, no reciclables)</li>
       <li>🛍️ Compra a granel evitando empaques plásticos</li>
-      </ul>
-      <div class="mes-card mb-6">
-        <h4 class="mes-titulo">💧 Febrero - Ahorro de Agua</h4>
-        <ul class="lista-retos">
-          <li>🚿 Reduce tiempo de ducha a 5 minutos</li>
-          <li>🌧️ Instala un sistema de captación de agua lluvia</li>
-          <li>🍃 Riega plantas con agua reutilizada</li>
-        </ul>
-        <span class="badge-dificultad moderado">Dificultad: Moderado</span>
-      </div>
-    </div>
-    
-    <!-- Caja Organizaciones (centro izquierda) -->
-    <div class="seccion-independiente">
-      <h3 class="seccion-titulo">Organizaciones Ambientales</h3>
-      <p class="text-gray-700">
-        La empresa estará organizada mediante una participación en el mercado ambiental. De todos los casos, dependemos que puedas ser voluntarios o funcionario de la Fundación.
-      </p>
+    </ul>
+    <div class="mes-card mb-6">
+      <h4 class="mes-titulo">💧 Febrero - Ahorro de Agua</h4>
       <ul class="lista-retos">
-        <li>https://www.worldwildlife.org/</li>
-        <li>https://www.unep.org/</li>
-        <li>https://natura.org.co/</li>
+        <li>🚿 Reduce tiempo de ducha a 5 minutos</li>
+        <li>🌧️ Instala un sistema de captación de agua lluvia</li>
+        <li>🍃 Riega plantas con agua reutilizada</li>
       </ul>
+      <span class="badge-dificultad moderado">Dificultad: Moderado</span>
     </div>
+  </div>
+  
+  <!-- Caja Organizaciones (centro izquierda) -->
+  <div class="seccion-independiente">
+    <h3 class="seccion-titulo">Organizaciones Ambientales</h3>
+    <p class="text-gray-700">
+      En este apartado puedes encontrar información sobre organizaciones que trabajan en pro del medio ambiente. Puedes visitar sus páginas web para conocer más sobre sus iniciativas y cómo puedes colaborar.
+    </p>
+
+      <ul class="footer-links">
+                  
+                  <li><a href="https://www.unep.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> ONU Medio Ambiente</a></li>
+<li><a href="https://www.worldwildlife.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> WWF Internacional</a></li>
+<li><a href="https://www.greenpeace.org/international/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> Greenpeace</a></li>
+
+<!-- Organizaciones en Latinoamérica -->
+<li><a href="https://natura.org.co/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> Fundación Natura Colombia</a></li>
+
+
+<!-- Enfoque en Agua y Océanos -->
+<li><a href="https://oceanconservancy.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> Ocean Conservancy</a></li>
+<li><a href="https://water.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> Water.org</a></li>
+
+<!-- Conservación Animal -->
+<li><a href="https://www.worldanimalprotection.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> Protección Animal Mundial</a></li>
+<li><a href="https://www.seaturtle.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> Sea Turtle Conservancy</a></li>
+
+<!-- Cambio Climático -->
+<li><a href="https://350.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> 350.org</a></li>
+<li><a href="https://www.theclimategroup.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> The Climate Group</a></li>
+              </ul>
     
-    <!-- Caja Tabla (centro derecha) -->
-    <div class="seccion-independiente">
-      <table class="tabla-conscienta">
-        <thead>
-          <tr>
-            <th>DURADORA</th>
-            <th>ODIADA</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1.00</td>
-            <td>S/N: de lo que es decir libre o</td>
-          </tr>
-          <tr>
-            <td>2.00</td>
-            <td>S/N: correcto</td>
-          </tr>
-          <tr>
-            <td>3.00</td>
-            <td>S/N: encaracionamiento</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    
-    <!-- Caja Aclaración (abajo, ancho completo) -->
-    <div class="seccion-independiente seccion-grande">
-      <h3 class="seccion-titulo">Aclar word en Laureté</h3>
-      <p class="text-gray-700">
-        Cuidó este diagnóstico, destacamos a la unión a todas. Más alloy y semejanza tu verdades católicas por las dichas cas de la compañía cada día te merece.
-      </p>
-    </div>
+  </div>
+      
+  <!-- Caja Aclaración (abajo, ancho completo) -->
+  <div class="seccion-independiente seccion-grande">
+    <h3 class="seccion-titulo">SE CONSCIENTE</h3>
+    <p class="text-gray-700">
+      "Cuidar el planeta es cuidar nuestro futuro. Pequeñas acciones crean grandes cambios. ¡Únete y haz la diferencia!" 🌱💚    </p>
+  </div>
 </div>
 @endsection
 
