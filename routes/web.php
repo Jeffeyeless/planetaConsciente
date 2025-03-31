@@ -36,3 +36,9 @@ Route::get('/eventos/{id}', [EventoController::class, 'show'])->name('eventos.sh
 
 // Ruta para obtener retos mensuales (AJAX)
 Route::get('/retos-mensuales', [EventoController::class, 'getRetosMensuales'])->name('retos.mensuales');
+
+// Rutas de la Calculadora de Huella de Carbono
+Route::get('/calculadora', [CalculadoraController::class, 'index'])->name('calculadora.index');
+Route::post('/calculadora/responder', [CalculadoraController::class, 'responder'])->name('calculadora.responder');
+Route::get('/calculadora/resultado', [CalculadoraController::class, 'resultado'])->name('calculadora.resultado');
+
