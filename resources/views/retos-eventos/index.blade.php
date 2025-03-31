@@ -185,7 +185,8 @@
       <li>🛍️ Compra a granel evitando empaques plásticos</li>
     </ul>
     <div class="mes-card mb-6">
-      <h4 class="mes-titulo">💧 Febrero - Ahorro de Agua</h4>
+      <br>
+      <h3 class="mes-titulo">💧 Febrero - Ahorro de Agua</h3>
       <ul class="lista-retos">
         <li>🚿 Reduce tiempo de ducha a 5 minutos</li>
         <li>🌧️ Instala un sistema de captación de agua lluvia</li>
@@ -255,6 +256,4 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap" async defer></script>
 <script src="{{ asset('js/retos-eventos.js') }}"></script>
 <link href="{{ asset('css/retos-eventos.css') }}" rel="stylesheet">
-<link href="{{ asset('css/Boton-eventos.css') }}" rel="stylesheet">
-<script src="js/Boton-eventos.js"></script>
 @endsection

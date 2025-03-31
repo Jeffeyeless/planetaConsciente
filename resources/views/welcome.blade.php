@@ -140,7 +140,11 @@
                 <p>"Gracias a los talleres de Planeta Consciente, mi familia ha reducido su basura semanal en un 60%. ¡Es increíble ver el impacto que podemos tener!"</p>
             </div>
             <div class="testimonial-author">
+<<<<<<< HEAD
                 <img src="{{ asset('images/1.jpg') }}" alt="Usuario 1">
+=======
+                <img src="{{ asset('images/usu3.jpg') }}" alt="Usuario 1">
+>>>>>>> f1fbcc14c11758d0f1e8cc289173214cb3a5d50b
                 <div class="author-info">
                     <h4>María González</h4>
                     <p>Participante desde 2024</p>
@@ -153,7 +157,11 @@
                 <p>"La calculadora ecológica me abrió los ojos sobre mi consumo de agua. Ahora he implementado sistemas de recolección de lluvia en mi casa."</p>
             </div>
             <div class="testimonial-author">
+<<<<<<< HEAD
                 <img src="{{ asset('images/usu3.jpg') }}" alt="Usuario 2">
+=======
+                <img src="{{ asset('images/usu2.jpg') }}" alt="Usuario 2">
+>>>>>>> f1fbcc14c11758d0f1e8cc289173214cb3a5d50b
                 <div class="author-info">
                     <h4>Carlos Mendoza</h4>
                     <p>Voluntario activo</p>
@@ -166,7 +174,7 @@
                 <p>"Los eventos de limpieza no solo ayudan al medio ambiente, sino que crean una comunidad increíble de personas con valores similares."</p>
             </div>
             <div class="testimonial-author">
-                <img src="{{ asset('https://th.wallhaven.cc/small/l8/l8ek1y.jpg') }}" alt="Usuario 3">
+                <img src="{{ asset('images/amb1.jpg') }}" alt="Usuario 3">
                 <div class="author-info">
                     <h4>Ana Rodríguez</h4>
                     <p>Líder comunitaria</p>
