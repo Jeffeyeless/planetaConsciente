@@ -2,64 +2,65 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Evento;
 use Illuminate\Http\Request;
+use App\Models\Evento;
+use App\Models\Reto;
+use App\Models\Organizacion;
+use Carbon\Carbon;
 
 class EventoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra la página principal de Retos y Eventos
      */
     public function index()
+{
+    // Eventos (sin cambios)
+    $eventos = Evento::where('fecha', '>=', now()->startOfMonth())
+                  ->where('fecha', '<=', now()->addMonth()->endOfMonth())
+                  ->orderBy('fecha')
+                  ->get();
+    
+    // Retos (sin cambios)
+    $retosMensuales = Reto::where('mes', now()->month)
+                         ->where('año', now()->year)
+                         ->get();
+    
+    // Organizaciones (sin cambios)
+    $organizaciones = Organizacion::where('activo', true)
+                                ->orderBy('nombre')
+                                ->get();
+    
+    // Nuevos datos ambientales (ejemplo)
+    $datosAmbientales = [
+        'fecha_revision' => now()->format('d/m/Y'), // Fecha dinámica
+        'puntos_clave' => 'Reducción de huella de carbono',
+        'metas' => '50% menos plásticos en 2025',
+    ];
+    
+    return view('retos-eventos.index', compact(
+        'eventos', 
+        'retosMensuales', 
+        'organizaciones',
+        'datosAmbientales' // Pasamos datos ecológicos
+    ));
+}
+
+    /**
+     * Muestra la página de un evento específico
+     */
+    public function show($id)
     {
-        //
+        $evento = Evento::findOrFail($id);
+        return view('retos-eventos.show', compact('evento'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra la página de un reto específico
      */
-    public function create()
+    public function showReto($id)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Evento $evento)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Evento $evento)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Evento $evento)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Evento $evento)
-    {
-        //
+        $reto = Reto::findOrFail($id);
+        return view('retos-eventos.show-reto', compact('reto'));
     }
 }

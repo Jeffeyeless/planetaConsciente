@@ -12,10 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('organizaciones', function (Blueprint $table) {
-            $table->id('id_organizacion');
-            $table->string('nombre', 100);
+            $table->id();
+            $table->string('nombre');
             $table->text('descripcion');
-            $table->string('contacto', 255);
+            $table->string('sitio_web');
+            $table->string('enlace_donacion');
+            $table->string('logo');
+            $table->boolean('activo')->default(true);
             $table->timestamps();
         });
     }

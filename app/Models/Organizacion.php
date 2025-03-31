@@ -2,21 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Reto extends Model
+class Organizacion extends Model
 {
-    use HasFactory;
-
-    protected $table = 'retos';
-    protected $primaryKey = 'id_reto';
-
+    protected $table = 'organizaciones';
     protected $fillable = [
-        'titulo',
+        'nombre',
         'descripcion',
-        'mes_año',
+        'sitio_web',
+        'enlace_donacion',
+        'logo',
+        'activo'
     ];
-
-    public $timestamps = true;
 }

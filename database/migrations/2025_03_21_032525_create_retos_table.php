@@ -12,10 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('retos', function (Blueprint $table) {
-            $table->id('id_reto');
+            $table->id();
             $table->string('titulo');
             $table->text('descripcion');
-            $table->string('mes_año');
+            $table->unsignedTinyInteger('mes');
+            $table->unsignedSmallInteger('año');
+            $table->enum('dificultad', ['Fácil', 'Moderado', 'Difícil']);
+            $table->string('icono'); // Nombre del icono de FontAwesome
+            $table->text('beneficios')->nullable();
+            $table->text('pasos_participacion')->nullable();
             $table->timestamps();
         });
     }

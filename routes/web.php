@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\EventoController;
 
 
 
@@ -25,4 +26,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/usuarios/{id}/edit', [UsuarioController::class, 'edit'])->name('usuarios.edit');
     Route::put('/usuarios/{id}', [UsuarioController::class, 'update'])->name('usuarios.update');
     Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy'])->name('usuarios.destroy');
+
 });
+// Ruta principal para Retos y Eventos
+Route::get('/retos-eventos', [EventoController::class, 'index'])->name('retos-eventos.index');
+
+// Ruta para obtener detalles de un evento específico
+Route::get('/eventos/{id}', [EventoController::class, 'show'])->name('eventos.show');
+
+// Ruta para obtener retos mensuales (AJAX)
+Route::get('/retos-mensuales', [EventoController::class, 'getRetosMensuales'])->name('retos.mensuales');
