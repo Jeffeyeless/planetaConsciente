@@ -185,7 +185,8 @@
       <li>🛍️ Compra a granel evitando empaques plásticos</li>
     </ul>
     <div class="mes-card mb-6">
-      <h4 class="mes-titulo">💧 Febrero - Ahorro de Agua</h4>
+      <br>
+      <h3 class="mes-titulo">💧 Febrero - Ahorro de Agua</h3>
       <ul class="lista-retos">
         <li>🚿 Reduce tiempo de ducha a 5 minutos</li>
         <li>🌧️ Instala un sistema de captación de agua lluvia</li>
