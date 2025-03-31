@@ -3,13 +3,15 @@
 @section('title', $noticia->titulo . ' - Planeta Consciente')
 
 @section('content')
-<div class="container">
+<div class="noticia-detalle-container">
     <div class="noticia-detalle">
-        @if($noticia->imagen_url)
-        <img src="{{ asset('storage/' . $noticia->imagen_url) }}" alt="{{ $noticia->titulo }}" class="noticia-detalle-img">
-        @else
-        <img src="https://source.unsplash.com/random/800x450/?nature,eco" alt="Imagen de noticia" class="noticia-detalle-img">
-        @endif
+        <div class="noticia-detalle-img-container">
+            @if($noticia->imagen_url)
+            <img src="{{ asset($noticia->imagen_url) }}" alt="{{ $noticia->titulo }}" class="noticia-detalle-img">
+            @else
+            <img src="https://source.unsplash.com/random/800x450/?nature,eco" alt="Imagen de noticia" class="noticia-detalle-img">
+            @endif
+        </div>
         
         <div class="noticia-detalle-content">
             <div class="noticia-detalle-meta">

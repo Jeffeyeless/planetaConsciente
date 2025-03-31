@@ -3,7 +3,7 @@
 @section('title', 'Noticias Ambientales - Planeta Consciente')
 
 @section('content')
-<div class="container">
+<div class="container noticias-container">
     <div class="noticias-header">
         <h1>NOTICIAS AMBIENTALES</h1>
         <p>Mantente informado sobre las últimas novedades en sostenibilidad y cuidado del medio ambiente</p>
@@ -16,11 +16,13 @@
     <div class="grid-noticias">
         @foreach($noticias as $noticia)
         <div class="noticia-card">
-            @if($noticia->imagen_url)
-            <img src="{{ asset('storage/' . $noticia->imagen_url) }}" alt="{{ $noticia->titulo }}" class="noticia-imagen">
-            @else
-            <img src="https://source.unsplash.com/random/600x400/?nature,eco" alt="Imagen de noticia" class="noticia-imagen">
-            @endif
+            <div class="noticia-imagen-container">
+                @if($noticia->imagen_url)
+                <img src="{{ asset($noticia->imagen_url) }}" alt="{{ $noticia->titulo }}" class="noticia-imagen" loading="lazy">
+                @else
+                <img src="https://source.unsplash.com/random/600x400/?nature,eco" alt="Imagen de noticia" class="noticia-imagen" loading="lazy">
+                @endif
+            </div>
             
             <div class="noticia-content">
                 <div class="noticia-meta">
@@ -41,7 +43,7 @@
         @endforeach
     </div>
 
-    <div class="pagination-container">
+    <div class="pagination-container noticias-pagination">
         {{ $noticias->links() }}
     </div>
 </div>

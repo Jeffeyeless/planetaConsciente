@@ -49,7 +49,6 @@ class NoticiaController extends Controller
     }
 
     public function update(Request $request, Noticia $noticia) {
-        $noticia = Noticia::findOrFail($id);
         
         $validated = $request->validate([
             'titulo' => 'required|max:255',
@@ -61,7 +60,6 @@ class NoticiaController extends Controller
         ]);
 
         if ($request->hasFile('imagen')) {
-            // Eliminar imagen anterior si existe
             if ($noticia->imagen_url) {
                 Storage::disk('public')->delete($noticia->imagen_url);
             }
@@ -75,11 +73,6 @@ class NoticiaController extends Controller
     }
 
     public function destroy(Noticia $noticia) {
-        $noticia = Noticia::findOrFail($id);
-        
-        if ($noticia->imagen_url) {
-            Storage::disk('public')->delete($noticia->imagen_url);
-        }
 
         $noticia->delete();
 

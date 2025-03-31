@@ -3,8 +3,7 @@
 @section('title', $editMode ? 'Editar Noticia' : 'Crear Nueva Noticia')
 
 @section('content')
-<div class="container">
-    <div class="noticia-form-container">
+<div class="noticia-form-container">
         <h1>{{ $editMode ? 'Editar Noticia' : 'Crear Nueva Noticia' }}</h1>
         
         <form action="{{ $editMode ? route('noticias.update', $noticia->id_noticia) : route('noticias.store') }}" method="POST" enctype="multipart/form-data" class="noticia-form">
@@ -47,7 +46,7 @@
                 @if($editMode && $noticia->imagen_url)
                 <div class="current-image">
                     <p>Imagen actual:</p>
-                    <img src="{{ asset('storage/' . $noticia->imagen_url) }}" alt="Imagen actual" style="max-width: 200px;">
+                    <img src="{{ asset($noticia->imagen_url) }}" alt="Imagen actual" style="max-width: 200px;">
                 </div>
                 @endif
             </div>
