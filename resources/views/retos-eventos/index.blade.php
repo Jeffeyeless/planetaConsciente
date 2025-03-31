@@ -255,6 +255,4 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap" async defer></script>
 <script src="{{ asset('js/retos-eventos.js') }}"></script>
 <link href="{{ asset('css/retos-eventos.css') }}" rel="stylesheet">
-<link href="{{ asset('css/Boton-eventos.css') }}" rel="stylesheet">
-<script src="js/Boton-eventos.js"></script>
 @endsection
