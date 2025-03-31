@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="hero-image">
-        <img src="{{ asset('images/earth-hero.png') }}" alt="Planeta Tierra">
+        <img src="{{ asset('images/amb4.jpg') }}" alt="Planeta Tierra">
     </div>
 </section>
 
@@ -87,7 +87,7 @@
     <div class="news-grid">
         <div class="news-card">
             <div class="news-image">
-                <img src="{{ asset('images/news1.jpg') }}" alt="Noticia 1">
+                <img src="{{ asset('images/amb5.jpg') }}" alt="Noticia 1">
                 <div class="news-date">15 Mar 2025</div>
             </div>
             <div class="news-content">
@@ -99,7 +99,7 @@
         
         <div class="news-card">
             <div class="news-image">
-                <img src="{{ asset('images/news2.jpg') }}" alt="Noticia 2">
+                <img src="{{ asset('images/amb3.jpg') }}" alt="Noticia 2">
                 <div class="news-date">28 Feb 2025</div>
             </div>
             <div class="news-content">
@@ -111,7 +111,7 @@
         
         <div class="news-card">
             <div class="news-image">
-                <img src="{{ asset('images/news3.jpg') }}" alt="Noticia 3">
+                <img src="{{ asset('images/amb2.jpg') }}" alt="Noticia 3">
                 <div class="news-date">10 Feb 2025</div>
             </div>
             <div class="news-content">
@@ -140,7 +140,7 @@
                 <p>"Gracias a los talleres de Planeta Consciente, mi familia ha reducido su basura semanal en un 60%. ¡Es increíble ver el impacto que podemos tener!"</p>
             </div>
             <div class="testimonial-author">
-                <img src="{{ asset('images/user1.jpg') }}" alt="Usuario 1">
+                <img src="{{ asset('images/1.jpg') }}" alt="Usuario 1">
                 <div class="author-info">
                     <h4>María González</h4>
                     <p>Participante desde 2024</p>
@@ -153,7 +153,7 @@
                 <p>"La calculadora ecológica me abrió los ojos sobre mi consumo de agua. Ahora he implementado sistemas de recolección de lluvia en mi casa."</p>
             </div>
             <div class="testimonial-author">
-                <img src="{{ asset('images/user2.jpg') }}" alt="Usuario 2">
+                <img src="{{ asset('images/usu3.jpg') }}" alt="Usuario 2">
                 <div class="author-info">
                     <h4>Carlos Mendoza</h4>
                     <p>Voluntario activo</p>
