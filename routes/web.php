@@ -4,11 +4,27 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\CalculadoraController;
+use App\Http\Controllers\ForoController;
+use App\Http\Controllers\CapacitacionController;
+
 
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Página principal de Medio Ambiente
+Route::get('/medio_ambiente', function () {
+    return view('medio_ambiente.index');
+})->name('medio_ambiente.index');
+
+// Foro
+Route::get('/foro', [ForoController::class, 'index'])->name('foro.index');
+Route::post('/foro', [ForoController::class, 'store'])->name('foro.store');
+
+// Capacitaciones
+Route::get('/capacitaciones', [CapacitacionController::class, 'index'])->name('capacitaciones.index');
+Route::post('/capacitaciones', [CapacitacionController::class, 'store'])->name('capacitaciones.store');
 
 // Rutas de autenticación
 Route::get('/login', [UsuarioController::class, 'showLoginForm'])->name('login');

@@ -9,16 +9,10 @@ class Foro extends Model
 {
     use HasFactory;
 
-    protected $table = 'foros';
-    protected $primaryKey = 'id_foro';
-
-    protected $fillable = [
-        'mensaje',
-        'id_usuario',
-    ];
+    protected $fillable = ['titulo', 'contenido', 'usuario_id'];
 
     public function usuario()
     {
-        return $this->belongsTo(Usuario::class, 'id_usuario');
+        return $this->belongsTo(User::class);
     }
 }
