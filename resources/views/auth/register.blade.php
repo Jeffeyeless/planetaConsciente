@@ -6,7 +6,7 @@
 <style>
     /* Fondo con degradado azul */
     body {
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    background: linear-gradient(135deg,rgb(255, 255, 255),rgb(159, 203, 132));
     min-height: 100vh;
     display: flex;
     flex-direction: column; /* Mantiene la estructura vertical */
