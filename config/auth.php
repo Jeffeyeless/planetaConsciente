@@ -62,8 +62,8 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Usuario::class, // Cambia a tu modelo de usuario
-            'table' => 'usuario', // Cambia a la tabla personalizada
+            'model' => App\Models\User::class, // Cambia a tu modelo de usuario
+            'table' => 'user', // Cambia a la tabla personalizada
         ],
 
         // 'users' => [
