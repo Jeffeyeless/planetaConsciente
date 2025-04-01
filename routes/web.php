@@ -28,8 +28,8 @@ Route::get('/capacitaciones', [CapacitacionController::class, 'index'])->name('c
 Route::post('/capacitaciones', [CapacitacionController::class, 'store'])->name('capacitaciones.store');
 
 // Rutas de autenticación
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
+Auth::routes();
 
 // Ruta principal para Retos y Eventos
 Route::get('/retos-eventos', [EventoController::class, 'index'])->name('retos-eventos.index');
