@@ -822,22 +822,26 @@
                             <i class="fas fa-user-plus"></i> REGISTRARSE
                         </button>
                     @endif
-                    @else
+                @else
                     <div class="user-dropdown">
-                        <a href="#" class="dropdown-toggle nav-button" tabindex="0">
-                            <div class="user-avatar">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
-                            {{ Auth::user()->name }}
-                            <i class="fas fa-chevron-down"></i>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item"><i class="fas fa-user"></i> Perfil</a>
-                            <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Configuración</a>
-                            <div class="dropdown-divider"></div>
+                        <button class="dropdown-toggle nav-button" type="button" aria-expanded="false">
+                            <!-- Mostrar inicial del usuario -->
+                            <div class="user-avatar">
+                                {{ strtoupper(substr(Auth::user()->name, 0, 1)) }} <!-- Inicial del nombre del usuario -->
+                            </div>
+                            <span class="user-name">{{ Auth::user()->name }}</span>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </button>
+
+                        <div class="dropdown-menu">                          
+                            <!-- Botón de cerrar sesión -->
                             <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
+                                onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
                                 <i class="fas fa-sign-out-alt"></i> Cerrar sesión
                             </a>
+
+                            <!-- Formulario para cerrar sesión -->
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
@@ -984,6 +988,7 @@
                 });
             }
         });
+        
     </script>
 </body>
 </html>

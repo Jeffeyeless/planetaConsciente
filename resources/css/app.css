@@ -699,3 +699,109 @@
         margin-top: 20px; /* Menos espacio arriba del botón */
     }
 }
+
+/* Estilo general del botón de usuario */
+.user-dropdown .nav-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+/* Avatar de usuario (inicial) */
+.user-avatar {
+    background-color: var(--primary);  /* Color de fondo, puedes ajustarlo */
+    color: white;
+    border-radius: 50%;
+    padding: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Nombre del usuario */
+.user-name {
+    font-size: 1rem;
+    margin-left: 10px;
+}
+
+/* Ícono del dropdown */
+.dropdown-icon {
+    font-size: 0.9rem;
+}
+
+/* Estilo del menú desplegable */
+.dropdown-menu {
+    background-color: var(--white);
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    width: 200px;
+    display: none;  /* Inicialmente oculto */
+}
+
+/* Mostrar el menú cuando el botón es presionado */
+.user-dropdown .dropdown-toggle:focus + .dropdown-menu,
+.user-dropdown .dropdown-toggle:hover + .dropdown-menu {
+    display: block;
+}
+
+/* Estilo de cada opción del dropdown */
+.dropdown-item {
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    text-decoration: none;
+}
+
+/* Hover sobre los elementos del dropdown */
+.dropdown-item:hover {
+    background-color: var(--primary-light); /* Puedes ajustar el color */
+    color: white;
+}
+
+/* Separador entre opciones */
+.dropdown-divider {
+    border-top: 1px solid var(--border);
+    margin: 5px 0;
+}
+
+/* Asegura que el icono y el texto del botón estén alineados */
+.nav-button i {
+    font-size: 1.2rem;
+}
+
+/* Estilos del ícono del usuario */
+.fas.fa-chevron-down {
+    font-size: 0.8rem;
+}
+
+/* Estilo para el icono de cerrar sesión */
+.fas.fa-sign-out-alt {
+    font-size: 1.1rem;
+}
+
+/* Media query para dispositivos más pequeños */
+@media (max-width: 768px) {
+    .user-dropdown .nav-button {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .dropdown-menu {
+        width: 100%;
+        max-width: 220px;
+    }
+}

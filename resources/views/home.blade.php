@@ -8,6 +8,20 @@
         <div class="welcome-card">
             <div class="welcome-header">
                 <h2>{{ __('Bienvenido a Planeta Consciente') }}</h2>
+                <!-- Mostrar inicial del usuario y botón de cerrar sesión -->
+                @auth
+                <div class="user-info">
+                    <span class="user-initial">
+                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                    </span>
+                    <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="btn-logout">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                        </button>
+                    </form>
+                </div>
+                @endauth
             </div>
 
             <div class="welcome-body">
@@ -53,12 +67,47 @@
         color: white;
         padding: 1.5rem;
         text-align: center;
+        position: relative;
     }
 
     .welcome-header h2 {
         margin: 0;
         font-family: 'Playfair Display', serif;
         font-weight: 600;
+    }
+
+    .user-info {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .user-initial {
+        background-color: var(--primary);
+        color: white;
+        border-radius: 50%;
+        padding: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: center;
+        width: 40px;
+        height: 40px;
+    }
+
+    .btn-logout {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .btn-logout:hover {
+        transform: scale(1.1);
     }
 
     .welcome-body {
