@@ -735,7 +735,7 @@
                 <button class="nav-button" onclick="location.href='/herramientas'">
                     <i class="fas fa-tools"></i> HERRAMIENTAS
                 </button>
-                <button class="nav-button" onclick="location.href='/ambiente'">
+                <button class="nav-button" onclick="location.href='/medio_ambiente'">
                     <i class="fas fa-leaf"></i> MEDIO AMBIENTE
                 </button>
                 <button class="nav-button" onclick="location.href='/retos-eventos'">
