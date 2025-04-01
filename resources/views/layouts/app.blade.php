@@ -808,7 +808,7 @@
                 <button class="nav-button" onclick="location.href='/retos-eventos'">
                     <i class="fas fa-calendar-alt"></i> EVENTOS
                 </button>
-                <button class="nav-button" onclick="location.href='/noticias'">
+                <button class="nav-button" onclick="location.href='/noticia'">
                     <i class="fas fa-newspaper"></i> NOTICIAS
                 </button>
                 
@@ -822,20 +822,20 @@
                             <i class="fas fa-user-plus"></i> REGISTRARSE
                         </button>
                     @endif
-                @else
+                    @else
                     <div class="user-dropdown">
-                        <div class="dropdown-toggle nav-button">
+                        <a href="#" class="dropdown-toggle nav-button" tabindex="0">
                             <div class="user-avatar">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
                             {{ Auth::user()->name }}
                             <i class="fas fa-chevron-down"></i>
-                        </div>
+                        </a>
                         <div class="dropdown-menu">
                             <a href="#" class="dropdown-item"><i class="fas fa-user"></i> Perfil</a>
                             <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Configuración</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
+                            onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
                                 <i class="fas fa-sign-out-alt"></i> Cerrar sesión
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
