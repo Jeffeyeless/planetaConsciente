@@ -6,7 +6,7 @@ use App\Http\Controllers\EventoController;
 use App\Http\Controllers\CalculadoraController;
 
 
-Route::get('/inicio', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 
