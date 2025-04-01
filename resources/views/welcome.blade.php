@@ -32,7 +32,7 @@
             </div>
             <h3>Educación Ambiental</h3>
             <p>Aprende sobre prácticas sostenibles y su impacto en nuestro ecosistema.</p>
-            <a href="/ambiente" class="feature-link">Saber más <i class="fas fa-arrow-right"></i></a>
+            <a href="/medio_ambiente" class="feature-link">Saber más <i class="fas fa-arrow-right"></i></a>
         </div>
         
         <div class="feature-card">
@@ -93,7 +93,7 @@
             <div class="news-content">
                 <h3>Nueva iniciativa de reforestación urbana</h3>
                 <p>Lanzamos nuestro programa para plantar 10,000 árboles en áreas urbanas durante este año.</p>
-                <a href="/noticias/1" class="news-link">Leer más <i class="fas fa-arrow-right"></i></a>
+                <a href="/noticia/1" class="news-link">Leer más <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
         
@@ -105,7 +105,7 @@
             <div class="news-content">
                 <h3>Talleres de reciclaje creativo</h3>
                 <p>Aprende a transformar materiales reciclables en objetos útiles en nuestros talleres mensuales.</p>
-                <a href="/noticias/2" class="news-link">Leer más <i class="fas fa-arrow-right"></i></a>
+                <a href="/noticia/2" class="news-link">Leer más <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
         
@@ -117,13 +117,13 @@
             <div class="news-content">
                 <h3>Resultados de nuestra campaña de limpieza</h3>
                 <p>Gracias a la participación de 500 voluntarios, recolectamos 2 toneladas de residuos en playas.</p>
-                <a href="/noticias/3" class="news-link">Leer más <i class="fas fa-arrow-right"></i></a>
+                <a href="/noticia/3" class="news-link">Leer más <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </div>
     
     <div class="section-footer">
-        <a href="/noticias" class="view-all">Ver todas las noticias <i class="fas fa-arrow-right"></i></a>
+        <a href="/noticia" class="view-all">Ver todas las noticias <i class="fas fa-arrow-right"></i></a>
     </div>
 </section>
 
