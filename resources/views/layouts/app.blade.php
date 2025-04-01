@@ -799,8 +799,8 @@
                 <button class="nav-button" onclick="location.href='/'">
                     <i class="fas fa-home"></i> INICIO
                 </button>
-                <button class="nav-button" onclick="location.href='/herramientas'">
-                    <i class="fas fa-tools"></i> HERRAMIENTAS
+                <button class="nav-button" onclick="location.href='/calculadora'">
+                    <i class="fas fa-calculator"></i> CALCULADORA
                 </button>
                 <button class="nav-button" onclick="location.href='/medio_ambiente'">
                     <i class="fas fa-leaf"></i> MEDIO AMBIENTE
@@ -810,9 +810,6 @@
                 </button>
                 <button class="nav-button" onclick="location.href='/noticias'">
                     <i class="fas fa-newspaper"></i> NOTICIAS
-                </button>
-                <button class="nav-button" onclick="location.href='/formulario'">
-                    <i class="fas fa-edit"></i> FORMULARIO
                 </button>
                 
                 <!-- Authentication Links -->
@@ -847,13 +844,6 @@
                         </div>
                     </div>
                 @endguest
-                
-                <button class="nav-button" onclick="location.href='/admin'">
-                    <i class="fas fa-lock"></i> ADMIN
-                </button>
-                <button class="nav-button" onclick="location.href='/calculadora'">
-                    <i class="fas fa-calculator"></i> CALCULADORA
-                </button>
             </div>
         </div>
     </nav>
