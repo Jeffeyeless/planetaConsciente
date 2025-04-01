@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NoticiaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\EventoController;
@@ -30,10 +31,8 @@ Route::post('/capacitaciones', [CapacitacionController::class, 'store'])->name('
 Route::get('/login', [UsuarioController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [UsuarioController::class, 'login']);
 Route::post('/logout', [UsuarioController::class, 'logout'])->name('logout');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Rutas de registro
-Route::get('/register', [UsuarioController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [UsuarioController::class, 'register']);
 
 // Rutas CRUD para usuarios (protegidas por autenticación)
 Route::middleware(['auth'])->group(function () {
@@ -56,3 +55,12 @@ Route::get('/retos-mensuales', [EventoController::class, 'getRetosMensuales'])->
 Route::get('/calculadora', [CalculadoraController::class, 'index'])->name('calculadora.index');
 Route::post('/calculadora/responder', [CalculadoraController::class, 'responder'])->name('calculadora.responder');
 Route::get('/calculadora/resultado', [CalculadoraController::class, 'resultado'])->name('calculadora.resultado');
+
+// Rutas para noticias
+Route::get('/noticia', [NoticiaController::class, 'index'])->name('noticias.index');
+Route::get('/noticia/crear', [NoticiaController::class, 'create'])->name('noticias.create');
+Route::post('/noticia', [NoticiaController::class, 'store'])->name('noticias.store');
+Route::get('/noticia/{noticia}', [NoticiaController::class, 'show'])->name('noticias.show');
+Route::get('/noticia/{noticia}/editar', [NoticiaController::class, 'edit'])->name('noticias.edit');
+Route::put('/noticia/{noticia}', [NoticiaController::class, 'update'])->name('noticias.update');
+Route::delete('/noticia/{noticia}', [NoticiaController::class, 'destroy'])->name('noticias.destroy');

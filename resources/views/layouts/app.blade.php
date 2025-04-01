@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -415,6 +415,73 @@
         100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
     }
 
+    /* Auth forms */
+    .auth-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .auth-form .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .auth-form label {
+        font-weight: 500;
+        color: var(--primary);
+    }
+
+    .auth-form input {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: var(--transition);
+    }
+
+    .auth-form input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(76, 175, 125, 0.2);
+    }
+
+    .auth-form button {
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+        color: white;
+        border: none;
+        padding: 14px;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: var(--transition);
+        margin-top: 10px;
+    }
+
+    .auth-form button:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .auth-links {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+    }
+
+    .auth-links a {
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: var(--transition);
+    }
+
+    .auth-links a:hover {
+        text-decoration: underline;
+    }
+
     /* Responsive design */
     @media (max-width: 992px) {
         .navbar-container {
@@ -747,9 +814,40 @@
                 <button class="nav-button" onclick="location.href='/formulario'">
                     <i class="fas fa-edit"></i> FORMULARIO
                 </button>
-                <button class="nav-button" onclick="location.href='/login'">
-                    <i class="fas fa-user"></i> USUARIO
-                </button>
+                
+                <!-- Authentication Links -->
+                @guest
+                    <button class="nav-button" onclick="location.href='{{ route('login') }}'">
+                        <i class="fas fa-sign-in-alt"></i> INICIAR SESIÓN
+                    </button>
+                    @if (Route::has('register'))
+                        <button class="nav-button" onclick="location.href='{{ route('register') }}'">
+                            <i class="fas fa-user-plus"></i> REGISTRARSE
+                        </button>
+                    @endif
+                @else
+                    <div class="user-dropdown">
+                        <div class="dropdown-toggle nav-button">
+                            <div class="user-avatar">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
+                            {{ Auth::user()->name }}
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item"><i class="fas fa-user"></i> Perfil</a>
+                            <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Configuración</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </div>
+                @endguest
+                
                 <button class="nav-button" onclick="location.href='/admin'">
                     <i class="fas fa-lock"></i> ADMIN
                 </button>
@@ -784,9 +882,9 @@
                 <h3 class="footer-title">Enlaces rápidos</h3>
                 <ul class="footer-links">
                     <li><a href="/inicio" class="footer-link"><i class="fas fa-chevron-right"></i> Inicio</a></li>
-                    <li><a href="/ambiente" class="footer-link"><i class="fas fa-chevron-right"></i> Medio Ambiente</a></li>
+                    <li><a href="/medio_ambiente" class="footer-link"><i class="fas fa-chevron-right"></i> Medio Ambiente</a></li>
                     <li><a href="/retos-eventos" class="footer-link"><i class="fas fa-chevron-right"></i> Próximos Eventos</a></li>
-                    <li><a href="/noticias" class="footer-link"><i class="fas fa-chevron-right"></i> Noticias</a></li>
+                    <li><a href="/noticia" class="footer-link"><i class="fas fa-chevron-right"></i> Noticias</a></li>
                     <li><a href="/calculadora" class="footer-link"><i class="fas fa-chevron-right"></i> Calculadora Ecológica</a></li>
                 </ul>
             </div>
@@ -811,6 +909,12 @@
     <a href="https://wa.me/573144358851" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
+
+    <!-- Scripts -->
+    <!-- jQuery (opcional, solo si tu proyecto lo necesita) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Bootstrap JS Bundle (incluye Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         // Preloader
@@ -871,6 +975,24 @@
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // User dropdown toggle
+        document.querySelector('.dropdown-toggle')?.addEventListener('click', function() {
+            const dropdownMenu = this.nextElementSibling;
+            dropdownMenu.classList.toggle('show');
+        });
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', function(e) {
+            if (!e.target.matches('.dropdown-toggle') && !e.target.closest('.dropdown-toggle')) {
+                const dropdowns = document.querySelectorAll('.dropdown-menu');
+                dropdowns.forEach(dropdown => {
+                    if (dropdown.classList.contains('show')) {
+                        dropdown.classList.remove('show');
+                    }
+                });
+            }
         });
     </script>
 </body>

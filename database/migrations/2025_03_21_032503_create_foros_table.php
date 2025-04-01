@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('foros', function (Blueprint $table) {
-            $table->id('id_foro');
+            $table->id('id_foro'); // Clave primaria del foro
             $table->text('mensaje');
-            $table->unsignedBigInteger('id_usuario');
+            $table->unsignedBigInteger('user_id'); // Campo para la relación
             $table->timestamps();
-            $table->foreign('id_usuario')->references('id_usuario')->on('usuarios')->onDelete('cascade');
+            
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
