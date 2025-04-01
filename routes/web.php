@@ -3,10 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\EventoController;
+use App\Http\Controllers\CalculadoraController;
 
 
-
-Route::get('/', function () {
+Route::get('/inicio', function () {
     return view('welcome');
 });
 
@@ -28,12 +28,11 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy'])->name('usuarios.destroy');
 
 });
+
 // Ruta principal para Retos y Eventos
 Route::get('/retos-eventos', [EventoController::class, 'index'])->name('retos-eventos.index');
-
 // Ruta para obtener detalles de un evento específico
 Route::get('/eventos/{id}', [EventoController::class, 'show'])->name('eventos.show');
-
 // Ruta para obtener retos mensuales (AJAX)
 Route::get('/retos-mensuales', [EventoController::class, 'getRetosMensuales'])->name('retos.mensuales');
 
@@ -41,4 +40,3 @@ Route::get('/retos-mensuales', [EventoController::class, 'getRetosMensuales'])->
 Route::get('/calculadora', [CalculadoraController::class, 'index'])->name('calculadora.index');
 Route::post('/calculadora/responder', [CalculadoraController::class, 'responder'])->name('calculadora.responder');
 Route::get('/calculadora/resultado', [CalculadoraController::class, 'resultado'])->name('calculadora.resultado');
-
