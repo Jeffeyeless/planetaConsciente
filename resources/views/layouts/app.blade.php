@@ -739,7 +739,7 @@
                     <li><a href="/" class="footer-link"><i class="fas fa-chevron-right"></i> Inicio</a></li>
                     <li><a href="/ambiente" class="footer-link"><i class="fas fa-chevron-right"></i> Medio Ambiente</a></li>
                     <li><a href="/eventos" class="footer-link"><i class="fas fa-chevron-right"></i> Próximos Eventos</a></li>
-                    <li><a href="/noticias" class="footer-link"><i class="fas fa-chevron-right"></i> Noticias</a></li>
+                    <li><a href="/noticia" class="footer-link"><i class="fas fa-chevron-right"></i> Noticias</a></li>
                     <li><a href="/calculadora" class="footer-link"><i class="fas fa-chevron-right"></i> Calculadora Ecológica</a></li>
                 </ul>
             </div>
