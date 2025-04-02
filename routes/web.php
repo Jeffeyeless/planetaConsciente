@@ -33,12 +33,16 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/calculadora/responder', [CalculadoraController::class, 'responder'])->name('calculadora.responder');
     Route::get('/calculadora/resultado', [CalculadoraController::class, 'resultado'])->name('calculadora.resultado');
 
+    
     // Ruta principal para Retos y Eventos
+    Route::middleware(['auth', 'admin'])->group(function () {
+        Route::resource('eventos', EventoController::class)->except(['index', 'show']);
+    });
+    Route::get('eventos', [EventoController::class, 'index'])->name('eventos.index');
+    Route::get('eventos/{evento}', [EventoController::class, 'show'])->name('eventos.show');
+
     Route::get('/retos-eventos', [EventoController::class, 'index'])->name('retos-eventos.index');
-    // Ruta para obtener detalles de un evento específico
-    Route::get('/eventos/{id}', [EventoController::class, 'show'])->name('eventos.show');
-    // Ruta para obtener retos mensuales (AJAX)
-    Route::get('/retos-mensuales', [EventoController::class, 'getRetosMensuales'])->name('retos.mensuales');
+
     // Página principal de Medio Ambiente
     Route::get('/medio_ambiente', function () {
         return view('medio_ambiente.index');

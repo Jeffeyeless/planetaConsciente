@@ -148,32 +148,51 @@
   
   <!-- Caja Eventos en Bogotá -->
 <div class="seccion-independiente">
-<h3 class="seccion-titulo">📅 Próximos Eventos en Bogotá</h3>
-<ul class="lista-detalles">
-  <!-- Evento 1 -->
-  <li class="evento-item">
-    <strong>15 Julio 2024</strong> - 
-    <span class="destacado">Feria Ambiental</span><br>
-    📍 Plaza de Bolívar (10:00 AM - 4:00 PM)<br>
-    ♻️ Talleres de reciclaje electrónico
-  </li>
-
-  <!-- Evento 2 -->
-  <li class="evento-item">
-    <strong>28 Julio 2024</strong> - 
-    <span class="destacado">Siembratón</span><br>
-    📍 Parque Nacional (8:00 AM - 12:00 PM)<br>
-    🌱 Plantación de 1,000 árboles nativos
-  </li>
-
-  <!-- Evento 3 -->
-  <li class="evento-item">
-    <strong>5 Agosto 2024</strong> - 
-    <span class="destacado">Foro: Agua Urbana</span><br>
-    📍 Biblioteca Virgilio Barco (3:00 PM - 6:00 PM)<br>
-    💧 Soluciones para la crisis hídrica
-  </li>
-</ul>
+  <div class="d-flex justify-content-between align-items-center">
+      <h3 class="seccion-titulo">📅 Próximos Eventos en Bogotá</h3>
+      @auth
+          @if(auth()->user()->isAdmin())
+              <a href="{{ route('eventos.create') }}" class="btn btn-sm btn-primary">
+                  <i class="fas fa-plus"></i> Nuevo Evento
+              </a>
+          @endif
+      @endauth
+  </div>
+  
+  <ul class="lista-detalles">
+      @forelse($eventos as $evento)
+          <li class="evento-item mb-3 pb-2 border-bottom">
+              <div class="d-flex justify-content-between">
+                  <div>
+                      <strong>{{ $evento->fecha->format('d M Y') }}</strong> - 
+                      <span class="destacado">
+                          <a href="{{ route('eventos.show', $evento->id) }}" class="text-decoration-none">{{ $evento->titulo }}</a>
+                      </span><br>
+                      📍 {{ $evento->ubicacion }}<br>
+                      {{ Str::limit($evento->descripcion, 100) }}
+                  </div>
+                  @auth
+                      @if(auth()->user()->isAdmin())
+                          <div class="d-flex">
+                              <a href="{{ route('eventos.edit', $evento->id) }}" class="btn btn-sm btn-outline-secondary me-1">
+                                  <i class="fas fa-edit"></i>
+                              </a>
+                              <form action="{{ route('eventos.destroy', $evento->id) }}" method="POST">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Eliminar este evento?')">
+                                      <i class="fas fa-trash"></i>
+                                  </button>
+                              </form>
+                          </div>
+                      @endif
+                  @endauth
+              </div>
+          </li>
+      @empty
+          <li>No hay eventos programados para este mes.</li>
+      @endforelse
+  </ul>
 </div>
     <!-- Caja Pruebas (arriba a la derecha) -->
   <div class="seccion-independiente">
@@ -254,6 +273,9 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/es.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap" async defer></script>
-<script src="{{ asset('js/retos-eventos.js') }}"></script>
 <link href="{{ asset('css/retos-eventos.css') }}" rel="stylesheet">
+@section('scripts')
+    <!-- Otros scripts... -->
+    <script src="{{ asset('js/retos-eventos/eventos.js') }}"></script>
+@endsection
 @endsection
