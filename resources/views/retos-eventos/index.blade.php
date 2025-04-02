@@ -1,10 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Retos y eventos ambientales')
+@section('title', 'Retos y Eventos Ambientales')
 
 @section('content')
 <style>
-    /* Mantenemos tus variables CSS */
     :root {
       --primary: #1a3a2f;
       --primary-light: #2d5e4a;
@@ -16,7 +15,6 @@
       --accent-dark: #3a8d66;
     }
     
-    /* Diseño de cajas independientes */
     .seccion-independiente {
       border: 1px solid var(--border-color);
       border-radius: 0.5rem;
@@ -27,7 +25,6 @@
       max-width: 100%;
     }
     
-    /* Posicionamiento flexible */
     .layout-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -35,19 +32,16 @@
       padding: 1rem;
     }
     
-    /* Caja grande para la tabla */
     .seccion-grande {
       grid-column: span 2;
     }
     
-    /* Estilos específicos para cada sección */
     .encabezado-principal {
       grid-column: 1 / -1;
       text-align: center;
       margin-bottom: 0;
     }
     
-    /* Mantenemos tus otros estilos */
     .titulo-principal {
       font-family: 'Playfair Display', serif;
       font-size: 1.875rem;
@@ -129,7 +123,35 @@
       background-color: rgba(76, 175, 125, 0.05);
     }
     
-    /* Responsive */
+    .evento-item {
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .footer-links {
+      list-style: none;
+      padding-left: 0;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .footer-link {
+      color: var(--primary-light);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-link:hover {
+      color: var(--accent);
+    }
+    
+    .footer-link i {
+      margin-right: 0.5rem;
+    }
+    
     @media (max-width: 768px) {
       .layout-container {
         grid-template-columns: 1fr;
@@ -147,54 +169,61 @@
   </div>
   
   <!-- Caja Eventos en Bogotá -->
-<div class="seccion-independiente">
-  <div class="d-flex justify-content-between align-items-center">
+  <div class="seccion-independiente">
+    <div class="d-flex justify-content-between align-items-center">
       <h3 class="seccion-titulo">📅 Próximos Eventos en Bogotá</h3>
       @can('admin')
-          <a href="{{ route('eventos.create') }}" class="btn btn-sm btn-primary">
-              <i class="fas fa-plus"></i> Nuevo Evento
-          </a>
+        <a href="{{ route('eventos.create') }}" class="btn btn-sm btn-primary">
+          <i class="fas fa-plus"></i> Nuevo Evento
+        </a>
       @endcan
+    </div>
+    
+    @if($eventos && $eventos->count())
+      <ul class="lista-detalles">
+        @foreach($eventos as $evento)
+          <li class="evento-item">
+            <div class="d-flex justify-content-between">
+              <div>
+                @if($evento->fecha)
+                  <strong>{{ \Carbon\Carbon::parse($evento->fecha)->format('d M Y') }}</strong> - 
+                @endif
+                <span class="destacado">
+                  <a href="{{ route('eventos.show', $evento->id) }}" class="text-decoration-none">{{ $evento->titulo ?? 'Sin título' }}</a>
+                </span><br>
+                @if($evento->ubicacion)
+                  📍 {{ $evento->ubicacion }}<br>
+                @endif
+                @if($evento->descripcion)
+                  {{ Str::limit($evento->descripcion, 100) }}
+                @endif
+              </div>
+              @can('admin')
+                <div class="d-flex">
+                  <a href="{{ route('eventos.edit', $evento->id) }}" class="btn btn-sm btn-outline-secondary me-1">
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <form action="{{ route('eventos.destroy', $evento->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Eliminar este evento?')">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </form>
+                </div>
+              @endcan
+            </div>
+          </li>
+        @endforeach
+      </ul>
+    @else
+      <div class="alert alert-info">
+        No hay eventos programados para este mes.
+      </div>
+    @endif
   </div>
   
-  @if($eventos && $eventos->count())
-      <ul class="lista-detalles">
-          @foreach($eventos as $evento)
-              <li class="evento-item mb-3 pb-2 border-bottom">
-                  <div class="d-flex justify-content-between">
-                      <div>
-                          <strong>{{ $evento->fecha->format('d M Y') }}</strong> - 
-                          <span class="destacado">
-                              <a href="{{ route('eventos.show', $evento->id) }}" class="text-decoration-none">{{ $evento->titulo }}</a>
-                          </span><br>
-                          📍 {{ $evento->ubicacion }}<br>
-                          {{ Str::limit($evento->descripcion, 100) }}
-                      </div>
-                      @can('admin')
-                          <div class="d-flex">
-                              <a href="{{ route('eventos.edit', $evento->id) }}" class="btn btn-sm btn-outline-secondary me-1">
-                                  <i class="fas fa-edit"></i>
-                              </a>
-                              <form action="{{ route('eventos.destroy', $evento->id) }}" method="POST">
-                                  @csrf
-                                  @method('DELETE')
-                                  <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Eliminar este evento?')">
-                                      <i class="fas fa-trash"></i>
-                                  </button>
-                              </form>
-                          </div>
-                      @endcan
-                  </div>
-              </li>
-          @endforeach
-      </ul>
-  @else
-      <div class="alert alert-info">
-          No hay eventos programados para este mes.
-      </div>
-  @endif
-</div>
-    <!-- Caja Pruebas (arriba a la derecha) -->
+  <!-- Caja Pruebas (arriba a la derecha) -->
   <div class="seccion-independiente">
     <h3 class="seccion-titulo">Retos Ambientales Mensuales</h3>
     <span class="badge-nuevo">Temporada 2025</span>
@@ -222,49 +251,40 @@
       En este apartado puedes encontrar información sobre organizaciones que trabajan en pro del medio ambiente. Puedes visitar sus páginas web para conocer más sobre sus iniciativas y cómo puedes colaborar.
     </p>
 
-      <ul class="footer-links">
-                  
-                  <li><a href="https://www.unep.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> ONU Medio Ambiente</a></li>
-<li><a href="https://www.worldwildlife.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> WWF Internacional</a></li>
-<li><a href="https://www.greenpeace.org/international/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> Greenpeace</a></li>
-
-<!-- Organizaciones en Latinoamérica -->
-<li><a href="https://natura.org.co/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> Fundación Natura Colombia</a></li>
-
-
-<!-- Enfoque en Agua y Océanos -->
-<li><a href="https://oceanconservancy.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> Ocean Conservancy</a></li>
-<li><a href="https://water.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> Water.org</a></li>
-
-<!-- Conservación Animal -->
-<li><a href="https://www.worldanimalprotection.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> Protección Animal Mundial</a></li>
-<li><a href="https://www.seaturtle.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> Sea Turtle Conservancy</a></li>
-
-<!-- Cambio Climático -->
-<li><a href="https://350.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> 350.org</a></li>
-<li><a href="https://www.theclimategroup.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> The Climate Group</a></li>
-              </ul>
-    
+    <ul class="footer-links">
+      <li><a href="https://www.unep.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> ONU Medio Ambiente</a></li>
+      <li><a href="https://www.worldwildlife.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> WWF Internacional</a></li>
+      <li><a href="https://www.greenpeace.org/international/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> Greenpeace</a></li>
+      <li><a href="https://natura.org.co/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> Fundación Natura Colombia</a></li>
+      <li><a href="https://oceanconservancy.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> Ocean Conservancy</a></li>
+      <li><a href="https://water.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> Water.org</a></li>
+      <li><a href="https://www.worldanimalprotection.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> Protección Animal Mundial</a></li>
+      <li><a href="https://www.seaturtle.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> Sea Turtle Conservancy</a></li>
+      <li><a href="https://350.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> 350.org</a></li>
+      <li><a href="https://www.theclimategroup.org/" class="footer-link" target="_blank"><i class="fas fa-chevron-right"></i> The Climate Group</a></li>
+    </ul>
   </div>
       
   <!-- Caja Aclaración (abajo, ancho completo) -->
   <div class="seccion-independiente seccion-grande">
     <h3 class="seccion-titulo">SE CONSCIENTE</h3>
     <p class="text-gray-700">
-      "Cuidar el planeta es cuidar nuestro futuro. Pequeñas acciones crean grandes cambios. ¡Únete y haz la diferencia!" 🌱💚    </p>
-      <div style="text-align: center; margin: 20px 0;">
-        <img 
-          src="https://w.wallhaven.cc/full/we/wallhaven-wep1lr.jpg" 
-          alt="Imagen ambiental"
-          style="
-            max-width: 100%;
-            height: auto;
-            width: 600px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-          "
-        >
-      </div>
+      "Cuidar el planeta es cuidar nuestro futuro. Pequeñas acciones crean grandes cambios. ¡Únete y haz la diferencia!" 🌱💚
+    </p>
+    <div style="text-align: center; margin: 20px 0;">
+      <img 
+        src="https://w.wallhaven.cc/full/we/wallhaven-wep1lr.jpg" 
+        alt="Imagen ambiental"
+        style="
+          max-width: 100%;
+          height: auto;
+          width: 600px;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        "
+      >
+    </div>
+  </div>
 </div>
 @endsection
 
@@ -272,10 +292,21 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/es.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap" async defer></script>
-<link href="{{ asset('css/retos-eventos.css') }}" rel="stylesheet">
-@section('scripts')
-    <!-- Otros scripts... -->
-    <script src="{{ asset('js/retos-eventos/eventos.js') }}"></script>
-@endsection
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    if(calendarEl) {
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'es',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        }
+      });
+      calendar.render();
+    }
+  });
+</script>
 @endsection
