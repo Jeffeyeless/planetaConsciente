@@ -9,20 +9,33 @@ class Calculadora extends Model
 {
     use HasFactory;
 
-    protected $table = 'calculadoras'; // Nombre de la tabla
-
     protected $fillable = [
-        'nombre',          // Nombre del usuario
-        'correo',          // Correo electrónico
-        'detalles',        // Se guardan todas las respuestas en JSON
-        'resultado',       // Resultado de la huella de carbono
-        'clasificacion',   // Baja, Media o Alta
-        'created_at',      // Marca de tiempo de creación
-        'updated_at'       // Marca de tiempo de actualización
+        'edad',
+        'sexo',
+        'medio_transporte',
+        'tipo_combustible',
+        'km_automovil_dia',
+        'km_bicicleta_dia',
+        'frecuencia_transporte_publico',
+        'vuelos_anuales',
+        'consumo_electricidad',
+        'tipo_energia',
+        'bolsas_basura',
+        'porcentaje_reciclaje',
+        'consumo_agua',
+        'resultado',
+        'clasificacion'
     ];
 
     protected $casts = [
-        'detalles' => 'array',   // Laravel convertirá automáticamente JSON a array y viceversa
-        'resultado' => 'float'   // Asegura que el resultado se maneje como número decimal
+        'edad' => 'integer',
+        'km_automovil_dia' => 'float',
+        'km_bicicleta_dia' => 'float',
+        'vuelos_anuales' => 'integer',
+        'consumo_electricidad' => 'float',
+        'bolsas_basura' => 'integer',
+        'porcentaje_reciclaje' => 'float',
+        'consumo_agua' => 'float',
+        'resultado' => 'float',
     ];
 }
