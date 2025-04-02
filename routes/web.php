@@ -33,13 +33,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/calculadora/responder', [CalculadoraController::class, 'responder'])->name('calculadora.responder');
     Route::get('/calculadora/resultado', [CalculadoraController::class, 'resultado'])->name('calculadora.resultado');
 
-    
-    // Ruta principal para Retos y Eventos
-    Route::middleware(['auth', 'admin'])->group(function () {
-        Route::resource('eventos', EventoController::class)->except(['index', 'show']);
-    });
-    Route::get('eventos', [EventoController::class, 'index'])->name('eventos.index');
-    Route::get('eventos/{evento}', [EventoController::class, 'show'])->name('eventos.show');
 
     Route::get('/retos-eventos', [EventoController::class, 'index'])->name('retos-eventos.index');
 
@@ -55,4 +48,17 @@ Route::middleware(['auth'])->group(function () {
     // Capacitaciones
     Route::get('/capacitaciones', [CapacitacionController::class, 'index'])->name('capacitaciones.index');
     Route::post('/capacitaciones', [CapacitacionController::class, 'store'])->name('capacitaciones.store');
+});
+
+// Rutas públicas
+Route::get('/eventos', [EventoController::class, 'index'])->name('eventos.index');
+Route::get('/eventos/{evento}', [EventoController::class, 'show'])->name('eventos.show');
+
+// Rutas protegidas
+Route::middleware(['auth', 'can:admin'])->group(function () {
+    Route::get('/eventos/create', [EventoController::class, 'create'])->name('eventos.create');
+    Route::post('/eventos', [EventoController::class, 'store'])->name('eventos.store');
+    Route::get('/eventos/{evento}/edit', [EventoController::class, 'edit'])->name('eventos.edit');
+    Route::put('/eventos/{evento}', [EventoController::class, 'update'])->name('eventos.update');
+    Route::delete('/eventos/{evento}', [EventoController::class, 'destroy'])->name('eventos.destroy');
 });
