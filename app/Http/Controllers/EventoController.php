@@ -8,6 +8,7 @@ use App\Models\Reto;
 use App\Models\Organizacion;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
 
 class EventoController extends Controller
 {
@@ -16,12 +17,17 @@ class EventoController extends Controller
      */
     public function index()
     {
-        // Eventos para el mes actual y el siguiente
+        // Eventos para el mes actual y el siguiente (con manejo de colección vacía)
         $eventos = Evento::where('fecha', '>=', now()->startOfMonth())
                       ->where('fecha', '<=', now()->addMonth()->endOfMonth())
                       ->orderBy('fecha')
                       ->get();
         
+        // Si no hay eventos, pasamos null para manejar en la vista
+        if ($eventos->isEmpty()) {
+            $eventos = null;
+        }
+
         // Retos (sin cambios)
         $retosMensuales = Reto::where('mes', now()->month)
                              ->where('año', now()->year)
@@ -52,6 +58,11 @@ class EventoController extends Controller
      */
     public function create()
     {
+        // Verificar permisos
+        if (!Gate::allows('admin')) {
+            abort(403, 'No tienes permiso para realizar esta acción');
+        }
+        
         return view('retos-eventos.eventos.create');
     }
 
@@ -60,6 +71,11 @@ class EventoController extends Controller
      */
     public function store(Request $request)
     {
+        // Verificar permisos
+        if (!Gate::allows('admin')) {
+            abort(403, 'No tienes permiso para realizar esta acción');
+        }
+
         $validated = $request->validate([
             'titulo' => 'required|string|max:255',
             'descripcion' => 'required|string',
@@ -67,18 +83,21 @@ class EventoController extends Controller
             'ubicacion' => 'required|string|max:255',
             'latitud' => 'nullable|numeric',
             'longitud' => 'nullable|numeric',
-            'tipo' => 'required|string|max:100',
+            'tipo' => 'required|string|in:Taller,Conferencia,Siembra,Limpieza,Feria,Otro',
             'sitio_web' => 'nullable|url',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048'
         ]);
 
+        // Procesar imagen
         if ($request->hasFile('imagen')) {
             $validated['imagen'] = $request->file('imagen')->store('eventos', 'public');
         }
 
-        Evento::create($validated);
+        // Crear evento
+        $evento = Evento::create($validated);
 
-        return redirect()->route('eventos.index')->with('success', 'Evento creado exitosamente!');
+        return redirect()->route('eventos.show', $evento->id)
+                       ->with('success', 'Evento creado exitosamente!');
     }
 
     /**
@@ -95,6 +114,11 @@ class EventoController extends Controller
      */
     public function edit($id)
     {
+        // Verificar permisos
+        if (!Gate::allows('admin')) {
+            abort(403, 'No tienes permiso para realizar esta acción');
+        }
+
         $evento = Evento::findOrFail($id);
         return view('retos-eventos.eventos.edit', compact('evento'));
     }
@@ -104,6 +128,11 @@ class EventoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Verificar permisos
+        if (!Gate::allows('admin')) {
+            abort(403, 'No tienes permiso para realizar esta acción');
+        }
+
         $evento = Evento::findOrFail($id);
         
         $validated = $request->validate([
@@ -113,22 +142,34 @@ class EventoController extends Controller
             'ubicacion' => 'required|string|max:255',
             'latitud' => 'nullable|numeric',
             'longitud' => 'nullable|numeric',
-            'tipo' => 'required|string|max:100',
+            'tipo' => 'required|string|in:Taller,Conferencia,Siembra,Limpieza,Feria,Otro',
             'sitio_web' => 'nullable|url',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'eliminar_imagen' => 'nullable|boolean'
         ]);
 
+        // Manejo de imagen
         if ($request->hasFile('imagen')) {
-            // Eliminar la imagen anterior si existe
+            // Eliminar imagen anterior si existe
             if ($evento->imagen) {
                 Storage::disk('public')->delete($evento->imagen);
             }
             $validated['imagen'] = $request->file('imagen')->store('eventos', 'public');
+        } elseif ($request->input('eliminar_imagen')) {
+            // Eliminar imagen si se marcó la opción
+            if ($evento->imagen) {
+                Storage::disk('public')->delete($evento->imagen);
+                $validated['imagen'] = null;
+            }
+        } else {
+            // Mantener la imagen existente
+            unset($validated['imagen']);
         }
 
         $evento->update($validated);
 
-        return redirect()->route('eventos.index')->with('success', 'Evento actualizado exitosamente!');
+        return redirect()->route('eventos.show', $evento->id)
+                       ->with('success', 'Evento actualizado exitosamente!');
     }
 
     /**
@@ -136,6 +177,11 @@ class EventoController extends Controller
      */
     public function destroy($id)
     {
+        // Verificar permisos
+        if (!Gate::allows('admin')) {
+            abort(403, 'No tienes permiso para realizar esta acción');
+        }
+
         $evento = Evento::findOrFail($id);
         
         // Eliminar la imagen asociada si existe
@@ -145,7 +191,8 @@ class EventoController extends Controller
         
         $evento->delete();
 
-        return redirect()->route('eventos.index')->with('success', 'Evento eliminado exitosamente!');
+        return redirect()->route('eventos.index')
+                       ->with('success', 'Evento eliminado exitosamente!');
     }
 
     /**

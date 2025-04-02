@@ -150,29 +150,27 @@
 <div class="seccion-independiente">
   <div class="d-flex justify-content-between align-items-center">
       <h3 class="seccion-titulo">📅 Próximos Eventos en Bogotá</h3>
-      @auth
-          @if(auth()->user()->isAdmin())
-              <a href="{{ route('eventos.create') }}" class="btn btn-sm btn-primary">
-                  <i class="fas fa-plus"></i> Nuevo Evento
-              </a>
-          @endif
-      @endauth
+      @can('admin')
+          <a href="{{ route('eventos.create') }}" class="btn btn-sm btn-primary">
+              <i class="fas fa-plus"></i> Nuevo Evento
+          </a>
+      @endcan
   </div>
   
-  <ul class="lista-detalles">
-      @forelse($eventos as $evento)
-          <li class="evento-item mb-3 pb-2 border-bottom">
-              <div class="d-flex justify-content-between">
-                  <div>
-                      <strong>{{ $evento->fecha->format('d M Y') }}</strong> - 
-                      <span class="destacado">
-                          <a href="{{ route('eventos.show', $evento->id) }}" class="text-decoration-none">{{ $evento->titulo }}</a>
-                      </span><br>
-                      📍 {{ $evento->ubicacion }}<br>
-                      {{ Str::limit($evento->descripcion, 100) }}
-                  </div>
-                  @auth
-                      @if(auth()->user()->isAdmin())
+  @if($eventos && $eventos->count())
+      <ul class="lista-detalles">
+          @foreach($eventos as $evento)
+              <li class="evento-item mb-3 pb-2 border-bottom">
+                  <div class="d-flex justify-content-between">
+                      <div>
+                          <strong>{{ $evento->fecha->format('d M Y') }}</strong> - 
+                          <span class="destacado">
+                              <a href="{{ route('eventos.show', $evento->id) }}" class="text-decoration-none">{{ $evento->titulo }}</a>
+                          </span><br>
+                          📍 {{ $evento->ubicacion }}<br>
+                          {{ Str::limit($evento->descripcion, 100) }}
+                      </div>
+                      @can('admin')
                           <div class="d-flex">
                               <a href="{{ route('eventos.edit', $evento->id) }}" class="btn btn-sm btn-outline-secondary me-1">
                                   <i class="fas fa-edit"></i>
@@ -185,14 +183,16 @@
                                   </button>
                               </form>
                           </div>
-                      @endif
-                  @endauth
-              </div>
-          </li>
-      @empty
-          <li>No hay eventos programados para este mes.</li>
-      @endforelse
-  </ul>
+                      @endcan
+                  </div>
+              </li>
+          @endforeach
+      </ul>
+  @else
+      <div class="alert alert-info">
+          No hay eventos programados para este mes.
+      </div>
+  @endif
 </div>
     <!-- Caja Pruebas (arriba a la derecha) -->
   <div class="seccion-independiente">

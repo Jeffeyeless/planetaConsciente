@@ -9,16 +9,12 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
-    public function register(): void
-    {
-        //
-    }
+    public function boot()
+{
+    $this->registerPolicies();
 
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        //
-    }
+    Gate::define('admin', function ($user) {
+        return $user->is_admin; // Ajusta según tu modelo de usuario
+    });
+}
 }
