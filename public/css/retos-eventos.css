@@ -1,0 +1,270 @@
+/* Variables de color específicas para retos-eventos */
+:root {
+  --border-color: #e2e8f0;
+  --accent-light: #d4edda;
+}
+
+/* Estructura principal */
+.container-conscienta {
+  max-width: 56rem;
+  margin: 2.5rem auto;
+  background: var(--white);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 2rem;
+}
+
+/* Tipografía */
+.titulo-principal {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.subtitulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  color: var(--primary-light);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+/* Componentes reutilizables */
+.seccion-card {
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background: var(--white);
+}
+
+.seccion-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.lista-detalles {
+  padding-left: 1.25rem;
+  color: var(--text);
+}
+
+.lista-detalles li {
+  list-style-type: disc;
+  margin-bottom: 0.5rem;
+}
+
+.destacado {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.badge-nuevo {
+  display: inline-block;
+  background-color: var(--accent-light);
+  color: var(--accent-dark);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+}
+
+.tabla-conscienta {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.tabla-conscienta thead {
+  background-color: var(--secondary);
+}
+
+.tabla-conscienta th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-transform: uppercase;
+  text-align: left;
+  padding: 0.75rem 1.5rem;
+}
+
+.tabla-conscienta td {
+  font-size: 0.875rem;
+  color: var(--text);
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.tabla-conscienta tr:last-child td {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tabla-conscienta tr:hover {
+  background-color: rgba(76, 175, 125, 0.05);
+}
+
+/* Estilos para imágenes */
+.imagen-mediana {
+  max-width: 100%;
+  height: auto;
+  width: 600px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin: 0 auto;
+  display: block;
+}
+
+/* Estilos para eventos */
+.evento-card {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  margin-bottom: 1.5rem;
+}
+
+.evento-header {
+  background: var(--primary);
+  color: var(--white);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.evento-fecha {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.evento-body {
+  padding: 1.5rem;
+}
+
+.evento-titulo {
+  font-size: 1.25rem;
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+}
+
+.evento-descripcion {
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.evento-detalles {
+  margin-top: 1.5rem;
+}
+
+.evento-detalle {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+}
+
+.evento-detalle i {
+  margin-right: 0.75rem;
+  color: var(--accent);
+}
+
+.evento-acciones {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+/* Estilos para retos */
+.reto-card {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  margin-bottom: 1.5rem;
+}
+
+.reto-header {
+  padding: 1rem;
+  background: var(--secondary);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reto-progreso {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.reto-progreso-bar {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.reto-body {
+  padding: 1.5rem;
+}
+
+.reto-titulo {
+  font-size: 1.25rem;
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+}
+
+.reto-descripcion {
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.reto-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  color: var(--text-light);
+  font-size: 0.875rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container-conscienta {
+      padding: 1rem;
+      margin: 1rem;
+  }
+  
+  .grid {
+      grid-template-columns: 1fr !important;
+  }
+  
+  .imagen-mediana {
+      width: 100%;
+      border-radius: 4px;
+  }
+  
+  .evento-header,
+  .reto-header {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+  
+  .reto-meta {
+      flex-direction: column;
+      gap: 0.5rem;
+  }
+}
