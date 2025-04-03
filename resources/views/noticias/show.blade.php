@@ -7,15 +7,15 @@
     <div class="noticia-detalle">
         <div class="noticia-detalle-img-container">
             @if($noticia->imagen_url)
-            <img src="{{ asset($noticia->imagen_url) }}" alt="{{ $noticia->titulo }}" class="noticia-detalle-img">
+            <img src="{{ asset($noticia->imagen_url) }}" alt="{{ $noticia->titulo }}" class="noticia-detalle-img" loading="lazy">
             @else
-            <img src="https://source.unsplash.com/random/800x450/?nature,eco" alt="Imagen de noticia" class="noticia-detalle-img">
+            <img src="https://source.unsplash.com/random/800x450/?nature,eco" alt="Imagen de noticia" class="noticia-detalle-img" loading="lazy">
             @endif
         </div>
         
         <div class="noticia-detalle-content">
             <div class="noticia-detalle-meta">
-                <span class="noticia-detalle-date"><i class="far fa-calendar-alt"></i> {{ $noticia->fecha_publicacion->format('d F, Y') }}</span>
+                <span class="noticia-detalle-date"><i class="far fa-calendar-alt"></i> {{ $noticia->fecha_publicacion->locale('es')->translatedFormat('d F, Y') }}</span>
                 @if($noticia->fuente)
                 <span class="noticia-detalle-source">{{ $noticia->fuente }}</span>
                 @endif
@@ -50,4 +50,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('styles')
+<link href="{{ asset('css/noticias.css') }}" rel="stylesheet">
 @endsection

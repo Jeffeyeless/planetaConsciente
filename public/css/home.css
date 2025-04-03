@@ -5,6 +5,116 @@
     --stat-number-color: #4caf7d;
 }
 
+/* ============ WELCOME CARD ============ */
+.welcome-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    transition: var(--transition);
+    margin: 3rem auto;
+    max-width: 800px;
+}
+
+.welcome-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-5px);
+}
+
+.welcome-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+}
+
+.welcome-header h2 {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+
+.user-info {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-initial {
+    background-color: var(--primary);
+    color: white;
+    border-radius: 50%;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-logout {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.btn-logout:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.welcome-body {
+    padding: 2rem;
+    text-align: center;
+}
+
+.welcome-message {
+    font-size: 1.2rem;
+    color: var(--text);
+    margin-bottom: 2rem;
+}
+
+.welcome-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-action {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.btn-action:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
 /* ============ HERO SECTION ============ */
 .home-hero {
     background: var(--home-hero-bg), url('../images/home-bg.jpg');
@@ -14,7 +124,8 @@
     padding: 8rem 0 6rem;
     text-align: center;
     position: relative;
-    margin-top: -1px; /* Solapa el borde del navbar */
+    margin: -1rem -1.5rem 0;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
 
 .home-hero-content {
@@ -41,6 +152,7 @@
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .hero-cta {
@@ -55,6 +167,7 @@
     box-shadow: var(--shadow-md);
     align-items: center;
     gap: 0.75rem;
+    font-size: 1.1rem;
 }
 
 .hero-cta:hover {
@@ -145,12 +258,16 @@
     color: var(--text-light);
     max-width: 600px;
     margin: 0 auto;
+    font-size: 1.1rem;
 }
 
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
 }
 
 .feature-card {
@@ -201,6 +318,9 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
 }
 
 .activity-card {
@@ -260,7 +380,8 @@
     padding: 2rem;
     box-shadow: var(--shadow-sm);
     position: relative;
-    margin: 1rem;
+    margin: 1rem auto;
+    max-width: 800px;
 }
 
 .testimonial-quote {
@@ -268,6 +389,8 @@
     font-style: italic;
     margin-bottom: 1.5rem;
     position: relative;
+    font-size: 1.1rem;
+    line-height: 1.6;
 }
 
 .testimonial-quote::before {
@@ -326,10 +449,21 @@
     
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
+        padding: 0 1rem;
     }
     
     .section-title {
         font-size: 1.8rem;
+    }
+    
+    .welcome-header h2 {
+        font-size: 1.5rem;
+        padding-right: 100px;
+    }
+    
+    .user-info {
+        top: 15px;
+        right: 15px;
     }
 }
 
@@ -352,6 +486,15 @@
     .activity-grid {
         grid-template-columns: 1fr;
     }
+    
+    .welcome-actions {
+        flex-direction: column;
+    }
+    
+    .btn-action {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /* ============ ANIMACIONES ============ */
@@ -368,4 +511,5 @@
 
 .fade-in {
     animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0; /* Inicia invisible para la animación */
 }

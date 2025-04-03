@@ -13,6 +13,14 @@
         Última actualización: <span id="update-time"></span>
     </div>
 
+    @auth
+    <div class="admin-actions">
+        <a href="{{ route('noticias.create') }}" class="btn-action">
+            <i class="fas fa-plus"></i> Crear Nueva Noticia
+        </a>
+    </div>
+    @endauth
+
     <div class="grid-noticias">
         @foreach($noticias as $noticia)
         <div class="noticia-card">
@@ -68,5 +76,8 @@
     updateDateTime();
     setInterval(updateDateTime, 60000);
 </script>
+@endsection
+
+@section('styles')
 <link href="{{ asset('css/noticias.css') }}" rel="stylesheet">
 @endsection
