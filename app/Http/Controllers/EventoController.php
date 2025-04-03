@@ -12,45 +12,49 @@ use Illuminate\Support\Facades\Gate;
 
 class EventoController extends Controller
 {
+    // Constantes para tipos de eventos
+    const TIPOS_EVENTO = [
+        'Taller', 
+        'Conferencia', 
+        'Siembra', 
+        'Limpieza', 
+        'Feria', 
+        'Otro'
+    ];
+
     /**
      * Muestra la página principal de Retos y Eventos
      */
     public function index()
     {
-        // Eventos para el mes actual y el siguiente (con manejo de colección vacía)
-        $eventos = Evento::where('fecha', '>=', now()->startOfMonth())
-                      ->where('fecha', '<=', now()->addMonth()->endOfMonth())
-                      ->orderBy('fecha')
-                      ->get();
+        $eventos = Evento::query()
+            ->whereBetween('fecha', [
+                now()->startOfMonth(),
+                now()->addMonth()->endOfMonth()
+            ])
+            ->orderBy('fecha')
+            ->get();
         
-        // Si no hay eventos, pasamos null para manejar en la vista
-        if ($eventos->isEmpty()) {
-            $eventos = null;
-        }
-
         // Retos (sin cambios)
         $retosMensuales = Reto::where('mes', now()->month)
-                             ->where('año', now()->year)
-                             ->get();
+            ->where('año', now()->year)
+            ->get();
         
         // Organizaciones (sin cambios)
         $organizaciones = Organizacion::where('activo', true)
-                                    ->orderBy('nombre')
-                                    ->get();
+            ->orderBy('nombre')
+            ->get();
         
-        // Datos ambientales
-        $datosAmbientales = [
-            'fecha_revision' => now()->format('d/m/Y'),
-            'puntos_clave' => 'Reducción de huella de carbono',
-            'metas' => '50% menos plásticos en 2025',
-        ];
-        
-        return view('retos-eventos.index', compact(
-            'eventos', 
-            'retosMensuales', 
-            'organizaciones',
-            'datosAmbientales'
-        ));
+        return view('retos-eventos.index', [
+            'eventos' => $eventos->isEmpty() ? null : $eventos,
+            'retosMensuales' => $retosMensuales,
+            'organizaciones' => $organizaciones,
+            'datosAmbientales' => [
+                'fecha_revision' => now()->format('d/m/Y'),
+                'puntos_clave' => 'Reducción de huella de carbono',
+                'metas' => '50% menos plásticos en 2025',
+            ]
+        ]);
     }
 
     /**
@@ -58,12 +62,11 @@ class EventoController extends Controller
      */
     public function create()
     {
-        // Verificar permisos
-        if (!Gate::allows('admin')) {
-            abort(403, 'No tienes permiso para realizar esta acción');
-        }
+        Gate::authorize('admin');
         
-        return view('retos-eventos.eventos.create');
+        return view('retos-eventos.eventos.create', [
+            'tiposEvento' => self::TIPOS_EVENTO
+        ]);
     }
 
     /**
@@ -71,136 +74,130 @@ class EventoController extends Controller
      */
     public function store(Request $request)
     {
-        // Verificar permisos
-        if (!Gate::allows('admin')) {
-            abort(403, 'No tienes permiso para realizar esta acción');
-        }
+        Gate::authorize('admin');
 
-        $validated = $request->validate([
-            'titulo' => 'required|string|max:255',
-            'descripcion' => 'required|string',
-            'fecha' => 'required|date',
-            'ubicacion' => 'required|string|max:255',
-            'latitud' => 'nullable|numeric',
-            'longitud' => 'nullable|numeric',
-            'tipo' => 'required|string|in:Taller,Conferencia,Siembra,Limpieza,Feria,Otro',
-            'sitio_web' => 'nullable|url',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048'
-        ]);
-
-        // Procesar imagen
+        $validated = $this->validarEvento($request);
+        
         if ($request->hasFile('imagen')) {
-            $validated['imagen'] = $request->file('imagen')->store('eventos', 'public');
+            $validated['imagen'] = $this->guardarImagen($request->file('imagen'));
         }
 
-        // Crear evento
         $evento = Evento::create($validated);
 
-        return redirect()->route('eventos.show', $evento->id)
-                       ->with('success', 'Evento creado exitosamente!');
+        return redirect()
+            ->route('eventos.show', $evento->id)
+            ->with('success', 'Evento creado exitosamente!');
     }
 
     /**
      * Muestra la página de un evento específico
      */
-    public function show($id)
+    public function show(Evento $evento)
     {
-        $evento = Evento::findOrFail($id);
         return view('retos-eventos.eventos.show', compact('evento'));
     }
 
     /**
      * Muestra el formulario para editar un evento
      */
-    public function edit($id)
+    public function edit(Evento $evento)
     {
-        // Verificar permisos
-        if (!Gate::allows('admin')) {
-            abort(403, 'No tienes permiso para realizar esta acción');
-        }
+        Gate::authorize('admin');
 
-        $evento = Evento::findOrFail($id);
-        return view('retos-eventos.eventos.edit', compact('evento'));
+        return view('retos-eventos.eventos.edit', [
+            'evento' => $evento,
+            'tiposEvento' => self::TIPOS_EVENTO
+        ]);
     }
 
     /**
      * Actualiza un evento en la base de datos
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Evento $evento)
     {
-        // Verificar permisos
-        if (!Gate::allows('admin')) {
-            abort(403, 'No tienes permiso para realizar esta acción');
-        }
+        Gate::authorize('admin');
 
-        $evento = Evento::findOrFail($id);
+        $validated = $this->validarEvento($request, true);
+
+        $this->manejarImagen($request, $evento, $validated);
+
+        $evento->update($validated);
+
+        return redirect()
+            ->route('eventos.show', $evento->id)
+            ->with('success', 'Evento actualizado exitosamente!');
+    }
+
+    /**
+     * Elimina un evento de la base de datos
+     */
+    public function destroy(Evento $evento)
+    {
+        Gate::authorize('admin');
+
+        $this->eliminarImagenSiExiste($evento->imagen);
         
-        $validated = $request->validate([
+        $evento->delete();
+
+        return redirect()
+            ->route('eventos.index')
+            ->with('success', 'Evento eliminado exitosamente!');
+    }
+
+    /**
+     * Muestra la página de un reto específico
+     */
+    public function showReto(Reto $reto)
+    {
+        return view('retos-eventos.show-reto', compact('reto'));
+    }
+
+    /**
+     * Métodos privados de ayuda
+     */
+    private function validarEvento(Request $request, $esActualizacion = false)
+    {
+        $reglas = [
             'titulo' => 'required|string|max:255',
             'descripcion' => 'required|string',
             'fecha' => 'required|date',
             'ubicacion' => 'required|string|max:255',
             'latitud' => 'nullable|numeric',
             'longitud' => 'nullable|numeric',
-            'tipo' => 'required|string|in:Taller,Conferencia,Siembra,Limpieza,Feria,Otro',
+            'tipo' => 'required|string|in:' . implode(',', self::TIPOS_EVENTO),
             'sitio_web' => 'nullable|url',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-            'eliminar_imagen' => 'nullable|boolean'
-        ]);
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048'
+        ];
 
-        // Manejo de imagen
+        if ($esActualizacion) {
+            $reglas['eliminar_imagen'] = 'nullable|boolean';
+        }
+
+        return $request->validate($reglas);
+    }
+
+    private function guardarImagen($imagen)
+    {
+        return $imagen->store('eventos', 'public');
+    }
+
+    private function eliminarImagenSiExiste($rutaImagen)
+    {
+        if ($rutaImagen) {
+            Storage::disk('public')->delete($rutaImagen);
+        }
+    }
+
+    private function manejarImagen(Request $request, Evento $evento, array &$validated)
+    {
         if ($request->hasFile('imagen')) {
-            // Eliminar imagen anterior si existe
-            if ($evento->imagen) {
-                Storage::disk('public')->delete($evento->imagen);
-            }
-            $validated['imagen'] = $request->file('imagen')->store('eventos', 'public');
+            $this->eliminarImagenSiExiste($evento->imagen);
+            $validated['imagen'] = $this->guardarImagen($request->file('imagen'));
         } elseif ($request->input('eliminar_imagen')) {
-            // Eliminar imagen si se marcó la opción
-            if ($evento->imagen) {
-                Storage::disk('public')->delete($evento->imagen);
-                $validated['imagen'] = null;
-            }
+            $this->eliminarImagenSiExiste($evento->imagen);
+            $validated['imagen'] = null;
         } else {
-            // Mantener la imagen existente
             unset($validated['imagen']);
         }
-
-        $evento->update($validated);
-
-        return redirect()->route('eventos.show', $evento->id)
-                       ->with('success', 'Evento actualizado exitosamente!');
-    }
-
-    /**
-     * Elimina un evento de la base de datos
-     */
-    public function destroy($id)
-    {
-        // Verificar permisos
-        if (!Gate::allows('admin')) {
-            abort(403, 'No tienes permiso para realizar esta acción');
-        }
-
-        $evento = Evento::findOrFail($id);
-        
-        // Eliminar la imagen asociada si existe
-        if ($evento->imagen) {
-            Storage::disk('public')->delete($evento->imagen);
-        }
-        
-        $evento->delete();
-
-        return redirect()->route('eventos.index')
-                       ->with('success', 'Evento eliminado exitosamente!');
-    }
-
-    /**
-     * Muestra la página de un reto específico
-     */
-    public function showReto($id)
-    {
-        $reto = Reto::findOrFail($id);
-        return view('retos-eventos.show-reto', compact('reto'));
     }
 }

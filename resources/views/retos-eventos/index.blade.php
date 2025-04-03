@@ -221,6 +221,28 @@
         No hay eventos programados para este mes.
       </div>
     @endif
+    @auth
+@if(auth()->user()->isAdmin())
+    <div class="btn-group" role="group">
+        <!-- Botón Editar -->
+        <a href="{{ route('eventos.edit', $evento->id) }}"
+          class="btn btn-sm btn-outline-primary">
+            <i class="fas fa-edit"></i> Editar
+        </a>
+        
+        <!-- Botón Eliminar -->
+        <form action="{{ route('eventos.destroy', $evento->id) }}" method="POST" class="d-inline">
+            @csrf
+            @method('DELETE')
+            <button type="submit" 
+                    class="btn btn-sm btn-outline-danger"
+                    onclick="return confirm('¿Estás seguro de eliminar este evento?')">
+                <i class="fas fa-trash-alt"></i> Eliminar
+            </button>
+        </form>
+    </div>
+@endif
+@endauth
   </div>
   
   <!-- Caja Pruebas (arriba a la derecha) -->

@@ -58,7 +58,7 @@ Route::get('/eventos/{evento}', [EventoController::class, 'show'])->name('evento
 Route::middleware(['auth', 'can:admin'])->group(function () {
     Route::get('/eventos/create', [EventoController::class, 'create'])->name('eventos.create');
     Route::post('/eventos', [EventoController::class, 'store'])->name('eventos.store');
-    Route::get('/eventos/{evento}/edit', [EventoController::class, 'edit'])->name('eventos.edit');
     Route::put('/eventos/{evento}', [EventoController::class, 'update'])->name('eventos.update');
+    Route::get('/eventos/{evento}/edit', [EventoController::class, 'edit'])->name('eventos.edit');
     Route::delete('/eventos/{evento}', [EventoController::class, 'destroy'])->name('eventos.destroy');
 });
