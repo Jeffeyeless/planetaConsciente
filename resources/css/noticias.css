@@ -378,4 +378,60 @@
     .noticia-title {
         font-size: 1.1rem;
     }
+
+/* === AÑADIDO: ESTILOS PARA FILTRO (al final del archivo) === */
+.filtro-noticias {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.filtro-form {
+    display: grid;
+    gap: 1rem;
+}
+
+.filtro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.filtro-group input,
+.filtro-group select {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.filtro-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.filtro-actions button {
+    background: #4caf7d;
+    color: white;
+    border: none;
+    padding: 0.7rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.filtro-actions a {
+    background: #e0e0e0;
+    color: #333;
+    padding: 0.7rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .filtro-grid {
+        grid-template-columns: 1fr;
+    }
+}
 }

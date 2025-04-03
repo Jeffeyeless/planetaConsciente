@@ -8,23 +8,32 @@ use Illuminate\Support\Facades\Storage;
 
 class NoticiaController extends Controller
 {
-    public function index()
+    // MÉTODO INDEX MODIFICADO (solo añadí filtros)
+    public function index(Request $request)
     {
-        $noticias = Noticia::orderBy('fecha_publicacion', 'desc')->paginate(6);
-        return view('noticias.index', compact('noticias'));
+        $fuentes = Noticia::select('fuente')
+                  ->whereNotNull('fuente')
+                  ->distinct()
+                  ->pluck('fuente');
+
+        $noticias = Noticia::filtrar($request->all())
+            ->orderBy('fecha_publicacion', 'desc')
+            ->paginate(6)
+            ->appends($request->query());
+
+        return view('noticias.index', compact('noticias', 'fuentes'));
     }
 
+    // TUS MÉTODOS ORIGINALES (se mantienen igual)
     public function show(Noticia $noticia) {
         return view('noticias.show', compact('noticia'));
     }
 
-    public function create()
-    {
+    public function create() {
         return view('noticias.form', ['editMode' => false]);
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $validated = $request->validate([
             'titulo' => 'required|max:255',
             'resumen' => 'required|max:500',
@@ -49,7 +58,6 @@ class NoticiaController extends Controller
     }
 
     public function update(Request $request, Noticia $noticia) {
-        
         $validated = $request->validate([
             'titulo' => 'required|max:255',
             'resumen' => 'required|max:500',
@@ -73,9 +81,7 @@ class NoticiaController extends Controller
     }
 
     public function destroy(Noticia $noticia) {
-
         $noticia->delete();
-
         return redirect()->route('noticias.index')
                          ->with('success', 'Noticia eliminada exitosamente');
     }
