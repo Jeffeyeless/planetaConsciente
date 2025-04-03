@@ -50,15 +50,18 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/capacitaciones', [CapacitacionController::class, 'store'])->name('capacitaciones.store');
 });
 
-// Rutas públicas
-Route::get('/eventos', [EventoController::class, 'index'])->name('eventos.index');
-Route::get('/eventos/{evento}', [EventoController::class, 'show'])->name('eventos.show');
+
 
 // Rutas protegidas
 Route::middleware(['auth', 'can:admin'])->group(function () {
-    Route::get('/eventos/create', [EventoController::class, 'create'])->name('eventos.create');
-    Route::post('/eventos', [EventoController::class, 'store'])->name('eventos.store');
-    Route::put('/eventos/{evento}', [EventoController::class, 'update'])->name('eventos.update');
-    Route::get('/eventos/{evento}/edit', [EventoController::class, 'edit'])->name('eventos.edit');
-    Route::delete('/eventos/{evento}', [EventoController::class, 'destroy'])->name('eventos.destroy');
+    // Rutas públicas
+    Route::resource('eventos', EventoController::class)->names([
+        'index' => 'eventos.index',
+        'create' => 'eventos.create',
+        'store' => 'eventos.store',
+        'show' => 'eventos.show',
+        'edit' => 'eventos.edit',
+        'update' => 'eventos.update',
+        'destroy' => 'eventos.destroy'
+    ]);
 });
