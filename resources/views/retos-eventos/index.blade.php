@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('title', 'Retos y Eventos Ambientales')
 
 @section('content')
@@ -159,6 +160,7 @@
       .seccion-grande {
         grid-column: span 1;
       }
+      
     }
 </style>
 
