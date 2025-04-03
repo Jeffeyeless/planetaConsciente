@@ -5,12 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\Noticia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class NoticiaController extends Controller
 {
-    // MÉTODO INDEX MODIFICADO (solo añadí filtros)
     public function index(Request $request)
     {
+        // Validación de filtros
+        $validator = Validator::make($request->all(), [
+            'fecha_desde' => 'nullable|date',
+            'fecha_hasta' => 'nullable|date|after_or_equal:fecha_desde',
+        ], [
+            'fecha_hasta.after_or_equal' => 'La fecha final debe ser igual o posterior a la fecha inicial'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('noticias.index')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $fuentes = Noticia::select('fuente')
                   ->whereNotNull('fuente')
                   ->distinct()
@@ -24,7 +39,6 @@ class NoticiaController extends Controller
         return view('noticias.index', compact('noticias', 'fuentes'));
     }
 
-    // TUS MÉTODOS ORIGINALES (se mantienen igual)
     public function show(Noticia $noticia) {
         return view('noticias.show', compact('noticia'));
     }
@@ -33,7 +47,8 @@ class NoticiaController extends Controller
         return view('noticias.form', ['editMode' => false]);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $validated = $request->validate([
             'titulo' => 'required|max:255',
             'resumen' => 'required|max:500',
