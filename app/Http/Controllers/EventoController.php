@@ -27,13 +27,7 @@ class EventoController extends Controller
      */
     public function index()
     {
-        $eventos = Evento::query()
-            ->whereBetween('fecha', [
-                now()->startOfMonth(),
-                now()->addMonth()->endOfMonth()
-            ])
-            ->orderBy('fecha')
-            ->get();
+        $eventos = Evento::orderBy('fecha', 'desc')->get();
         
         // Retos (sin cambios)
         $retosMensuales = Reto::where('mes', now()->month)
