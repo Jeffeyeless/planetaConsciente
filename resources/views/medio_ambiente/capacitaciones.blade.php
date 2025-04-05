@@ -2,7 +2,6 @@
 
 @section('content')
 <style>
-    /* Estilos base */
     .capacitaciones-container {
         max-width: 1200px;
         margin: 0 auto;
@@ -10,10 +9,10 @@
         font-family: 'Segoe UI', system-ui, sans-serif;
     }
     
-    /* Hero section mejorada */
+    /* Hero Section con verdes más oscuros */
     .hero-section {
-        background: linear-gradient(135deg, rgba(40, 167, 69, 0.9), rgba(30, 126, 52, 0.9)), 
-                    url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+        background: linear-gradient(135deg, rgba(33, 136, 56, 0.9), rgba(26, 71, 42, 0.9)), 
+                    url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
         background-size: cover;
         background-position: center;
         color: white;
@@ -43,8 +42,6 @@
         font-weight: 800;
         margin-bottom: 1rem;
         text-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        position: relative;
-        z-index: 1;
     }
     
     .hero-subtitle {
@@ -52,14 +49,11 @@
         font-weight: 300;
         opacity: 0.9;
         margin-bottom: 2rem;
-        position: relative;
-        z-index: 1;
     }
     
-    /* Formulario mejorado */
+    /* Formulario con verdes más oscuros */
     .upload-card {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
+        background: white;
         border-radius: 15px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         margin-bottom: 3rem;
@@ -68,7 +62,7 @@
     }
     
     .card-header-custom {
-        background: linear-gradient(135deg, #28a745, #218838);
+        background: linear-gradient(135deg, #218838, #1a472a);
         color: white;
         padding: 1.5rem;
         font-size: 1.25rem;
@@ -79,19 +73,19 @@
     }
     
     .form-control {
-        border-radius: 8px;
+        border-radius: 10px;
         padding: 12px 15px;
         border: 1px solid #e0e0e0;
         transition: all 0.3s;
     }
     
     .form-control:focus {
-        border-color: #28a745;
-        box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.2);
+        border-color: #218838;
+        box-shadow: 0 0 0 3px rgba(33, 136, 56, 0.2);
     }
     
     .btn-submit {
-        background: linear-gradient(135deg, #28a745, #218838);
+        background: linear-gradient(135deg, #218838, #1a472a);
         color: white;
         border: none;
         padding: 12px 30px;
@@ -100,12 +94,12 @@
         transition: all 0.3s;
         position: relative;
         overflow: hidden;
-        box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        box-shadow: 0 5px 15px rgba(33, 136, 56, 0.3);
     }
     
     .btn-submit:hover {
         transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
+        box-shadow: 0 8px 20px rgba(33, 136, 56, 0.4);
     }
     
     .btn-submit::after {
@@ -123,7 +117,7 @@
         left: 100%;
     }
     
-    /* Tarjetas de capacitaciones */
+    /* Tarjetas de Capacitaciones con verdes más oscuros */
     .card-capacitacion {
         border: none;
         border-radius: 15px;
@@ -131,41 +125,23 @@
         height: 100%;
         box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         overflow: hidden;
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    
-    .card-capacitacion.animated {
-        opacity: 1;
-        transform: translateY(0);
     }
     
     .card-capacitacion:hover {
-        transform: translateY(-10px) scale(1.02) !important;
+        transform: translateY(-10px);
         box-shadow: 0 15px 30px rgba(0,0,0,0.1);
     }
     
     .media-container {
-        height: 220px;
+        height: 200px;
         overflow: hidden;
         display: flex;
         align-items: center;
         justify-content: center;
         background: #f8f9fa;
-        border-radius: 8px;
+        border-radius: 10px;
         margin-bottom: 15px;
         position: relative;
-    }
-    
-    .media-container::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(to bottom, rgba(0,0,0,0.1), transparent);
-        z-index: 1;
     }
     
     .media-container img {
@@ -191,11 +167,8 @@
     
     .card-title {
         font-weight: 700;
-        color: #28a745;
+        color: #218838;
         margin-bottom: 0.75rem;
-        display: flex;
-        align-items: center;
-        gap: 8px;
     }
     
     .card-text {
@@ -203,45 +176,70 @@
         margin-bottom: 1.5rem;
     }
     
+    .card-footer {
+        background: white;
+        border-top: none;
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
     .download-btn {
-        background: transparent;
-        color: #28a745;
-        border: 1px solid #28a745;
-        padding: 8px 15px;
+        background: white;
+        color: #218838;
+        border: 1px solid #218838;
+        padding: 8px 20px;
         border-radius: 50px;
-        font-size: 0.9rem;
+        font-weight: 500;
         transition: all 0.3s;
     }
     
     .download-btn:hover {
-        background: #28a745;
+        background: #218838;
         color: white;
         transform: translateY(-2px);
     }
     
-    /* Estado vacío */
+    /* Estado Vacío con verde más oscuro */
     .empty-state {
         text-align: center;
         padding: 4rem 2rem;
-        color: #6c757d;
         background: #f8f9fa;
         border-radius: 15px;
     }
     
     .empty-state i {
         font-size: 4rem;
+        color: #218838;
         margin-bottom: 1.5rem;
-        color: #28a745;
         opacity: 0.7;
     }
     
     .empty-state h4 {
         font-weight: 600;
+        color: #333;
         margin-bottom: 1rem;
     }
     
+    /* Placeholder para archivos */
+    .placeholder-image {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        color: #6c757d;
+    }
+    
+    .placeholder-image i {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
     /* Animaciones */
-    @keyframes fadeInUp {
+    @keyframes fadeIn {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
@@ -264,6 +262,35 @@
             height: 180px;
         }
     }
+
+    /* Estilos para las insignias con verde más oscuro */
+    .badge-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin: 30px 0;
+        flex-wrap: wrap;
+    }
+    
+    .badge-item {
+        text-align: center;
+        transition: transform 0.3s;
+    }
+    
+    .badge-item:hover {
+        transform: scale(1.1);
+    }
+    
+    .badge-svg {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 10px;
+    }
+    
+    .badge-label {
+        font-weight: 600;
+        color: #218838;
+    }
 </style>
 
 <div class="capacitaciones-container">
@@ -273,38 +300,80 @@
         <p class="hero-subtitle">Aprende sobre sostenibilidad con nuestros recursos educativos</p>
     </div>
 
-    <!-- Formulario -->
-    @auth
-        @if(auth()->user()->isAdmin())
-        <div class="card upload-card shadow">
-            <div class="card-header-custom rounded-top">
-                <i class="fas fa-cloud-upload-alt"></i> Subir Nueva Capacitación
-            </div>
-            <div class="card-body">
-                <form action="{{ route('capacitaciones.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="mb-4">
-                        <label class="form-label fw-semibold">Título</label>
-                        <input type="text" name="titulo" class="form-control" placeholder="Ej. Guía de reciclaje en el hogar" required>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label fw-semibold">Descripción</label>
-                        <textarea name="descripcion" class="form-control" rows="3" placeholder="Describe el contenido de la capacitación..." required></textarea>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label fw-semibold">Archivo (Imagen o Video)</label>
-                        <input type="file" name="material" class="form-control" accept="image/, video/" required>
-                        <small class="text-muted">Formatos aceptados: JPEG, PNG, GIF, MP4, WebM</small>
-                    </div>
-                    <div class="text-end">
-                        <button type="submit" class="btn btn-submit">
-                            <i class="fas fa-upload me-2"></i> Subir Capacitación
-                        </button>
-                    </div>
-                </form>
+    <!-- Sección de Insignias -->
+    <div class="card mb-4">
+        <div class="card-header-custom">
+            <i class="fas fa-award"></i> Insignias Ambientales
+        </div>
+        <div class="card-body">
+            <div class="badge-container">
+                <!-- Insignia 1 -->
+                <div class="badge-item">
+                    <svg class="badge-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="#FFD700" stroke="#C0C0C0" stroke-width="2"/>
+                        <path d="M50 25L60 40L75 45L65 60L70 75L50 70L30 75L35 60L25 45L40 40Z" fill="#218838"/>
+                        <text x="50" y="85" text-anchor="middle" font-size="10" fill="#218838">Nivel 1</text>
+                    </svg>
+                    <div class="badge-label">Eco-Aprendiz</div>
+                </div>
+                
+                <!-- Insignia 2 -->
+                <div class="badge-item">
+                    <svg class="badge-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="#C0C0C0" stroke="#FFD700" stroke-width="2"/>
+                        <path d="M50 20L60 35L75 40L65 55L70 70L50 65L30 70L35 55L25 40L40 35Z" fill="#218838"/>
+                        <circle cx="50" cy="50" r="15" fill="#FF5722"/>
+                        <text x="50" y="85" text-anchor="middle" font-size="10" fill="#218838">Nivel 2</text>
+                    </svg>
+                    <div class="badge-label">Guardián Verde</div>
+                </div>
+                
+                <!-- Insignia 3 -->
+                <div class="badge-item">
+                    <svg class="badge-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="#FF4500" stroke="#FFD700" stroke-width="2"/>
+                        <path d="M50 15L60 30L75 35L65 50L70 65L50 60L30 65L35 50L25 35L40 30Z" fill="#FFD700"/>
+                        <path d="M50 35L60 45L75 45L65 55L70 70L50 65L30 70L35 55L25 45L40 45Z" fill="#218838"/>
+                        <text x="50" y="85" text-anchor="middle" font-size="10" fill="#218838">Nivel 3</text>
+                    </svg>
+                    <div class="badge-label">Héroe del Planeta</div>
+                </div>
             </div>
         </div>
-        @endif
+    </div>
+
+    <!-- Formulario de Subida -->
+    @auth
+        @if(auth()->user()->isAdmin())
+    <div class="card upload-card">
+        <div class="card-header-custom">
+            <i class="fas fa-cloud-upload-alt"></i> Subir Nueva Capacitación
+        </div>
+        <div class="card-body">
+            <form action="{{ route('capacitaciones.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Título</label>
+                    <input type="text" name="titulo" class="form-control" placeholder="Ej. Introducción al cambio climático" required>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Descripción</label>
+                    <textarea name="descripcion" class="form-control" rows="3" placeholder="Describe el contenido de la capacitación..." required></textarea>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Archivo (Imagen o Video)</label>
+                    <input type="file" name="material" class="form-control" accept="image/*, video/*" required>
+                    <small class="text-muted">Formatos aceptados: JPEG, PNG, GIF, MP4, WebM</small>
+                </div>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-submit">
+                        <i class="fas fa-upload me-2"></i> Subir Capacitación
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @endif
     @endauth
 
     <!-- Lista de Capacitaciones -->
@@ -323,33 +392,63 @@
         <div class="row">
             @foreach($capacitaciones as $capacitacion)
             <div class="col-md-4 mb-4">
-                <div class="card card-capacitacion" data-delay="{{ $loop->index * 100 }}">
+                <div class="card card-capacitacion h-100">
                     <div class="card-body">
                         <div class="media-container">
-                            @if(Str::contains($capacitacion->material, ['jpg', 'jpeg', 'png', 'gif']))
-                                <img src="{{ asset('storage/'.$capacitacion->material) }}" alt="{{ $capacitacion->titulo }}" class="img-fluid">
-                            @elseif(Str::contains($capacitacion->material, ['mp4', 'webm', 'ogg']))
-                                <video controls poster="{{ asset('images/video-thumbnail.jpg') }}">
-                                    <source src="{{ asset('storage/'.$capacitacion->material) }}" type="video/{{ pathinfo($capacitacion->material, PATHINFO_EXTENSION) }}">
-                                    Tu navegador no soporta el elemento de video.
+                            @if($capacitacion->es_imagen)
+                                <img src="{{ $capacitacion->url_material }}" alt="{{ $capacitacion->titulo }}" class="img-fluid">
+                            @elseif($capacitacion->es_video)
+                                <video controls class="w-100">
+                                    <source src="{{ $capacitacion->url_material }}" type="video/{{ pathinfo($capacitacion->material, PATHINFO_EXTENSION) }}">
+                                    Tu navegador no soporta videos HTML5.
                                 </video>
+                            @else
+                                <!-- Ilustraciones SVG personalizadas según el título -->
+                                @if(str_contains($capacitacion->titulo, 'cambio climático'))
+                                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="200" height="200" fill="#e3f2fd"/>
+                                    <path d="M100 30L70 80H130L100 30Z" fill="#ffeb3b"/>
+                                    <path d="M60 90C60 90 65 70 85 70C105 70 110 90 110 90C125 90 140 100 140 115C140 130 125 140 110 140C95 140 80 130 80 115C80 100 60 90 60 90Z" fill="#bbdefb"/>
+                                    <path d="M40 120L30 140H50L40 120Z" fill="#e0e0e0"/>
+                                    <path d="M160 120L150 140H170L160 120Z" fill="#e0e0e0"/>
+                                    <path d="M100 160L80 180H120L100 160Z" fill="#e0e0e0"/>
+                                </svg>
+                                @elseif(str_contains($capacitacion->titulo, 'residuos'))
+                                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="200" height="200" fill="#e8f5e9"/>
+                                    <rect x="50" y="60" width="100" height="120" rx="5" fill="#81c784"/>
+                                    <rect x="70" y="80" width="20" height="20" rx="3" fill="#218838"/>
+                                    <rect x="110" y="80" width="20" height="20" rx="3" fill="#ffeb3b"/>
+                                    <rect x="70" y="120" width="20" height="20" rx="3" fill="#2196f3"/>
+                                    <rect x="110" y="120" width="20" height="20" rx="3" fill="#ff9800"/>
+                                    <path d="M80 40L70 60H130L120 40H80Z" fill="#a5d6a7"/>
+                                </svg>
+                                @elseif(str_contains($capacitacion->titulo, 'agua'))
+                                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="200" height="200" fill="#e3f2fd"/>
+                                    <path d="M50 120C50 80 100 50 100 50C100 50 150 80 150 120C150 160 100 180 100 180C100 180 50 160 50 120Z" fill="#2196f3" opacity="0.7"/>
+                                    <path d="M70 130C70 100 100 80 100 80C100 80 130 100 130 130C130 160 100 170 100 170C100 170 70 160 70 130Z" fill="#42a5f5" opacity="0.9"/>
+                                    <path d="M90 140C90 120 100 110 100 110C100 110 110 120 110 140C110 160 100 160 100 160C100 160 90 160 90 140Z" fill="#bbdefb"/>
+                                </svg>
+                                @else
+                                <div class="placeholder-image">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>Formato no reconocido</span>
+                                </div>
+                                @endif
                             @endif
                         </div>
-                        <h5 class="card-title">
-                            <i class="fas fa-bookmark"></i>{{ $capacitacion->titulo }}
-                        </h5>
+                        <h5 class="card-title">{{ $capacitacion->titulo }}</h5>
                         <p class="card-text">{{ $capacitacion->descripcion }}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-muted">
-                                <i class="far fa-calendar-alt me-1"></i>
-                                {{ $capacitacion->created_at->format('d M Y') }}
-                            </small>
-                            <a href="{{ asset('storage/'.$capacitacion->material) }}" 
-                               class="download-btn" 
-                               download="{{ Str::slug($capacitacion->titulo) }}">
-                                <i class="fas fa-download me-1"></i> Descargar
-                            </a>
-                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">
+                            <i class="far fa-calendar-alt me-1"></i>
+                            {{ $capacitacion->created_at->format('d M Y') }}
+                        </small>
+                        <a href="{{ $capacitacion->url_material }}" class="download-btn" download="{{ Str::slug($capacitacion->titulo) }}">
+                            <i class="fas fa-download me-1"></i> Descargar
+                        </a>
                     </div>
                 </div>
             </div>
@@ -359,47 +458,43 @@
 </div>
 
 <script>
-// Animación al cargar y al hacer scroll
-document.addEventListener('DOMContentLoaded', function() {
-    // Animación inicial
-    setTimeout(() => {
-        document.querySelectorAll('.card-capacitacion').forEach((card, index) => {
-            setTimeout(() => {
-                card.classList.add('animated');
-            }, index * 150);
-        });
-    }, 300);
+// Validación de archivos
+document.querySelector('input[name="material"]')?.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'video/mp4', 'video/webm', 'video/ogg'];
+    const maxSize = 50 * 1024 * 1024; // 50MB
     
-    // Animación al hacer scroll
+    if (!validTypes.includes(file.type)) {
+        alert('Por favor, sube solo imágenes (JPEG, PNG, GIF) o videos (MP4, WebM, OGG)');
+        this.value = '';
+    }
+    
+    if (file.size > maxSize) {
+        alert('El archivo es demasiado grande. Máximo 50MB permitidos.');
+        this.value = '';
+    }
+});
+
+// Animación al hacer scroll
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.card-capacitacion');
+    
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
                 setTimeout(() => {
-                    entry.target.classList.add('animated');
-                }, entry.target.dataset.delay || 0);
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 150);
             }
         });
     }, { threshold: 0.1 });
     
-    document.querySelectorAll('.card-capacitacion').forEach(card => {
+    cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'all 0.5s ease-out';
         observer.observe(card);
-    });
-    
-    // Validación de archivos
-    document.querySelector('input[name="material"]').addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'video/mp4', 'video/webm', 'video/ogg'];
-        const maxSize = 50 * 1024 * 1024; // 50MB
-        
-        if (!validTypes.includes(file.type)) {
-            alert('Por favor, sube solo imágenes (JPEG, PNG, GIF) o videos (MP4, WebM, OGG)');
-            this.value = '';
-        }
-        
-        if (file.size > maxSize) {
-            alert('El archivo es demasiado grande. Máximo 50MB permitidos.');
-            this.value = '';
-        }
     });
 });
 </script>
