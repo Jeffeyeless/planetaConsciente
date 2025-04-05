@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
     @endif
     
-    @if(Request::is('calculadora'))
+    @if(Request::is('calculadora*'))
     <link rel="stylesheet" href="{{ asset('css/calculadora.css') }}">
     @endif
     

@@ -1,380 +1,126 @@
 @extends('layouts.app')
 
+@section('title', 'Resultados - Huella de Carbono')
+
 @section('content')
-<style>
-    :root {
-        --carbon-green: #28a745;
-        --carbon-red: #dc3545;
-        --carbon-yellow: #ffc107;
-        --carbon-blue: #17a2b8;
-    }
-    
-    .carbon-box {
-        border: 2px solid;
-        border-radius: 16px;
-        padding: 25px;
-        margin-bottom: 30px;
-        box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        background: white;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .carbon-box::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, var(--carbon-green), var(--carbon-blue));
-    }
-    
-    .carbon-box:hover {
-        box-shadow: 0 12px 25px rgba(0,0,0,0.12);
-        transform: translateY(-5px);
-    }
-    
-    .result-box {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9f5ee 100%);
-        border-color: var(--carbon-green) !important;
-        animation: pulse 2s infinite alternate;
-    }
-    
-    .comparison-box {
-        border-left: 6px solid;
-        border-right: 6px solid;
-    }
-    
-    .impact-high { 
-        border-color: var(--carbon-red); 
-        background: linear-gradient(to right, #fff5f5, white);
-    }
-    
-    .impact-medium { 
-        border-color: var(--carbon-yellow); 
-        background: linear-gradient(to right, #fffcf5, white);
-    }
-    
-    .impact-low { 
-        border-color: var(--carbon-green); 
-        background: linear-gradient(to right, #f5fff7, white);
-    }
-    
-    .carbon-value {
-        background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(23, 162, 184, 0.1) 100%);
-        border: 2px solid var(--carbon-green);
-        border-radius: 50px;
-        padding: 15px 30px;
-        display: inline-block;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .carbon-value::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at center, rgba(160, 221, 158, 0.8) 0%, rgba(255,255,255,0) 70%);
-        transform: rotate(30deg);
-        animation: shine 3s infinite;
-        pointer-events: none;
-    }
-    
-    /* Estilos mejorados para la barra de progreso con efectos de movimiento */
-    .progress-3d {
-        height: 30px;
-        border-radius: 15px;
-        box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-        position: relative;
-        overflow: hidden;
-        border: 1px solid rgba(0,0,0,0.1);
-        background: rgba(0,0,0,0.05);
-    }
-    
-    .progress-3d .progress-bar {
-        position: relative;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-        color: white;
-        font-weight: bold;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-        transition: width 1.5s cubic-bezier(0.65, 0, 0.35, 1);
-        animation: wave 2s infinite linear;
-    }
-    
-    /* Efecto de onda líquida */
-    @keyframes wave {
-        0% { background-position: 0 0; }
-        100% { background-position: 40px 0; }
-    }
-    
-    /* Colores con gradiente animado */
-    .progress-3d .progress-bar-danger {
-        background: linear-gradient(90deg, 
-            #dc3545 0%, 
-            #e04d5c 20%, 
-            #dc3545 40%, 
-            #e04d5c 60%, 
-            #dc3545 80%, 
-            #e04d5c 100%);
-        background-size: 40px 100%;
-    }
-    
-    .progress-3d .progress-bar-warning {
-        background: linear-gradient(90deg, 
-            #ffc107 0%, 
-            #ffcb2b 20%, 
-            #ffc107 40%, 
-            #ffcb2b 60%, 
-            #ffc107 80%, 
-            #ffcb2b 100%);
-        background-size: 40px 100%;
-        color: #212529;
-    }
-    
-    .progress-3d .progress-bar-success {
-        background: linear-gradient(90deg, 
-            #28a745 0%, 
-            #3cb853 20%, 
-            #28a745 40%, 
-            #3cb853 60%, 
-            #28a745 80%, 
-            #3cb853 100%);
-        background-size: 40px 100%;
-    }
-    
-    /* Efecto de burbujas */
-    .progress-bubbles {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-    }
-    
-    .bubble {
-        position: absolute;
-        background-color: rgba(255,255,255,0.4);
-        border-radius: 50%;
-        animation: bubble-rise 3s infinite ease-in;
-    }
-    
-    @keyframes bubble-rise {
-        0% {
-            transform: translateY(0) scale(0.3);
-            opacity: 0;
-        }
-        20% {
-            opacity: 0.5;
-        }
-        100% {
-            transform: translateY(-100px) scale(1);
-            opacity: 0;
-        }
-    }
-    
-    .carbon-badge {
-        font-size: 1rem;
-        padding: 8px 15px;
-        border-radius: 50px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        transition: all 0.3s ease;
-    }
-    
-    .carbon-badge:hover {
-        transform: scale(1.05);
-    }
-    
-    .btn-carbon {
-        background: linear-gradient(135deg, var(--carbon-green), var(--carbon-blue));
-        border: none;
-        border-radius: 50px;
-        padding: 12px 30px;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .btn-carbon:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    }
-    
-    .btn-carbon::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 100%);
-        transform: translateX(-100%);
-        transition: transform 0.6s ease;
-    }
-    
-    .btn-carbon:hover::after {
-        transform: translateX(100%);
-    }
-    
-    @keyframes pulse {
-        0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4); }
-        70% { box-shadow: 0 0 0 15px rgba(40, 167, 69, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
-    }
-    
-    @keyframes shine {
-        0% { transform: rotate(30deg) translateX(-100%); }
-        100% { transform: rotate(30deg) translateX(100%); }
-    }
-    
-    .earth-icon {
-        animation: float 3s ease-in-out infinite;
-    }
-    
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-    }
-</style>
 
-<div class="container text-center mt-5">
-    <div class="card shadow-lg p-4" style="border-radius: 20px; border: none; overflow: hidden;">
-        <!-- Título en caja -->
-        <div class="carbon-box result-box">
-            <h2 class="mb-3">🌱 <span class="earth-icon">🌍</span> Resultado de tu Huella de Carbono</h2>
-            <p class="lead text-muted">Descubre cómo impacta tu estilo de vida al planeta</p>
+@php
+    $promedio_mundial = 5500;
+    $porcentaje = ($huella / $promedio_mundial) * 100;
+    
+    if ($porcentaje >= 120) {
+        $nivel = 'alto';
+        $mensaje = "Tu impacto ambiental es significativo. Puedes reducirlo optimizando el uso de energía, optando por transporte sostenible y disminuyendo el consumo de productos de alto impacto, como la carne roja.";
+        $color = "danger";
+        $impact_class = "impact-danger";
+        $progress_class = "progress-danger";
+    } elseif ($porcentaje >= 80) {
+        $nivel = 'medio';
+        $mensaje = "Estás en un rango moderado. Puedes mejorar adoptando hábitos más sostenibles, como reciclar más, usar energías renovables o reducir el uso de plásticos desechables.";
+        $color = "warning";
+        $impact_class = "impact-warning";
+        $progress_class = "progress-warning";
+    } else {
+        $nivel = 'bajo';
+        $mensaje = "¡Felicidades! Tienes una huella de carbono menor a la media. Aún puedes seguir contribuyendo con prácticas ecológicas como la eficiencia energética y la movilidad sostenible.";
+        $color = "success";
+        $impact_class = "impact-success";
+        $progress_class = "progress-success";
+    }
+@endphp
+
+<div class="results-container">
+    <div class="results-card fade-in">
+        <div class="results-header">
+            <h1 class="results-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 16a6 6 0 0 0 6-6c0-1.655-1.122-2.904-2.432-4.362C10.254 4.176 8.75 2.503 8 0c0 0-6 5.686-6 10a6 6 0 0 0 6 6ZM6.646 4.646l.708.708c-.29.29-1.128 1.311-1.907 2.87l-.894-.448c.82-1.641 1.717-2.753 2.093-3.13Z"/>
+                </svg>
+                Resultados de tu Huella de Carbono
+            </h1>
         </div>
-
-        <!-- Resultado numérico en caja -->
-        <div class="carbon-box result-box">
-            <p class="mb-2">Tu huella de carbono estimada es:</p>
-            <div class="carbon-value mb-3">
-                <h1 class="display-4 text-success font-weight-bold m-0">
-                    {{ number_format($huella, 2) }} kg CO₂
-                </h1>
-            </div>
-            <p class="text-muted small">al año | Este cálculo es una aproximación basada en tus respuestas</p>
-        </div>
-
-        @php
-            $promedio_mundial = 5500;
-            $porcentaje = ($huella / $promedio_mundial) * 100;
-            
-            if ($porcentaje >= 120) {
-                $nivel = 'alto';
-                $mensaje = "🌍 Tu impacto ambiental es significativo. Puedes reducirlo optimizando el uso de energía, optando por transporte sostenible y disminuyendo el consumo de productos de alto impacto, como la carne roja.";
-                $color = "danger";
-                $impact_class = "impact-high";
-                $bar_class = "progress-bar-danger";
-            } elseif ($porcentaje >= 80) {
-                $nivel = 'medio';
-                $mensaje = "♻️ Estás en un rango moderado. Puedes mejorar adoptando hábitos más sostenibles, como reciclar más, usar energías renovables o reducir el uso de plásticos desechables.";
-                $color = "warning";
-                $impact_class = "impact-medium";
-                $bar_class = "progress-bar-warning";
-            } else {
-                $nivel = 'bajo';
-                $mensaje = "🎉 ¡Felicidades! Tienes una huella de carbono menor a la media. Aún puedes seguir contribuyendo con prácticas ecológicas como la eficiencia energética y la movilidad sostenible.";
-                $color = "success";
-                $impact_class = "impact-low";
-                $bar_class = "progress-bar-success";
-            }
-        @endphp
-
-        <!-- Comparación global en caja -->
-        <div class="carbon-box comparison-box {{ $impact_class }}">
-            <h4 class="mb-4">📊 Comparación Global</h4>
-            
-            <div class="progress-3d mb-4">
-                <div class="progress-bar {{ $bar_class }} progress-bar-striped" 
-                     role="progressbar" 
-                     style="width: {{ min($porcentaje, 150) }}%" 
-                     aria-valuenow="{{ $porcentaje }}" 
-                     aria-valuemin="0" 
-                     aria-valuemax="150">
-                    <span class="position-absolute" style="right: 10px; font-weight: bold; @if($color == 'warning') color: #212529; @else color: white; @endif">
-                        {{ number_format($porcentaje, 1) }}%
-                    </span>
-                    <div class="progress-bubbles" id="bubbles-{{ $porcentaje }}"></div>
+        
+        <div class="results-body">
+            <div class="result-section">
+                <h2 class="text-center text-xl font-semibold text-gray-700">Tu huella de carbono estimada es:</h2>
+                <div class="result-value pulse">
+                    {{ number_format($huella, 2) }} <span class="text-2xl">kg CO₂</span>
                 </div>
+                <p class="result-description">al año | Este cálculo es una aproximación basada en tus respuestas</p>
             </div>
             
-            <p class="mb-3">Esto representa <span class="carbon-badge bg-{{ $color }} @if($color == 'warning') text-dark @else text-white @endif">{{ number_format($porcentaje, 2) }}%</span> del promedio mundial (5,500 kg CO₂/año)</p>
-            <p class="mb-2"><strong class="text-uppercase text-{{ $color }}" style="font-size: 1.2rem;">Nivel {{ $nivel }}</strong> según estándares globales</p>
-            
-            <div class="alert alert-{{ $color }} mt-4 mb-0" style="border-left: 4px solid; border-right: 4px solid;">
-                <div class="d-flex align-items-center">
-                    <div class="mr-3" style="font-size: 1.5rem;">
-                        @if($color == 'danger') 🌍
-                        @elseif($color == 'warning') ♻️
-                        @else 🎉
-                        @endif
+            <div class="comparison-container">
+                <h3 class="text-center font-semibold text-gray-700 mb-4">Comparación con el promedio mundial (5,500 kg CO₂/año)</h3>
+                
+                <div class="progress-container">
+                    <div class="progress-labels">
+                        <span>0%</span>
+                        <span>100%</span>
+                        <span>150%</span>
                     </div>
-                    <div>{{ $mensaje }}</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill {{ $progress_class }}" style="width: {{ min($porcentaje, 150) }}%"></div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <span class="inline-block px-4 py-2 rounded-full text-sm font-semibold 
+                        @if($color == 'danger') bg-red-100 text-red-800
+                        @elseif($color == 'warning') bg-yellow-100 text-yellow-800
+                        @else bg-green-100 text-green-800
+                        @endif">
+                        {{ number_format($porcentaje, 1) }}% del promedio mundial
+                    </span>
+                    <p class="mt-2 font-medium @if($color == 'danger') text-red-600
+                        @elseif($color == 'warning') text-yellow-600
+                        @else text-green-600
+                        @endif">
+                        Nivel {{ $nivel }} según estándares globales
+                    </p>
                 </div>
             </div>
-        </div>
-
-        <!-- Botón con caja decorativa -->
-        <div class="carbon-box text-center" style="border: 2px dashed var(--carbon-blue); background-color: rgba(23, 162, 184, 0.05);">
-            <a href="{{ route('calculadora.index') }}" class="btn btn-carbon text-white">
-                🔄 Realizar otra evaluación
+            
+            <div class="impact-message {{ $impact_class }}">
+                <div class="impact-icon">
+                    @if($color == 'danger')
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                        </svg>
+                    @elseif($color == 'warning')
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                        </svg>
+                    @else
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                        </svg>
+                    @endif
+                </div>
+                <div>{{ $mensaje }}</div>
+            </div>
+            
+            <a href="{{ route('calculadora.index') }}" class="restart-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                    <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                </svg>
+                Realizar otra evaluación
             </a>
-            <p class="mt-3 mb-0 small text-muted">Comparte tus resultados y ayuda a crear conciencia</p>
         </div>
     </div>
 </div>
 
 <script>
-    // Efecto adicional al cargar la página
     document.addEventListener('DOMContentLoaded', function() {
-        const boxes = document.querySelectorAll('.carbon-box');
-        boxes.forEach((box, index) => {
-            setTimeout(() => {
-                box.style.opacity = '1';
-            }, index * 200);
-        });
-
-        // Generador de burbujas para la barra de progreso
-        function createBubbles(container) {
-            const bubbleCount = Math.floor(Math.random() * 3) + 3; // 3-5 burbujas
-            for (let i = 0; i < bubbleCount; i++) {
-                const bubble = document.createElement('div');
-                bubble.classList.add('bubble');
-                
-                // Posición y tamaño aleatorio
-                const size = Math.random() * 10 + 5;
-                bubble.style.width = `${size}px`;
-                bubble.style.height = `${size}px`;
-                bubble.style.left = `${Math.random() * 100}%`;
-                bubble.style.bottom = '0';
-                
-                // Animación con delay aleatorio
-                bubble.style.animationDelay = `${Math.random() * 2}s`;
-                bubble.style.animationDuration = `${Math.random() * 2 + 2}s`;
-                
-                container.appendChild(bubble);
-                
-                // Eliminar burbuja después de la animación
-                setTimeout(() => {
-                    bubble.remove();
-                }, 3000);
-            }
-            
-            // Programar siguiente generación de burbujas
-            setTimeout(() => createBubbles(container), 1000);
-        }
-        
-        // Iniciar efecto de burbujas en todas las barras
-        document.querySelectorAll('.progress-bubbles').forEach(container => {
-            createBubbles(container);
-        });
+        // Animación para la barra de progreso
+        const progressFill = document.querySelector('.progress-fill');
+        setTimeout(() => {
+            progressFill.style.transition = 'width 1.5s ease';
+        }, 100);
     });
 </script>
+@endsection
+
+@section('styles')
+<link href="{{ asset('css/calculadora.css') }}" rel="stylesheet">
 @endsection

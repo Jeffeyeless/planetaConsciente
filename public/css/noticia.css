@@ -229,13 +229,13 @@
 
 .noticia-imagen-container {
     padding-top: 56.25%;
-    border: 3px solid var(--white);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 8px 8px 0 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
 .noticia-detalle-img-container {
     padding-top: 50%;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
 .noticia-imagen,
@@ -247,6 +247,7 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
 .noticia-card:hover .noticia-imagen,
@@ -402,6 +403,74 @@
 
 .noticia-actions {
     justify-content: space-between;
+}
+
+/* ============ PAGINACIÓN ============ */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin: 3rem 0;
+}
+
+.pagination {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+}
+
+.page-item {
+    margin: 0;
+}
+
+.page-link {
+    padding: 0.7rem 1.2rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--primary-light);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+}
+
+.page-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.page-item.active .page-link {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    border-color: var(--accent);
+    color: var(--white);
+    box-shadow: var(--shadow-sm);
+}
+
+.page-item.disabled .page-link {
+    color: var(--text-light);
+    opacity: 0.6;
+    pointer-events: none;
+    border-color: var(--border-color);
+}
+
+/* Estilo para los botones de anterior/siguiente */
+.page-item:first-child .page-link,
+.page-item:last-child .page-link {
+    padding: 0.7rem 1.5rem;
+    background: var(--white);
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.page-item:first-child .page-link:hover,
+.page-item:last-child .page-link:hover {
+    background: var(--accent);
+    color: var(--white);
 }
 
 /* ============ MEDIA QUERIES ============ */
