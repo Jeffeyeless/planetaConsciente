@@ -21,10 +21,12 @@
     text-align: center;
     margin-bottom: 3rem;
     padding: 2rem 0;
-    background-color: var(--noticias-header-bg);
+    background-color: white;
     border-radius: var(--border-radius);
     position: relative;
     overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
 }
 
 .noticias-header::after {
@@ -35,6 +37,7 @@
     width: 100%;
     height: 4px;
     background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+    opacity: 0.7;
 }
 
 .noticias-header h1 {
@@ -57,11 +60,12 @@
 }
 
 .noticias-header p {
-    color: var(--text-light);
+    color: var(--text);
     font-size: 1.1rem;
     max-width: 700px;
     margin: 0 auto;
     line-height: 1.6;
+    padding: 0 1rem;
 }
 
 .update-info {
@@ -74,6 +78,75 @@
 .update-info span {
     font-weight: 600;
     color: var(--primary);
+}
+
+/* ============ BOTONES UNIFICADOS ============ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: none;
+    font-size: 1rem;
+}
+
+/* Botón principal (verde) */
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Botón secundario (borde) */
+.btn-outline {
+    background: var(--white);
+    color: var(--text);
+    border: 1px solid var(--border-color);
+}
+
+.btn-outline:hover {
+    background: var(--secondary);
+    border-color: var(--accent-light);
+}
+
+/* Botón de peligro (rojo) */
+.btn-danger {
+    background: var(--white);
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+.btn-danger:hover {
+    background: rgba(231, 76, 60, 0.1);
+}
+
+/* Botón de acción flotante */
+.btn-floating {
+    border-radius: 50px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 0.8rem 1.5rem;
+}
+
+/* Tamaños */
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
 }
 
 /* ============ COMPONENTES REUTILIZABLES ============ */
@@ -486,122 +559,7 @@
     flex-wrap: wrap;
 }
 
-.btn-submit {
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-    color: white;
-    padding: 0.9rem 2rem;
-    border: none;
-    border-radius: var(--border-radius);
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.7rem;
-    font-size: 1rem;
-}
 
-.btn-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-}
-
-.btn-cancel,
-.btn-back {
-    background: var(--white);
-    color: var(--text);
-    padding: 0.9rem 2rem;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.7rem;
-    font-size: 1rem;
-}
-
-.btn-cancel:hover,
-.btn-back:hover {
-    background: var(--secondary);
-    border-color: var(--accent-light);
-}
-
-.btn-back:hover {
-    transform: translateX(-3px);
-}
-
-.admin-actions {
-    margin-bottom: 2rem;
-    text-align: center;
-}
-
-.btn-action {
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-    color: white;
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 50px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.btn-action:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.btn-action i {
-    font-size: 1rem;
-}
-
-.btn-edit {
-    background: var(--white);
-    color: var(--accent);
-    padding: 0.7rem 1.3rem;
-    border: 1px solid var(--accent);
-    border-radius: var(--border-radius);
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.btn-edit:hover {
-    background: rgba(76, 175, 125, 0.1);
-    transform: translateY(-2px);
-}
-
-.btn-delete {
-    background: var(--white);
-    color: #e74c3c;
-    padding: 0.7rem 1.3rem;
-    border: 1px solid #e74c3c;
-    border-radius: var(--border-radius);
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.btn-delete:hover {
-    background: rgba(231, 76, 60, 0.1);
-    transform: translateY(-2px);
-}
 
 /* Paginación */
 .pagination-container {
@@ -723,14 +681,7 @@
     .noticia-actions {
         flex-direction: column;
     }
-    
-    .btn-submit,
-    .btn-cancel,
-    .btn-back {
-        width: 100%;
-        justify-content: center;
-    }
-    
+       
     .noticias-header {
         padding: 1.5rem 0;
     }
@@ -770,14 +721,7 @@
     .noticia-detalle-title {
         font-size: 1.5rem;
     }
-    
-    .btn-back,
-    .btn-edit,
-    .btn-delete {
-        width: 100%;
-        justify-content: center;
-    }
-    
+
     .noticia-form-container {
         padding: 1.5rem;
     }

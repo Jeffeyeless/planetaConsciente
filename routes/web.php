@@ -51,9 +51,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/noticia/{noticia}', [NoticiaController::class, 'show'])->name('noticias.show');
 });
 
-// Rutas de administración
-Route::middleware([AdminMiddleware::class])->group(function() {
-    // Noticias (CRUD completo)
+Route::middleware(['auth', 'admin'])->group(function () {
+    // Rutas solo para admin
     Route::prefix('noticia')->group(function () {
         Route::get('/create', [NoticiaController::class, 'create'])->name('noticias.create');
         Route::post('/', [NoticiaController::class, 'store'])->name('noticias.store');

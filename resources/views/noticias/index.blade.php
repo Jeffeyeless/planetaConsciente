@@ -14,11 +14,11 @@
     </div>
 
     @auth
-    <div class="admin-actions">
-        <a href="{{ route('noticias.create') }}" class="btn-action">
+        @if(auth()->user()->isAdmin())
+        <a href="#" class="btn btn-primary btn-floating">
             <i class="fas fa-plus"></i> Crear Nueva Noticia
         </a>
-    </div>
+        @endif
     @endauth
 
     <div class="grid-noticias">
