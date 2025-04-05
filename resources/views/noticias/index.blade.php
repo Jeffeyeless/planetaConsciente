@@ -71,47 +71,48 @@
             <i class="fas fa-info-circle"></i> No se encontraron noticias con los criterios seleccionados
         </div>
     @else
+        @auth
+            @if(auth()->user()->isAdmin())
+                <a href="{{ route('noticias.create') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Crear Nueva Noticia
+                </a>
+            @endif
+        @endauth
 
-    @auth
-        @if(auth()->user()->isAdmin())
-            <a href="{{ route('noticias.create') }}" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Crear Nueva Noticia
-            </a>
-        @endif
-    @endauth
-
-    <div class="grid-noticias">
-        @foreach($noticias as $noticia)
-        <div class="noticia-card">
-            <div class="noticia-imagen-container">
-                @if($noticia->imagen_url)
-                <img src="{{ asset($noticia->imagen_url) }}" alt="{{ $noticia->titulo }}" class="noticia-imagen" loading="lazy">
-                @else
-                <img src="https://source.unsplash.com/random/600x400/?nature,eco" alt="Imagen de noticia" class="noticia-imagen" loading="lazy">
-                @endif
-            </div>
-            
-            <div class="noticia-content">
-                <div class="noticia-meta">
-                    <span class="noticia-date"><i class="far fa-calendar-alt"></i> {{ $noticia->fecha_publicacion->format('d M, Y') }}</span>
-                    @if($noticia->fuente)
-                    <span class="noticia-source">{{ $noticia->fuente }}</span>
+        <div class="grid-noticias">
+            @foreach($noticias as $noticia)
+            <div class="noticia-card">
+                <div class="noticia-imagen-container">
+                    @if($noticia->imagen_url)
+                    <img src="{{ asset($noticia->imagen_url) }}" alt="{{ $noticia->titulo }}" class="noticia-imagen" loading="lazy">
+                    @else
+                    <img src="https://source.unsplash.com/random/600x400/?nature,eco" alt="Imagen de noticia" class="noticia-imagen" loading="lazy">
                     @endif
                 </div>
                 
-                <h3 class="noticia-title">{{ $noticia->titulo }}</h3>
-                <p class="noticia-excerpt">{{ $noticia->resumen }}</p>
-                
-                <a href="{{ route('noticias.show', $noticia) }}" class="noticia-link">
-                    Leer más <i class="fas fa-arrow-right"></i>
-                </a>
+                <div class="noticia-content">
+                    <div class="noticia-meta">
+                        <span class="noticia-date"><i class="far fa-calendar-alt"></i> {{ $noticia->fecha_publicacion->format('d M, Y') }}</span>
+                        @if($noticia->fuente)
+                        <span class="noticia-source">{{ $noticia->fuente }}</span>
+                        @endif
+                    </div>
+                    
+                    <h3 class="noticia-title">{{ $noticia->titulo }}</h3>
+                    <p class="noticia-excerpt">{{ $noticia->resumen }}</p>
+                    
+                    <a href="{{ route('noticias.show', $noticia) }}" class="noticia-link">
+                        Leer más <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
             @endforeach
         </div>
 
-    <div class="pagination-container">
-        {{ $noticias->onEachSide(1)->links('pagination::bootstrap-4') }}
-    </div>
+        <div class="pagination-container">
+            {{ $noticias->onEachSide(1)->links('pagination::bootstrap-4') }}
+        </div>
+    @endif
 </div>
 
 <!-- Incluye SweetAlert2 directamente -->
@@ -197,92 +198,4 @@ document.head.appendChild(style);
 
 @section('styles')
 <link href="{{ asset('css/noticia.css') }}" rel="stylesheet">
-
-<style>
-/* Estilos del filtro (los mismos que antes) */
-.filtro-noticias {
-    background: #ffffff;
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin-bottom: 2rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    border: 1px solid #e0e0e0;
-}
-
-.filtro-form {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.2rem;
-    align-items: flex-end;
-}
-
-.filtro-group {
-    position: relative;
-}
-
-.filtro-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #2c3e50;
-    font-size: 0.9rem;
-}
-
-.filtro-group input,
-.filtro-group select {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    background: #f9f9f9;
-    transition: all 0.2s ease;
-}
-
-.filtro-actions {
-    display: flex;
-    gap: 0.8rem;
-    align-items: center;
-    margin-top: 24px;
-}
-
-.btn-filtrar {
-    background: #4caf7d;
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.2s ease;
-}
-
-.btn-limpiar {
-    background: none;
-    color: #4caf7d;
-    border: 1px solid #4caf7d;
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.2s ease;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .filtro-form {
-        grid-template-columns: 1fr;
-    }
-    
-    .filtro-actions {
-        margin-top: 0.5rem;
-    }
-}
-</style>
 @endsection
