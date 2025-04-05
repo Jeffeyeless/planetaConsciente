@@ -231,11 +231,13 @@
   <div class="seccion-independiente">
     <div class="d-flex justify-content-between align-items-center">
       <h3 class="seccion-titulo">📅 Próximos Eventos en Bogotá</h3>
-      @can('admin')
-        <a href="{{ route('eventos.create') }}" class="btn-admin btn-create">
-          <i class="fas fa-plus"></i> Nuevo Evento
-        </a>
-      @endcan
+      @auth
+        @if(auth()->user()->isAdmin())
+          <a href="{{ route('eventos.create') }}" class="btn-admin btn-create">
+            <i class="fas fa-plus"></i> Nuevo Evento
+          </a>
+        @endif
+      @endauth
     </div>
     
     @if($eventos && $eventos->count())
@@ -260,20 +262,22 @@
                   {{ Str::limit($evento->descripcion, 100) }}
                 @endif
               </div>
-              @can('admin')
-                <div class="action-buttons">
-                  <a href="{{ route('eventos.edit', $evento->id) }}" class="btn-admin btn-edit">
-                    <i class="fas fa-edit"></i> Editar
-                  </a>
-                  <form action="{{ route('eventos.destroy', $evento->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn-admin btn-delete" onclick="return confirm('¿Eliminar este evento?')">
-                      <i class="fas fa-trash"></i> Eliminar
-                    </button>
-                  </form>
-                </div>
-              @endcan
+              @auth
+                @if(auth()->user()->isAdmin())
+                  <div class="action-buttons">
+                    <a href="{{ route('eventos.edit', $evento->id) }}" class="btn-admin btn-edit">
+                      <i class="fas fa-edit"></i> Editar
+                    </a>
+                    <form action="{{ route('eventos.destroy', $evento->id) }}" method="POST">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn-admin btn-delete" onclick="return confirm('¿Eliminar este evento?')">
+                        <i class="fas fa-trash"></i> Eliminar
+                      </button>
+                    </form>
+                  </div>
+                  @endif
+                @endauth
             </div>
           </li>
         @endforeach

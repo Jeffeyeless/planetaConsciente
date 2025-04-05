@@ -28,8 +28,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/calculadora/resultado', [CalculadoraController::class, 'resultado'])->name('calculadora.resultado');
 
     // Eventos
-    Route::get('/retos-eventos', [EventoController::class, 'index'])->name('retos-eventos.index');
-
+    Route::resource('eventos', EventoController::class)->names([
+        'index' => 'eventos.index',
+        'create' => 'eventos.create',
+        'store' => 'eventos.store',
+        'show' => 'eventos.show',
+        'edit' => 'eventos.edit',
+        'update' => 'eventos.update',
+        'destroy' => 'eventos.destroy'
+    ]);
     // Medio Ambiente
     Route::get('/medio_ambiente', function () {
         return view('medio_ambiente.index');

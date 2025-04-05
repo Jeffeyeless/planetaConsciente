@@ -67,7 +67,7 @@
                 <button class="nav-button" onclick="location.href='/medio_ambiente'">
                     <i class="fas fa-leaf"></i> MEDIO AMBIENTE
                 </button>
-                <button class="nav-button" onclick="location.href='/retos-eventos'">
+                <button class="nav-button" onclick="location.href='/eventos'">
                     <i class="fas fa-calendar-alt"></i> EVENTOS
                 </button>
                 <button class="nav-button" onclick="location.href='/noticia'">
