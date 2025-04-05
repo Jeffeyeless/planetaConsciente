@@ -15,26 +15,34 @@
       --accent-dark: #3a8d66;
     }
     
-    .seccion-independiente {
-      border: 1px solid var(--border-color);
-      border-radius: 0.5rem;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      background: white;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      max-width: 100%;
-    }
+    /* Mejoras para las secciones independientes */
+.seccion-independiente {
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box; /* Incluye padding en el ancho total */
+  display: flex;
+  flex-direction: column;
+}
     
-    .layout-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      padding: 1rem;
-    }
+    /* Mejoras para el contenedor principal */
+.layout-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+  align-items: start; /* Alinea las cajas por la parte superior */
+}
     
-    .seccion-grande {
-      grid-column: span 2;
-    }
+    /* Ajustes para la sección grande */
+.seccion-grande {
+  grid-column: 1 / -1;
+}
+
     
     .encabezado-principal {
       grid-column: 1 / -1;
@@ -65,11 +73,13 @@
       padding-bottom: 0.5rem;
     }
     
-    .lista-detalles {
-      padding-left: 1.25rem;
-      list-style-type: disc;
-      color: var(--text);
-    }
+    /* Contenedor de eventos mejorado */
+.lista-detalles {
+  padding-left: 1rem;
+  list-style-type: none;
+  margin: 0;
+  flex-grow: 1; /* Permite que el contenido ocupe el espacio disponible */
+}
     
     .lista-detalles li {
       margin-bottom: 0.5rem;
@@ -124,15 +134,21 @@
     }
     
     .evento-item {
-      padding-bottom: 1rem;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid var(--border-color);
-    }
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
     
-    .footer-links {
-      list-style: none;
-      padding-left: 0;
-    }
+    /* Estilos para los enlaces de organizaciones */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.5rem;
+}
     
     .footer-links li {
       margin-bottom: 0.5rem;
@@ -183,13 +199,13 @@
     }
     
     .btn-edit:hover {
-      background-color: #e9ecef;
+      background-color: #b7e7b5;
       transform: translateY(-1px);
     }
     
     .btn-delete {
       background-color: #f8f9fa;
-      color: #dc3545;
+      color: #c94d59;
       border: 1px solid var(--border-color);
     }
     
@@ -211,14 +227,14 @@
       .layout-container {
         grid-template-columns: 1fr;
       }
-      .seccion-grande {
-        grid-column: span 1;
-      }
-      .action-buttons {
-        flex-direction: column;
-        gap: 0.25rem;
-      }
-    }
+      .footer-links {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-buttons {
+    justify-content: flex-start;
+  }
+}
 </style>
 
 <div class="layout-container">
@@ -266,13 +282,13 @@
                 @if(auth()->user()->isAdmin())
                   <div class="action-buttons">
                     <a href="{{ route('eventos.edit', $evento->id) }}" class="btn-admin btn-edit">
-                      <i class="fas fa-edit"></i> Editar
+                      <i class="fas fa-edit"></i> Edit
                     </a>
                     <form action="{{ route('eventos.destroy', $evento->id) }}" method="POST">
                       @csrf
                       @method('DELETE')
                       <button type="submit" class="btn-admin btn-delete" onclick="return confirm('¿Eliminar este evento?')">
-                        <i class="fas fa-trash"></i> Eliminar
+                        <i class="fas fa-trash"></i> Delete
                       </button>
                     </form>
                   </div>
@@ -300,7 +316,7 @@
     </ul>
     <div class="mes-card mb-6">
       <br>
-      <h3 class="mes-titulo">💧 Febrero - Ahorro de Agua</h3>
+      <span class="badge-nuevo">💧 Febrero - Ahorro de Agua</span>
       <ul class="lista-retos">
         <li>🚿 Reduce tiempo de ducha a 5 minutos</li>
         <li>🌧️ Instala un sistema de captación de agua lluvia</li>
