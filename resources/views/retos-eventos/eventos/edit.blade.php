@@ -111,18 +111,6 @@
                            value="{{ old('ubicacion', $evento->ubicacion) }}" required>
                 </div>
                 
-                <div class="row mb-4">
-                    <div class="col-md-6">
-                        <label for="latitud" class="form-label">Latitud (opcional)</label>
-                        <input type="number" step="any" class="form-control" id="latitud" name="latitud" 
-                               value="{{ old('latitud', $evento->latitud) }}">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="longitud" class="form-label">Longitud (opcional)</label>
-                        <input type="number" step="any" class="form-control" id="longitud" name="longitud" 
-                               value="{{ old('longitud', $evento->longitud) }}">
-                    </div>
-                </div>
                 
                 <div class="mb-4">
                     <label for="sitio_web" class="form-label">Sitio Web (opcional)</label>
