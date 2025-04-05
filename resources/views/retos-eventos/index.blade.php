@@ -399,7 +399,6 @@
       <li>♻️ Separa correctamente tus residuos (orgánicos, reciclables, no reciclables)</li>
       <li>🛍️ Compra a granel evitando empaques plásticos</li>
     </ul>
-    <br>
     <div class="mes-card">
       <span class="badge-nuevo">💧 Febrero - Ahorro de Agua</span>
       <ul class="lista-retos">
