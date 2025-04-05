@@ -107,9 +107,9 @@
 <style>
 /* Colores principales */
 :root {
-    --primary: #2E7D32;  /* Verde principal */
-    --primary-dark: #1B5E20;
-    --primary-light: #81C784;
+    --primary: #1a3a2f;  /* Verde principal */
+    --primary-dark:rgb(20, 108, 70); /* Verde oscuro */
+    --primary-light: #2d5e4a;
     --secondary: #F1F8E9;
     --text: #263238;
     --text-light: #607D8B;
@@ -158,7 +158,7 @@
 }
 
 .card-header {
-    background: var(--primary);
+    background: var(--primary-dark);
     color: var(--white);
     padding: 1rem;
     font-size: 1.2rem;
@@ -209,7 +209,7 @@
 
 /* Botones */
 .btn-post {
-    background: var(--primary);
+    background: var(--primary-dark);
     color: var(--white);
     border: none;
     padding: 0.8rem 1.5rem;
