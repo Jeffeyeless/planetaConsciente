@@ -267,4 +267,92 @@
       flex-direction: column;
       gap: 0.5rem;
   }
+  /* Añade estos estilos a tu CSS existente */
+
+/* Contenedor de eventos */
+.eventos-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+/* Tarjeta de evento individual */
+.evento-card {
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.evento-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Encabezado de evento */
+.evento-fecha {
+  font-size: 0.875rem;
+  color: var(--primary-light);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.evento-id {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.evento-titulo {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.evento-titulo .emoji {
+  font-size: 1.25rem;
+}
+
+/* Sección de nuevo evento */
+.nuevo-evento {
+  border: 1px dashed var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  background-color: var(--secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
+}
+
+.nuevo-evento-titulo {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+/* Botones de acción */
+.acciones-evento {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .eventos-container {
+    grid-template-columns: 1fr;
+  }
+}
 }
