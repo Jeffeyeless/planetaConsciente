@@ -81,7 +81,7 @@
                     <div class="col-md-6">
                         <label for="fecha" class="form-label">Fecha y Hora *</label>
                         <input type="datetime-local" class="form-control" id="fecha" name="fecha" 
-                               value="{{ old('fecha', $evento->fecha->format('Y-m-d\TH:i')) }}" required>
+                        value="{{ old('fecha', $evento->fecha ? \Carbon\Carbon::parse($evento->fecha)->format('Y-m-d\TH:i') : '') }}" required>
                     </div>
                     <div class="col-md-6">
                         <label for="tipo" class="form-label">Tipo de Evento *</label>
