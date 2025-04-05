@@ -15,9 +15,9 @@
 
     @auth
         @if(auth()->user()->isAdmin())
-        <a href="#" class="btn btn-primary btn-floating">
-            <i class="fas fa-plus"></i> Crear Nueva Noticia
-        </a>
+            <a href="{{ route('noticias.create') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Crear Nueva Noticia
+            </a>
         @endif
     @endauth
 

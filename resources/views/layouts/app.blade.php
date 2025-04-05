@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="{{ asset('css/calculadora.css') }}">
     @endif
     
-    @if(Request::is('noticia'))
+    @if(Request::is('noticia*'))
     <link rel="stylesheet" href="{{ asset('css/noticia.css') }}">
     @endif
     

@@ -74,11 +74,11 @@
         </div>
         
         <div class="form-actions">
-            <button type="submit" class="btn-submit">
+            <button type="submit" class="btn btn-primary">
                 <i class="fas fa-save"></i> {{ isset($noticia) ? 'Actualizar Noticia' : 'Publicar Noticia' }}
             </button>
             
-            <a href="{{ route('noticias.index') }}" class="btn-cancel">
+            <a href="{{ route('noticias.index') }}" class="btn btn-outline">
                 <i class="fas fa-times"></i> Cancelar
             </a>
         </div>

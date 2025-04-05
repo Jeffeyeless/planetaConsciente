@@ -28,20 +28,21 @@
             </div>
             
             <div class="noticia-actions">
-                <a href="{{ route('noticias.index') }}" class="btn-back">
+                <a href="{{ route('noticias.index') }}" class="btn btn-outline">
                     <i class="fas fa-arrow-left"></i> Volver a noticias
                 </a>
                 
                 @auth
                     @if(auth()->user()->isAdmin())
                     <div class="admin-actions">
-                        <a href="{{ route('noticias.edit', $noticia->id_noticia) }}" class="btn-edit">
+                        <a href="{{ route('noticias.edit', $noticia->id_noticia) }}" class="btn btn-outline btn-edit">
                             <i class="fas fa-edit"></i> Editar
+                        </a>
                         </a>
                         <form action="{{ route('noticias.destroy', $noticia->id_noticia) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn-delete" onclick="return confirm('¿Estás seguro de eliminar esta noticia?')">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta noticia?')">
                                 <i class="fas fa-trash"></i> Eliminar
                             </button>
                         </form>

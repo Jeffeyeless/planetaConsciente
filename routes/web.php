@@ -46,18 +46,13 @@ Route::middleware(['auth'])->group(function () {
     // Capacitaciones
     Route::resource('capacitaciones', CapacitacionController::class)->only(['index', 'store']);
 
-    // Noticias (solo lectura)
+    // Rutas de noticias
     Route::get('/noticia', [NoticiaController::class, 'index'])->name('noticias.index');
+    Route::get('/noticia/crear', [NoticiaController::class, 'create'])->name('noticias.create');
+    Route::post('/noticia', [NoticiaController::class, 'store'])->name('noticias.store');
     Route::get('/noticia/{noticia}', [NoticiaController::class, 'show'])->name('noticias.show');
-});
+    Route::get('/noticia/{noticia}/editar', [NoticiaController::class, 'edit'])->name('noticias.edit');
+    Route::put('/noticia/{noticia}', [NoticiaController::class, 'update'])->name('noticias.update');
+    Route::delete('/noticia/{noticia}', [NoticiaController::class, 'destroy'])->name('noticias.destroy');
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    // Rutas solo para admin
-    Route::prefix('noticia')->group(function () {
-        Route::get('/create', [NoticiaController::class, 'create'])->name('noticias.create');
-        Route::post('/', [NoticiaController::class, 'store'])->name('noticias.store');
-        Route::get('/{noticia}/edit', [NoticiaController::class, 'edit'])->name('noticias.edit');
-        Route::put('/{noticia}', [NoticiaController::class, 'update'])->name('noticias.update');
-        Route::delete('/{noticia}', [NoticiaController::class, 'destroy'])->name('noticias.destroy');
-    });
 });
