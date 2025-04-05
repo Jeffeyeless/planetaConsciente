@@ -16,7 +16,7 @@
     }
     
     /* Mejoras para las secciones independientes */
-.seccion-independiente {
+    .seccion-independiente {
   border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   padding: 1.25rem;
@@ -24,9 +24,9 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   width: 100%;
   height: 100%;
-  box-sizing: border-box; /* Incluye padding en el ancho total */
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* Evita que el contenido se desborde */
 }
     
     /* Mejoras para el contenedor principal */
@@ -37,12 +37,13 @@
     "eventos retos"
     "organizaciones organizaciones"
     "consciente consciente";
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr);
   gap: 1.5rem;
   padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
   align-items: start;
 }
-    
     /* Ajustes para la sección grande */
     .seccion-eventos {
   grid-area: eventos;
@@ -52,6 +53,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  padding: 1rem;
 }
 
 .seccion-retos {
@@ -96,13 +98,14 @@
     }
     
     .seccion-titulo {
-      font-size: 1.125rem;
-      font-weight: 600;
-      color: var(--primary);
-      margin-bottom: 1rem;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 0.5rem;
-    }
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  text-align: left; /* Alineación consistente */
+}
     
     /* Contenedor de eventos mejorado */
 .lista-detalles {
@@ -132,29 +135,31 @@
       margin-top: 0.5rem;
     }
     
-    .tabla-conscienta {
-      width: 100%;
-      border-collapse: collapse;
-    }
+    /* Mejora para la tabla */
+.tabla-conscienta {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Para que las columnas se ajusten */
+}
+.tabla-conscienta {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
     
     .tabla-conscienta thead {
       background-color: var(--secondary);
     }
     
-    .tabla-conscienta th {
-      padding: 0.75rem 1rem;
-      text-align: left;
-      color: var(--primary);
-      font-weight: 600;
-      text-transform: uppercase;
-      font-size: 0.75rem;
-    }
-    
-    .tabla-conscienta td {
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--border-color);
-      color: var(--text);
-    }
+    .tabla-conscienta th, 
+.tabla-conscienta td {
+  padding: 0.75rem;
+  text-align: center; /* Centrar contenido de tabla */
+  border-bottom: 1px solid var(--border-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
     
     .tabla-conscienta tr:last-child td {
       border-bottom: none;
@@ -265,54 +270,16 @@
 
 
     /* Manejo de texto */
-.text-content, .text-gray-700 {
+/* Ajustes para el texto y alineación */
+.text-content, .text-gray-700, .lista-detalles {
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
-  line-height: 1.5;
+  line-height: 1.6;
+  text-align: justify;
+  text-justify: inter-word;
 }
     
-    /* Estilos para la sección de aclaración */
-    
-@media (max-width: 576px) {
-  .action-buttons {
-    flex-direction: column;
-    gap: 0.25rem;
-    width: 100%;
-  }
-  
-  .btn-admin {
-    width: 100%;
-    justify-content: center;
-    margin-left: 0;
-    margin-top: 0.25rem;
-  }
-}
-    
-    /* Ajustes responsive */
-@media (max-width: 768px) {
-  .layout-container {
-    grid-template-areas:
-      "header"
-      "eventos"
-      "retos"
-      "organizaciones"
-      "consciente";
-    grid-template-columns: 1fr;
-  }
-  .footer-links {
-    grid-template-columns: 1fr;
-  }
-  
-  .evento-item {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .action-buttons {
-    align-self: flex-end;
-  }
-}
 
   .mes-card {
   background-color: var(--secondary);
@@ -347,6 +314,61 @@
   background-color: #fff3cd;
   color: #856404;
 }
+.badge-dificultad.dificil {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+.badge-dificultad.facil {
+  background-color: #d4edda;
+  color: #155724;
+}
+@media (min-width: 992px) {
+  .seccion-eventos, 
+  .seccion-retos {
+    min-height: 400px; /* Altura mínima para igualar cajas */
+  }
+}
+
+    /* Ajustes responsive */
+    @media (max-width: 768px) {
+  .layout-container {
+    grid-template-areas:
+      "header"
+      "eventos"
+      "retos"
+      "organizaciones"
+      "consciente";
+    grid-template-columns: 1fr;
+    padding: 0.5rem;
+  }
+  .footer-links {
+    grid-template-columns: 1fr;
+  }
+  
+  .evento-item {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .action-buttons {
+    align-self: flex-end;
+  }
+}
+    /* Estilos para la sección de aclaración */
+    
+    @media (max-width: 576px) {
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 100%;
+  }
+  
+  .btn-admin {
+    width: 100%;
+    justify-content: center;
+    margin-left: 0;
+    margin-top: 0.25rem;
+  }
 }
 </style>
 
