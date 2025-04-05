@@ -576,7 +576,7 @@
 
     .welcome-message-card h2 {
         color: var(--primary);
-        font-family: 'Playfair Display', serif;
+        font-family: 'Montserrat', sans-serif;
         margin-bottom: 1rem;
         font-size: 1.8rem;
     }
