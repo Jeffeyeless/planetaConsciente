@@ -19,9 +19,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding:  8rem;
 }
-
+.calculator-card {
+    margin-top: -6rem; /* Mueve la card hacia arriba */
+    /* ... (mantén el resto de tus estilos) ... */
+}
 .calculator-card,
 .results-card {
     background: white;
