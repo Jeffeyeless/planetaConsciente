@@ -63,19 +63,23 @@
                         </div>
                     </div>
                     @if($post->user && auth()->id() == $post->user_id)
-                    <div class="post-actions">
-                        <button class="btn-action">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </button>
-                        <div class="actions-menu">
-                            <a href="#" class="edit-post" data-id="{{ $post->id }}">
-                                <i class="fas fa-edit"></i> Editar
-                            </a>
-                            <a href="#" class="delete-post" data-id="{{ $post->id }}">
-                                <i class="fas fa-trash"></i> Eliminar
-                            </a>
-                        </div>
-                    </div>
+                    @auth
+                        @if(auth()->user()->isAdmin())
+                            <div class="post-actions">
+                                <button class="btn-action">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <div class="actions-menu">
+                                    <a href="#" class="edit-post" data-id="{{ $post->id }}">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </a>
+                                    <a href="#" class="delete-post" data-id="{{ $post->id }}">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </a>
+                                </div>
+                            </div>
+                        @endif
+                    @endauth
                     @endif
                 </div>
                 
