@@ -9,10 +9,20 @@ class Foro extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['titulo', 'contenido', 'usuario_id'];
+    protected $table = 'foros';
+    protected $primaryKey = 'id_foro';
+    protected $fillable = ['titulo', 'contenido', 'user_id'];
 
-    public function usuario()
+    public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id')->withDefault([
+            'name' => 'Usuario eliminado',
+            'email' => 'usuario@desconocido.com'
+        ]);
+    }
+
+    public function comentarios()
+    {
+        return $this->hasMany(Comment::class, 'publicacion_id');
     }
 }

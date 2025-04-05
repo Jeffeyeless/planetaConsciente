@@ -5,13 +5,38 @@ namespace App\Http\Controllers;
 use App\Models\Noticia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class NoticiaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $noticias = Noticia::orderBy('fecha_publicacion', 'desc')->paginate(6);
-        return view('noticias.index', compact('noticias'));
+        // Validación de filtros
+        $validator = Validator::make($request->all(), [
+            'fecha_desde' => 'nullable|date',
+            'fecha_hasta' => 'nullable|date|after_or_equal:fecha_desde',
+        ], [
+            'fecha_hasta.after_or_equal' => 'La fecha final debe ser igual o posterior a la fecha inicial'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('noticias.index')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $fuentes = Noticia::select('fuente')
+                  ->whereNotNull('fuente')
+                  ->distinct()
+                  ->pluck('fuente');
+
+        $noticias = Noticia::filtrar($request->all())
+            ->orderBy('fecha_publicacion', 'desc')
+            ->paginate(6)
+            ->appends($request->query());
+
+        return view('noticias.index', compact('noticias', 'fuentes'));
     }
 
     public function show(Noticia $noticia)
@@ -19,8 +44,7 @@ class NoticiaController extends Controller
         return view('noticias.show', compact('noticia'));
     }
 
-    public function create()
-    {
+    public function create() {
         return view('noticias.form', ['editMode' => false]);
     }
 
@@ -72,7 +96,6 @@ class NoticiaController extends Controller
         }
 
         $noticia->delete();
-
         return redirect()->route('noticias.index')
                          ->with('success', 'Noticia eliminada exitosamente');
     }

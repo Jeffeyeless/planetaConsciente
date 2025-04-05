@@ -9,5 +9,7 @@ class Capacitacion extends Model
 {
     use HasFactory;
 
+    protected $table = 'capacitaciones';
+
     protected $fillable = ['titulo', 'descripcion', 'material'];
 }
