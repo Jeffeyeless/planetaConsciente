@@ -17,8 +17,6 @@ return new class extends Migration
             $table->text('descripcion');
             $table->dateTime('fecha');
             $table->string('ubicacion');
-            $table->decimal('latitud', 10, 7)->nullable();
-            $table->decimal('longitud', 10, 7)->nullable();
             $table->string('tipo'); // Taller, Charla, Limpieza, etc.
             $table->string('sitio_web')->nullable();
             $table->string('imagen')->nullable();

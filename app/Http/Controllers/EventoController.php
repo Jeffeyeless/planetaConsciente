@@ -151,8 +151,6 @@ class EventoController extends Controller
             'descripcion' => 'required|string',
             'fecha' => 'required|date',
             'ubicacion' => 'required|string|max:255',
-            'latitud' => 'nullable|numeric',
-            'longitud' => 'nullable|numeric',
             'tipo' => 'required|string|in:' . implode(',', self::TIPOS_EVENTO),
             'sitio_web' => 'nullable|url',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048'

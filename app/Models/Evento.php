@@ -12,8 +12,6 @@ class Evento extends Model
         'descripcion',
         'fecha',
         'ubicacion',
-        'latitud',
-        'longitud',
         'tipo',
         'sitio_web',
         'imagen'
