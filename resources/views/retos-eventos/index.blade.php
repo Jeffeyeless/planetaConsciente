@@ -42,6 +42,15 @@
 .seccion-grande {
   grid-column: 1 / -1;
 }
+/* Estilos para la imagen */
+.seccion-grande .imagen-ambiental {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin: 1.5rem auto;
+  display: block;
+}
 
     
     .encabezado-principal {
@@ -134,12 +143,27 @@
     }
     
     .evento-item {
-  padding: 0.75rem 0;
+  padding: 0.75rem;
   border-bottom: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
+}
+
+.evento-item > div {
+  width: 100%;
+}
+/* Mejoras específicas para eventos */
+.evento-item > div:first-child {
+  flex: 1;
+  min-width: 0; /* Permite que el texto se ajuste */
 }
     
+
+
+
+
+
     /* Estilos para los enlaces de organizaciones */
 .footer-links {
   list-style: none;
@@ -180,6 +204,10 @@
       transition: all 0.2s;
       margin-left: 0.5rem;
     }
+
+
+
+
     
     .btn-create {
       background-color: var(--accent);
@@ -213,15 +241,44 @@
       background-color: #f1f1f1;
       transform: translateY(-1px);
     }
+
+
+
+
+    /* Manejo de texto */
+.text-content, .text-gray-700 {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  line-height: 1.5;
+}
+.text-gray-700 {
+  color: var(--text);
+}
+.text-gray-700 a {
+  color: var(--primary);
+  text-decoration: none;
+}
+.text-gray-700 a:hover {
+  text-decoration: underline;
+}
     
-    .btn-admin i {
-      margin-right: 0.25rem;
-    }
+    /* Estilos para la sección de aclaración */
     
-    .action-buttons {
-      display: flex;
-      gap: 0.5rem;
-    }
+@media (max-width: 576px) {
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 100%;
+  }
+  
+  .btn-admin {
+    width: 100%;
+    justify-content: center;
+    margin-left: 0;
+    margin-top: 0.25rem;
+  }
+}
     
     @media (max-width: 768px) {
       .layout-container {
@@ -234,6 +291,40 @@
   .action-buttons {
     justify-content: flex-start;
   }
+
+  .mes-card {
+  background-color: var(--secondary);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+}
+
+.lista-retos {
+  padding-left: 1.25rem;
+  list-style-type: none;
+  margin: 0.5rem 0;
+}
+
+.lista-retos li {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.badge-dificultad {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.badge-dificultad.moderado {
+  background-color: #fff3cd;
+  color: #856404;
+}
 }
 </style>
 
