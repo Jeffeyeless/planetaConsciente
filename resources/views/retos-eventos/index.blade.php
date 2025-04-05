@@ -30,17 +30,40 @@
 }
     
     /* Mejoras para el contenedor principal */
-.layout-container {
+    .layout-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-areas:
+    "header header"
+    "eventos retos"
+    "organizaciones organizaciones"
+    "consciente consciente";
+  grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
   padding: 1rem;
-  align-items: start; /* Alinea las cajas por la parte superior */
+  align-items: start;
 }
     
     /* Ajustes para la sección grande */
+    .seccion-eventos {
+  grid-area: eventos;
+}
+/* Ajustes para las cajas en horizontal */
+.seccion-independiente {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.seccion-retos {
+  grid-area: retos;
+}
+
+.seccion-organizaciones {
+  grid-area: organizaciones;
+}
+
 .seccion-grande {
-  grid-column: 1 / -1;
+  grid-area: consciente;
 }
 /* Estilos para la imagen */
 .seccion-grande .imagen-ambiental {
@@ -53,11 +76,10 @@
 }
 
     
-    .encabezado-principal {
-      grid-column: 1 / -1;
-      text-align: center;
-      margin-bottom: 0;
-    }
+    /* Asigna áreas a cada sección */
+.encabezado-principal {
+  grid-area: header;
+}
     
     .titulo-principal {
       font-family: 'Playfair Display', serif;
@@ -142,21 +164,18 @@
       background-color: rgba(76, 175, 125, 0.05);
     }
     
-    .evento-item {
+    /* Mejora para el contenido de eventos */
+.evento-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   padding: 0.75rem;
   border-bottom: 1px solid var(--border-color);
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
 }
 
-.evento-item > div {
-  width: 100%;
-}
-/* Mejoras específicas para eventos */
-.evento-item > div:first-child {
+.evento-contenido {
   flex: 1;
-  min-width: 0; /* Permite que el texto se ajuste */
+  min-width: 0; /* Evita desbordamiento */
 }
     
 
@@ -252,16 +271,6 @@
   hyphens: auto;
   line-height: 1.5;
 }
-.text-gray-700 {
-  color: var(--text);
-}
-.text-gray-700 a {
-  color: var(--primary);
-  text-decoration: none;
-}
-.text-gray-700 a:hover {
-  text-decoration: underline;
-}
     
     /* Estilos para la sección de aclaración */
     
@@ -280,17 +289,30 @@
   }
 }
     
-    @media (max-width: 768px) {
-      .layout-container {
-        grid-template-columns: 1fr;
-      }
-      .footer-links {
+    /* Ajustes responsive */
+@media (max-width: 768px) {
+  .layout-container {
+    grid-template-areas:
+      "header"
+      "eventos"
+      "retos"
+      "organizaciones"
+      "consciente";
+    grid-template-columns: 1fr;
+  }
+  .footer-links {
     grid-template-columns: 1fr;
   }
   
-  .action-buttons {
-    justify-content: flex-start;
+  .evento-item {
+    flex-direction: column;
+    gap: 0.5rem;
   }
+  
+  .action-buttons {
+    align-self: flex-end;
+  }
+}
 
   .mes-card {
   background-color: var(--secondary);
@@ -335,7 +357,7 @@
   </div>
   
   <!-- Caja Eventos en Bogotá -->
-  <div class="seccion-independiente">
+  <div class="seccion-independiente seccion-eventos">
     <div class="d-flex justify-content-between align-items-center">
       <h3 class="seccion-titulo">📅 Próximos Eventos en Bogotá</h3>
       @auth
@@ -397,7 +419,7 @@
   </div>
   
   <!-- Caja Pruebas (arriba a la derecha) -->
-  <div class="seccion-independiente">
+  <div class="seccion-independiente seccion-retos">
     <h3 class="seccion-titulo">Retos Ambientales Mensuales</h3>
     <span class="badge-nuevo">Temporada 2025</span>
     <ul class="lista-detalles">
@@ -418,7 +440,7 @@
   </div>
   
   <!-- Caja Organizaciones (centro izquierda) -->
-  <div class="seccion-independiente">
+  <div class="seccion-independiente seccion-organizaciones">
     <h3 class="seccion-titulo">Organizaciones Ambientales</h3>
     <p class="text-gray-700">
       En este apartado puedes encontrar información sobre organizaciones que trabajan en pro del medio ambiente. Puedes visitar sus páginas web para conocer más sobre sus iniciativas y cómo puedes colaborar.
