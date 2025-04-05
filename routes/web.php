@@ -6,55 +6,59 @@ use App\Http\Controllers\EventoController;
 use App\Http\Controllers\CalculadoraController;
 use App\Http\Controllers\ForoController;
 use App\Http\Controllers\CapacitacionController;
+use App\Http\Controllers\HomeController;
 use App\Http\Middleware\AdminMiddleware;
 
-
-
+// Rutas públicas
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('welcome');  // Página de bienvenida pública
+})->name('welcome');
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');  // Dashboard de usuario autenticado
 
 // Rutas de autenticación
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
 Auth::routes();
 
+// Rutas protegidas (requieren autenticación)
 Route::middleware(['auth'])->group(function () {
-    
-    // Rutas de la Calculadora de Huella de Carbono
-    Route::get('/calculadora', [CalculadoraController::class, 'index'])->name('calculadora.index');
-    Route::post('/calculadora/responder', [CalculadoraController::class, 'responder'])->name('calculadora.responder');
-    Route::get('/calculadora/resultado', [CalculadoraController::class, 'resultado'])->name('calculadora.resultado');
+    // Calculadora de Huella de Carbono
+    Route::controller(CalculadoraController::class)->prefix('calculadora')->group(function () {
+        Route::get('/', 'index')->name('calculadora.index');
+        Route::post('/responder', 'responder')->name('calculadora.responder');
+        Route::get('/resultado', 'resultado')->name('calculadora.resultado');
+    });
 
-    // Ruta principal para Retos y Eventos
-    Route::get('/retos-eventos', [EventoController::class, 'index'])->name('retos-eventos.index');
-    // Ruta para obtener detalles de un evento específico
-    Route::get('/eventos/{id}', [EventoController::class, 'show'])->name('eventos.show');
-    // Ruta para obtener retos mensuales (AJAX)
-    Route::get('/retos-mensuales', [EventoController::class, 'getRetosMensuales'])->name('retos.mensuales');
-    // Página principal de Medio Ambiente
-    Route::get('/medio_ambiente', function () {
+    // Eventos
+    Route::controller(EventoController::class)->prefix('eventos')->group(function () {
+        Route::get('/', 'index')->name('eventos.index');
+        Route::get('/retos-mensuales', 'getRetosMensuales')->name('eventos.retos.mensuales');
+        Route::get('/{id}', 'show')->name('eventos.show');
+    });
+
+    // Medio Ambiente
+    Route::get('/medio-ambiente', function () {
         return view('medio_ambiente.index');
-    })->name('medio_ambiente.index');
+    })->name('medio-ambiente.index');
 
     // Foro
-    Route::get('/foro', [ForoController::class, 'index'])->name('foro.index');
-    Route::post('/foro', [ForoController::class, 'store'])->name('foro.store');
+    Route::resource('foro', ForoController::class)->only(['index', 'store']);
 
     // Capacitaciones
-    Route::get('/capacitaciones', [CapacitacionController::class, 'index'])->name('capacitaciones.index');
-    Route::post('/capacitaciones', [CapacitacionController::class, 'store'])->name('capacitaciones.store');
+    Route::resource('capacitaciones', CapacitacionController::class)->only(['index', 'store']);
 
+    // Noticias (solo lectura)
     Route::get('/noticia', [NoticiaController::class, 'index'])->name('noticias.index');
+    Route::get('/noticia/{noticia}', [NoticiaController::class, 'show'])->name('noticias.show');
 });
 
-// Rutas para el panel de administración
-Route::middleware([\App\Http\Middleware\AdminMiddleware::class])->group(function() {
-
-    // Rutas para noticias
-    Route::get('/noticia/crear', [NoticiaController::class, 'create'])->name('noticias.create');
-    Route::post('/noticia', [NoticiaController::class, 'store'])->name('noticias.store');
-    Route::get('/noticia/{noticia}', [NoticiaController::class, 'show'])->name('noticias.show');
-    Route::get('/noticia/{noticia}/editar', [NoticiaController::class, 'edit'])->name('noticias.edit');
-    Route::put('/noticia/{noticia}', [NoticiaController::class, 'update'])->name('noticias.update');
-    Route::delete('/noticia/{noticia}', [NoticiaController::class, 'destroy'])->name('noticias.destroy');
+// Rutas de administración
+Route::middleware([AdminMiddleware::class])->group(function() {
+    // Noticias (CRUD completo)
+    Route::prefix('noticia')->group(function () {
+        Route::get('/create', [NoticiaController::class, 'create'])->name('noticias.create');
+        Route::post('/', [NoticiaController::class, 'store'])->name('noticias.store');
+        Route::get('/{noticia}/edit', [NoticiaController::class, 'edit'])->name('noticias.edit');
+        Route::put('/{noticia}', [NoticiaController::class, 'update'])->name('noticias.update');
+        Route::delete('/{noticia}', [NoticiaController::class, 'destroy'])->name('noticias.destroy');
+    });
 });

@@ -53,5 +53,5 @@
 @endsection
 
 @section('styles')
-<link href="{{ asset('css/noticias.css') }}" rel="stylesheet">
+<link href="{{ asset('css/noticia.css') }}" rel="stylesheet">
 @endsection

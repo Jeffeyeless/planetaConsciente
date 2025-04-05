@@ -43,7 +43,7 @@
                 <h3 class="noticia-title">{{ $noticia->titulo }}</h3>
                 <p class="noticia-excerpt">{{ $noticia->resumen }}</p>
                 
-                <a href="{{ route('noticias.show', $noticia->id_noticia) }}" class="noticia-link">
+                <a href="{{ route('noticias.show', $noticia) }}" class="noticia-link">
                     Leer más <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
@@ -51,8 +51,8 @@
         @endforeach
     </div>
 
-    <div class="pagination-container noticias-pagination">
-        {{ $noticias->links() }}
+    <div class="pagination-container">
+        {{ $noticias->onEachSide(1)->links('pagination::bootstrap-4') }}
     </div>
 </div>
 @endsection
@@ -79,5 +79,5 @@
 @endsection
 
 @section('styles')
-<link href="{{ asset('css/noticias.css') }}" rel="stylesheet">
+<link href="{{ asset('css/noticia.css') }}" rel="stylesheet">
 @endsection
