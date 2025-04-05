@@ -8,17 +8,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
+        // Verifica si el usuario está autenticado y es admin
         if (auth()->check() && auth()->user()->isAdmin()) {
-            return $next($request);
+            return $next($request); // Permite el acceso
         }
-    
-        return redirect('/home')->with('error', 'No tienes acceso de administrador');
+
+        // Redirige con un mensaje de error (opcionalmente, puedes abortar con 403)
+        return redirect('/home')->with('error', 'Acceso restringido a administradores');
+        
+        // Opción alternativa (si prefieres mostrar error 403):
+        // abort(403, 'Acceso no autorizado');
     }
 }

@@ -13,6 +13,14 @@
         Última actualización: <span id="update-time"></span>
     </div>
 
+    @auth
+        @if(auth()->user()->isAdmin())
+            <a href="{{ route('noticias.create') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Crear Nueva Noticia
+            </a>
+        @endif
+    @endauth
+
     <div class="grid-noticias">
         @foreach($noticias as $noticia)
         <div class="noticia-card">
@@ -35,7 +43,7 @@
                 <h3 class="noticia-title">{{ $noticia->titulo }}</h3>
                 <p class="noticia-excerpt">{{ $noticia->resumen }}</p>
                 
-                <a href="{{ route('noticias.show', $noticia->id_noticia) }}" class="noticia-link">
+                <a href="{{ route('noticias.show', $noticia) }}" class="noticia-link">
                     Leer más <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
@@ -43,8 +51,8 @@
         @endforeach
     </div>
 
-    <div class="pagination-container noticias-pagination">
-        {{ $noticias->links() }}
+    <div class="pagination-container">
+        {{ $noticias->onEachSide(1)->links('pagination::bootstrap-4') }}
     </div>
 </div>
 @endsection
@@ -68,5 +76,8 @@
     updateDateTime();
     setInterval(updateDateTime, 60000);
 </script>
-<link href="{{ asset('css/noticias.css') }}" rel="stylesheet">
+@endsection
+
+@section('styles')
+<link href="{{ asset('css/noticia.css') }}" rel="stylesheet">
 @endsection

@@ -48,13 +48,11 @@ class User extends Authenticatable
     }
     
     // Métodos para verificar roles
-    public function isAdmin()
-    {
-        return $this->role === 'admin';
+    public function isAdmin() {
+        return $this->role === 'admin'; 
     }
-
-    public function isUser()
-    {
+    
+    public function isUser() {
         return $this->role === 'user';
     }
 }

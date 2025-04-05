@@ -5,11 +5,44 @@
 @section('content')
 <div class="container">
     <div class="content">
-        <div class="welcome-card">
+        <!-- Hero Section -->
+        <section class="home-hero">
+            <div class="home-hero-content">
+                <h1 class="home-hero-title">Bienvenido a Planeta Consciente</h1>
+                <p class="home-hero-subtitle">Juntos podemos hacer la diferencia para nuestro planeta</p>
+                <a href="#features" class="hero-cta">
+                    <i class="fas fa-leaf"></i> Conoce más
+                </a>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="home-stats">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">1,200+</div>
+                    <div class="stat-label">Usuarios activos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">850+</div>
+                    <div class="stat-label">Huellas calculadas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">120+</div>
+                    <div class="stat-label">Eventos realizados</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Satisfacción</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Welcome Card (para usuarios autenticados) -->
+        @auth
+        <div class="welcome-card fade-in">
             <div class="welcome-header">
                 <h2>{{ __('Bienvenido a Planeta Consciente') }}</h2>
-                <!-- Mostrar inicial del usuario y botón de cerrar sesión -->
-                @auth
                 <div class="user-info">
                     <span class="user-initial">
                         {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
@@ -21,7 +54,6 @@
                         </button>
                     </form>
                 </div>
-                @endauth
             </div>
 
             <div class="welcome-body">
@@ -42,119 +74,112 @@
                 </div>
             </div>
         </div>
+        @endauth
+
+        <!-- Features Section -->
+        <section class="home-features" id="features">
+            <div class="section-header">
+                <h2 class="section-title">Nuestras Herramientas</h2>
+                <p class="section-subtitle">Descubre cómo puedes contribuir al cuidado del medio ambiente</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="feature-title">Calculadora Ecológica</h3>
+                    <p class="feature-description">Calcula tu huella de carbono y descubre cómo reducir tu impacto ambiental.</p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3 class="feature-title">Eventos y Retos</h3>
+                    <p class="feature-description">Participa en nuestros eventos comunitarios y retos ecológicos.</p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h3 class="feature-title">Noticias Actualizadas</h3>
+                    <p class="feature-description">Mantente informado sobre las últimas noticias ambientales.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Activity Section -->
+        <section class="home-activity">
+            <div class="section-header">
+                <h2 class="section-title">Actividad Reciente</h2>
+                <p class="section-subtitle">Lo último en nuestra comunidad ecológica</p>
+            </div>
+            
+            <div class="activity-grid">
+                <div class="activity-card fade-in">
+                    <img src="{{ asset('images/event-1.jpg') }}" alt="Evento ecológico" class="activity-image">
+                    <div class="activity-content">
+                        <div class="activity-date">
+                            <i class="far fa-calendar-alt"></i> 15 Oct 2023
+                        </div>
+                        <h3 class="activity-title">Jornada de Reforestación</h3>
+                        <p class="activity-excerpt">Únete a nuestra próxima jornada de reforestación en el parque central.</p>
+                        <a href="#" class="btn-action">Ver detalles</a>
+                    </div>
+                </div>
+                
+                <div class="activity-card fade-in">
+                    <img src="{{ asset('images/event-2.jpg') }}" alt="Taller educativo" class="activity-image">
+                    <div class="activity-content">
+                        <div class="activity-date">
+                            <i class="far fa-calendar-alt"></i> 22 Oct 2023
+                        </div>
+                        <h3 class="activity-title">Taller de Reciclaje</h3>
+                        <p class="activity-excerpt">Aprende técnicas avanzadas de reciclaje en nuestro taller gratuito.</p>
+                        <a href="#" class="btn-action">Ver detalles</a>
+                    </div>
+                </div>
+                
+                <div class="activity-card fade-in">
+                    <img src="{{ asset('images/event-3.jpg') }}" alt="Conferencia" class="activity-image">
+                    <div class="activity-content">
+                        <div class="activity-date">
+                            <i class="far fa-calendar-alt"></i> 30 Oct 2023
+                        </div>
+                        <h3 class="activity-title">Conferencia Ambiental</h3>
+                        <p class="activity-excerpt">Expertos hablarán sobre el futuro de la sostenibilidad en nuestra ciudad.</p>
+                        <a href="#" class="btn-action">Ver detalles</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="home-testimonials">
+            <div class="section-header">
+                <h2 class="section-title">Testimonios</h2>
+                <p class="section-subtitle">Lo que dicen nuestros usuarios</p>
+            </div>
+            
+            <div class="testimonial-card fade-in">
+                <blockquote class="testimonial-quote">
+                    Planeta Consciente me ha ayudado a entender mi impacto ambiental y a tomar medidas concretas para reducirlo. ¡La calculadora es increíblemente útil!
+                </blockquote>
+                <div class="testimonial-author">
+                    <img src="{{ asset('images/user-1.jpg') }}" alt="Usuario" class="testimonial-avatar">
+                    <div class="testimonial-author-info">
+                        <h4>María González</h4>
+                        <p>Usuario desde 2022</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </div>
 @endsection
 
 @section('styles')
-<style>
-    /* Estilos específicos para la tarjeta de bienvenida */
-    .welcome-card {
-        background: var(--white);
-        border-radius: var(--border-radius);
-        box-shadow: var(--shadow-md);
-        overflow: hidden;
-        transition: var(--transition);
-    }
-
-    .welcome-card:hover {
-        box-shadow: var(--shadow-lg);
-        transform: translateY(-5px);
-    }
-
-    .welcome-header {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-        color: white;
-        padding: 1.5rem;
-        text-align: center;
-        position: relative;
-    }
-
-    .welcome-header h2 {
-        margin: 0;
-        font-family: 'Playfair Display', serif;
-        font-weight: 600;
-    }
-
-    .user-info {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .user-initial {
-        background-color: var(--primary);
-        color: white;
-        border-radius: 50%;
-        padding: 0.5rem;
-        font-size: 1.5rem;
-        font-weight: bold;
-        text-align: center;
-        width: 40px;
-        height: 40px;
-    }
-
-    .btn-logout {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-    }
-
-    .btn-logout:hover {
-        transform: scale(1.1);
-    }
-
-    .welcome-body {
-        padding: 2rem;
-        text-align: center;
-    }
-
-    .welcome-message {
-        font-size: 1.2rem;
-        color: var(--text);
-        margin-bottom: 2rem;
-    }
-
-    .welcome-actions {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .btn-action {
-        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-        color: white;
-        padding: 0.8rem 1.5rem;
-        border-radius: 50px;
-        text-decoration: none;
-        font-weight: 500;
-        transition: var(--transition);
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .btn-action:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    @media (max-width: 768px) {
-        .welcome-actions {
-            flex-direction: column;
-        }
-        
-        .btn-action {
-            width: 100%;
-            justify-content: center;
-        }
-    }
-</style>
+<link href="{{ asset('css/home.css') }}" rel="stylesheet">
 @endsection
