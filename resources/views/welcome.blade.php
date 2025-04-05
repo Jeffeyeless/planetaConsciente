@@ -3,6 +3,16 @@
 @section('title', 'Inicio - Planeta Consciente')
 
 @section('content')
+<!-- Mensaje de bienvenida para usuarios autenticados -->
+@auth
+<div class="welcome-message-overlay">
+    <div class="welcome-message-card">
+        <h2>{{ __('Bienvenido a Planeta Consciente') }}, {{ Auth::user()->name }}!</h2>
+        <p>{{ __('¡Has iniciado sesión correctamente!') }}</p>
+    </div>
+</div>
+@endauth
+
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="hero-content">
@@ -221,6 +231,18 @@
         statNumbers.forEach(statNumber => {
             observer.observe(statNumber);
         });
+    });
+
+    // Cerrar el mensaje de bienvenida
+    document.querySelector('.close-welcome')?.addEventListener('click', function() {
+        document.querySelector('.welcome-message-overlay').style.display = 'none';
+    });
+    
+    // Opcional: Cerrar al hacer clic fuera del card
+    document.querySelector('.welcome-message-overlay')?.addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+        }
     });
 </script>
 @endsection
