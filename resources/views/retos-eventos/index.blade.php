@@ -245,9 +245,10 @@
             <div class="d-flex justify-content-between align-items-start">
               <div>
                 @if($evento->fecha)
-                  <strong>{{ \Carbon\Carbon::parse($evento->fecha)->format('d M Y') }}</strong> --accent-dark
+                  <strong>{{ \Carbon\Carbon::parse($evento->fecha)->format('d M Y') }}</strong>
                   @if($evento->hora)
                     a las {{ \Carbon\Carbon::parse($evento->hora)->format('H:i') }}
+                  @endif
                 @endif
                 <span class="destacado">
                   <a href="{{ route('eventos.show', $evento->id) }}" class="text-decoration-none">{{ $evento->titulo ?? 'Sin título' }}</a>
