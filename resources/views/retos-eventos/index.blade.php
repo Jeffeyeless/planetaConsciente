@@ -368,13 +368,13 @@
               @if(auth()->user()->isAdmin())
                 <div class="action-buttons">
                   <a href="{{ route('eventos.edit', $evento->id) }}" class="btn-admin btn-edit">
-                    <i class="fas fa-edit"></i> Edit
+                    <i class="fas fa-edit"></i> Editar
                   </a>
                   <form action="{{ route('eventos.destroy', $evento->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn-admin btn-delete" onclick="return confirm('¿Eliminar este evento?')">
-                      <i class="fas fa-trash"></i> Delete
+                      <i class="fas fa-trash"></i> Eliminar
                     </button>
                   </form>
                 </div>
@@ -399,6 +399,7 @@
       <li>♻️ Separa correctamente tus residuos (orgánicos, reciclables, no reciclables)</li>
       <li>🛍️ Compra a granel evitando empaques plásticos</li>
     </ul>
+    <br>
     <div class="mes-card">
       <span class="badge-nuevo">💧 Febrero - Ahorro de Agua</span>
       <ul class="lista-retos">
