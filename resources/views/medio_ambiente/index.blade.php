@@ -3,7 +3,7 @@
 @section('content')
 <style>
     .hero-container {
-        background: linear-gradient(135deg, rgba(40, 167, 69, 0.9), rgba(30, 126, 52, 0.9)), 
+        background: linear-gradient(135deg, rgba(25, 135, 50, 0.9), rgba(20, 100, 40, 0.9)), 
                     url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
         background-size: cover;
         background-position: center;
@@ -47,7 +47,7 @@
     
     .btn-hero {
         background-color: white;
-        color: #28a745;
+        color: #218838;
         border: none;
         padding: 12px 30px;
         border-radius: 50px;
@@ -82,6 +82,7 @@
     }
     
     .feature-card {
+        background: white; /* Cambiado a blanco */
         border: none;
         border-radius: 15px;
         overflow: hidden;
@@ -110,17 +111,17 @@
     .feature-icon {
         font-size: 3.5rem;
         margin-bottom: 1.5rem;
-        color: #28a745;
+        color: #218838;
         transition: all 0.3s;
     }
     
     .feature-card:hover .feature-icon {
         transform: scale(1.1);
-        color: #218838;
+        color: #1e7e34;
     }
     
     .btn-feature {
-        background: linear-gradient(135deg, #28a745, #218838);
+        background: linear-gradient(135deg, #218838, #1e7e34);
         color: white;
         border: none;
         padding: 10px 25px;
@@ -133,7 +134,7 @@
     
     .btn-feature:hover {
         transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+        box-shadow: 0 8px 20px rgba(33, 136, 56, 0.3);
     }
     
     .btn-feature::after {
@@ -173,7 +174,7 @@
         left: 0;
         width: 60px;
         height: 4px;
-        background: linear-gradient(90deg, #28a745, #218838);
+        background: linear-gradient(90deg, #218838, #1e7e34);
         border-radius: 2px;
     }
     
@@ -190,7 +191,7 @@
     
     .mission-icon {
         font-size: 2rem;
-        color: #28a745;
+        color: #218838;
         margin-bottom: 1rem;
     }
     

@@ -274,34 +274,38 @@
     </div>
 
     <!-- Formulario -->
-    <div class="card upload-card shadow">
-        <div class="card-header-custom rounded-top">
-            <i class="fas fa-cloud-upload-alt"></i> Subir Nueva Capacitación
+    @auth
+        @if(auth()->user()->isAdmin())
+        <div class="card upload-card shadow">
+            <div class="card-header-custom rounded-top">
+                <i class="fas fa-cloud-upload-alt"></i> Subir Nueva Capacitación
+            </div>
+            <div class="card-body">
+                <form action="{{ route('capacitaciones.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Título</label>
+                        <input type="text" name="titulo" class="form-control" placeholder="Ej. Guía de reciclaje en el hogar" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Descripción</label>
+                        <textarea name="descripcion" class="form-control" rows="3" placeholder="Describe el contenido de la capacitación..." required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Archivo (Imagen o Video)</label>
+                        <input type="file" name="material" class="form-control" accept="image/, video/" required>
+                        <small class="text-muted">Formatos aceptados: JPEG, PNG, GIF, MP4, WebM</small>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-submit">
+                            <i class="fas fa-upload me-2"></i> Subir Capacitación
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="card-body">
-            <form action="{{ route('capacitaciones.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="mb-4">
-                    <label class="form-label fw-semibold">Título</label>
-                    <input type="text" name="titulo" class="form-control" placeholder="Ej. Guía de reciclaje en el hogar" required>
-                </div>
-                <div class="mb-4">
-                    <label class="form-label fw-semibold">Descripción</label>
-                    <textarea name="descripcion" class="form-control" rows="3" placeholder="Describe el contenido de la capacitación..." required></textarea>
-                </div>
-                <div class="mb-4">
-                    <label class="form-label fw-semibold">Archivo (Imagen o Video)</label>
-                    <input type="file" name="material" class="form-control" accept="image/*, video/*" required>
-                    <small class="text-muted">Formatos aceptados: JPEG, PNG, GIF, MP4, WebM</small>
-                </div>
-                <div class="text-end">
-                    <button type="submit" class="btn btn-submit">
-                        <i class="fas fa-upload me-2"></i> Subir Capacitación
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+        @endif
+    @endauth
 
     <!-- Lista de Capacitaciones -->
     <h3 class="mb-4 d-flex align-items-center">
