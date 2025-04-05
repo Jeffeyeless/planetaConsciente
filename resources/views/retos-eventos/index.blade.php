@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-
 @section('title', 'Retos y Eventos Ambientales')
 
 @section('content')
@@ -152,6 +151,61 @@
     .footer-link i {
       margin-right: 0.5rem;
     }
+
+    /* Estilos para botones */
+    .btn-admin {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.375rem 0.75rem;
+      border-radius: 0.25rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      margin-left: 0.5rem;
+    }
+    
+    .btn-create {
+      background-color: var(--accent);
+      color: white;
+      border: 1px solid var(--accent-dark);
+    }
+    
+    .btn-create:hover {
+      background-color: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+    
+    .btn-edit {
+      background-color: #f8f9fa;
+      color: var(--primary);
+      border: 1px solid var(--border-color);
+    }
+    
+    .btn-edit:hover {
+      background-color: #e9ecef;
+      transform: translateY(-1px);
+    }
+    
+    .btn-delete {
+      background-color: #f8f9fa;
+      color: #dc3545;
+      border: 1px solid var(--border-color);
+    }
+    
+    .btn-delete:hover {
+      background-color: #f1f1f1;
+      transform: translateY(-1px);
+    }
+    
+    .btn-admin i {
+      margin-right: 0.25rem;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
     
     @media (max-width: 768px) {
       .layout-container {
@@ -160,7 +214,10 @@
       .seccion-grande {
         grid-column: span 1;
       }
-      
+      .action-buttons {
+        flex-direction: column;
+        gap: 0.25rem;
+      }
     }
 </style>
 
@@ -175,7 +232,7 @@
     <div class="d-flex justify-content-between align-items-center">
       <h3 class="seccion-titulo">📅 Próximos Eventos en Bogotá</h3>
       @can('admin')
-        <a href="{{ route('eventos.create') }}" class="btn btn-sm btn-primary">
+        <a href="{{ route('eventos.create') }}" class="btn-admin btn-create">
           <i class="fas fa-plus"></i> Nuevo Evento
         </a>
       @endcan
@@ -185,7 +242,7 @@
       <ul class="lista-detalles">
         @foreach($eventos as $evento)
           <li class="evento-item">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between align-items-start">
               <div>
                 @if($evento->fecha)
                   <strong>{{ \Carbon\Carbon::parse($evento->fecha)->format('d M Y') }}</strong> - 
@@ -201,15 +258,15 @@
                 @endif
               </div>
               @can('admin')
-                <div class="d-flex">
-                  <a href="{{ route('eventos.edit', $evento->id) }}" class="btn btn-sm btn-outline-secondary me-1">
-                    <i class="fas fa-edit"></i>
+                <div class="action-buttons">
+                  <a href="{{ route('eventos.edit', $evento->id) }}" class="btn-admin btn-edit">
+                    <i class="fas fa-edit"></i> Editar
                   </a>
                   <form action="{{ route('eventos.destroy', $evento->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Eliminar este evento?')">
-                      <i class="fas fa-trash"></i>
+                    <button type="submit" class="btn-admin btn-delete" onclick="return confirm('¿Eliminar este evento?')">
+                      <i class="fas fa-trash"></i> Eliminar
                     </button>
                   </form>
                 </div>
@@ -223,28 +280,6 @@
         No hay eventos programados para este mes.
       </div>
     @endif
-    @auth
-@if(auth()->user()->isAdmin())
-    <div class="btn-group" role="group">
-        <!-- Botón Editar -->
-        <a href="{{ route('eventos.edit', $evento->id) }}"
-          class="btn btn-sm btn-outline-primary">
-            <i class="fas fa-edit"></i> Editar
-        </a>
-        
-        <!-- Botón Eliminar -->
-        <form action="{{ route('eventos.destroy', $evento->id) }}" method="POST" class="d-inline">
-            @csrf
-            @method('DELETE')
-            <button type="submit" 
-                    class="btn btn-sm btn-outline-danger"
-                    onclick="return confirm('¿Estás seguro de eliminar este evento?')">
-                <i class="fas fa-trash-alt"></i> Eliminar
-            </button>
-        </form>
-    </div>
-@endif
-@endauth
   </div>
   
   <!-- Caja Pruebas (arriba a la derecha) -->
