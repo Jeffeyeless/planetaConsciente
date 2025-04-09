@@ -27,6 +27,16 @@
                             <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
                         </div>
                         
+                        <div class="mb-3">
+                            <label for="fecha" class="form-label">Fecha y Hora *</label>
+                            <input type="datetime-local" class="form-control" id="fecha" name="fecha" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="ubicacion" class="form-label">Ubicación *</label>
+                            <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
+                        </div>
+                        
                         <div class="row">
                             <!-- Fecha y Hora -->
                             <div class="col-md-6 mb-3">
@@ -49,11 +59,6 @@
                             </div>
                         </div>
                         
-                        <!-- Ubicación -->
-                        <div class="mb-3">
-                            <label for="ubicacion" class="form-label fw-bold">Ubicación <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
-                        </div>
                         
                         <!-- Sitio Web -->
                         <div class="mb-3">
