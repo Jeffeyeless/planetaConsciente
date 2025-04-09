@@ -66,12 +66,6 @@
                             <input type="url" class="form-control" id="sitio_web" name="sitio_web" placeholder="https://ejemplo.com">
                         </div>
                         
-                        <!-- Imagen -->
-                        <div class="mb-4">
-                            <label for="imagen" class="form-label fw-bold">Imagen del Evento (opcional)</label>
-                            <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
-                            <div class="form-text">Formatos aceptados: JPG, PNG, GIF. Tamaño máximo: 2MB</div>
-                        </div>
                         
                         <!-- Botones -->
                         <div class="d-flex justify-content-between mt-4">
