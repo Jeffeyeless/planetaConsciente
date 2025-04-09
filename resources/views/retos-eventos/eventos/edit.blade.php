@@ -95,14 +95,6 @@
                             <option value="Otro" {{ old('tipo', $evento->tipo) == 'Otro' ? 'selected' : '' }}>Otro</option>
                         </select>
                     </div>
-                    <select class="form-select" id="tipo" name="tipo" required>
-                        <option value="">Seleccione un tipo</option>
-                        @foreach($tiposEvento as $tipo)
-                            <option value="{{ $tipo }}" {{ old('tipo', $evento->tipo) == $tipo ? 'selected' : '' }}>
-                                {{ $tipo }}
-                            </option>
-                        @endforeach
-                    </select>
                 </div>
                 
                 <div class="mb-4">
@@ -118,23 +110,6 @@
                            value="{{ old('sitio_web', $evento->sitio_web) }}">
                 </div>
                 
-                <div class="mb-4">
-                    <label for="imagen" class="form-label">Imagen del Evento</label>
-                    <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
-                    
-                    @if($evento->imagen)
-                        <div class="mt-3">
-                            <p>Imagen actual:</p>
-                            <img src="{{ asset('storage/' . $evento->imagen) }}" alt="Imagen actual del evento" class="current-image">
-                            <div class="form-check mt-2">
-                                <input class="form-check-input" type="checkbox" id="eliminar_imagen" name="eliminar_imagen">
-                                <label class="form-check-label" for="eliminar_imagen">
-                                    Eliminar imagen actual
-                                </label>
-                            </div>
-                        </div>
-                    @endif
-                </div>
                 
                 <div class="form-actions">
                     <a href="{{ route('eventos.show', $evento->id) }}" class="btn btn-outline-secondary">
