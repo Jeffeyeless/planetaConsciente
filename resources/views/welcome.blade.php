@@ -7,8 +7,36 @@
 @auth
 <div class="welcome-message-overlay">
     <div class="welcome-message-card">
-        <h2>{{ __('Bienvenido a Planeta Consciente') }}, {{ Auth::user()->name }}!</h2>
-        <p>{{ __('¡Has iniciado sesión correctamente!') }}</p>
+        <!-- Decoración de hojas flotantes -->
+        <div class="welcome-decoration">
+            @for($i = 0; $i < 8; $i++)
+            <span style="
+                width: {{ rand(10, 30) }}px;
+                height: {{ rand(10, 30) }}px;
+                left: {{ rand(0, 100) }}%;
+                bottom: -20px;
+                animation-duration: {{ rand(10, 20) }}s;
+                animation-delay: {{ rand(0, 5) }}s;
+                opacity: {{ rand(3, 7) / 10 }};
+            "></span>
+            @endfor
+        </div>
+        
+        <!-- Contenido principal -->
+        <h2>
+            <span class="welcome-title-main">{{ __('Bienvenido a Planeta Consciente') }},</span>
+            <span class="welcome-user-name">{{ Auth::user()->name }}</span>!
+        </h2>
+        
+        <p class="welcome-success-message">
+            <i class="fas fa-check-circle"></i>
+            {{ __('¡Has iniciado sesión correctamente!') }}
+        </p>
+        
+        <!-- Botón de cierre -->
+        <button class="close-welcome" onclick="this.closest('.welcome-message-overlay').remove()">
+            &times;
+        </button>
     </div>
 </div>
 @endauth
@@ -244,5 +272,18 @@
             this.style.display = 'none';
         }
     });
+    document.addEventListener('DOMContentLoaded', function() {
+    const decor = document.querySelector('.welcome-decoration');
+    for (let i = 0; i < 8; i++) {
+        const leaf = document.createElement('span');
+        leaf.style.width = `${Math.random() * 20 + 10}px`;
+        leaf.style.height = leaf.style.width;
+        leaf.style.left = `${Math.random() * 100}%`;
+        leaf.style.bottom = '-20px';
+        leaf.style.animationDuration = `${Math.random() * 10 + 10}s`;
+        leaf.style.animationDelay = `${Math.random() * 5}s`;
+        decor.appendChild(leaf);
+    }
+});
 </script>
 @endsection

@@ -51,7 +51,7 @@
         <!-- Posts Feed -->
         <div class="posts-feed mt-4">
             @foreach($publicaciones as $post)
-            <div class="post-card" id="post-{{ $post->id }}">
+            <div class="post-card" id="post-{{ $post->id_foro }}">
                 <div class="post-header">
                     <div class="user-info">
                         <div class="user-avatar">
@@ -63,23 +63,26 @@
                         </div>
                     </div>
                     @if($post->user && auth()->id() == $post->user_id)
-                    @auth
-                        @if(auth()->user()->isAdmin())
-                            <div class="post-actions">
-                                <button class="btn-action">
-                                    <i class="fas fa-ellipsis-v"></i>
+                    <div class="post-actions">
+                        <button class="btn-action">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <div class="actions-menu">
+                            <!-- Opción para editar publicación -->
+                            <a href="{{ route('foro.edit', $post->id_foro) }}" class="edit-post">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                            
+                            <!-- Formulario para eliminar publicación -->
+                            <form action="{{ route('foro.destroy', $post->id_foro) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-link" onclick="return confirm('¿Estás seguro de eliminar esta publicación?')">
+                                    <i class="fas fa-trash"></i> Eliminar
                                 </button>
-                                <div class="actions-menu">
-                                    <a href="#" class="edit-post" data-id="{{ $post->id }}">
-                                        <i class="fas fa-edit"></i> Editar
-                                    </a>
-                                    <a href="#" class="delete-post" data-id="{{ $post->id }}">
-                                        <i class="fas fa-trash"></i> Eliminar
-                                    </a>
-                                </div>
-                            </div>
-                        @endif
-                    @endauth
+                            </form>
+                        </div>
+                    </div>
                     @endif
                 </div>
                 
@@ -103,6 +106,29 @@
 <button class="fab">
     <i class="fas fa-plus"></i>
 </button>
+
+<!-- Modal para edición de publicaciones -->
+<div class="modal-edit" style="display: none;">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3><i class="fas fa-edit"></i> Editar Publicación</h3>
+        <form id="edit-form" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="form-group">
+                <label>TÍTULO</label>
+                <input type="text" name="titulo" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>CONTENIDO</label>
+                <textarea name="contenido" rows="4" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn-post">
+                <i class="fas fa-save"></i> GUARDAR CAMBIOS
+            </button>
+        </form>
+    </div>
+</div>
 
 <style>
 /* Colores principales */
@@ -387,6 +413,54 @@
     transform: scale(1.1);
 }
 
+/* Estilos para el modal de edición */
+.modal-edit {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    color: var(--text);
+    padding: 0;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-link:hover {
+    color: var(--primary);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .hero-title {
@@ -413,6 +487,11 @@
         width: 48px;
         height: 48px;
         font-size: 1.2rem;
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: 1rem;
     }
 }
 </style>
@@ -449,6 +528,36 @@ document.addEventListener('DOMContentLoaded', function() {
         const postForm = document.querySelector('.create-post-card');
         if (postForm) {
             postForm.querySelector('input').focus();
+        }
+    });
+
+    // Funcionalidad para el modal de edición
+    const modal = document.querySelector('.modal-edit');
+    const closeBtn = document.querySelector('.close-modal');
+    
+    document.querySelectorAll('.edit-post').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const postId = this.getAttribute('href').split('/').pop();
+            const postCard = document.getElementById(`post-${postId}`);
+            
+            document.querySelector('#edit-form input[name="titulo"]').value = 
+                postCard.querySelector('.post-content h4').textContent;
+            document.querySelector('#edit-form textarea[name="contenido"]').value = 
+                postCard.querySelector('.post-content p').textContent;
+            
+            document.querySelector('#edit-form').action = `/foro/${postId}`;
+            modal.style.display = 'flex';
+        });
+    });
+    
+    closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+    
+    window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
         }
     });
 });

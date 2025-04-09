@@ -360,11 +360,6 @@
                     <label class="form-label fw-semibold">Descripción</label>
                     <textarea name="descripcion" class="form-control" rows="3" placeholder="Describe el contenido de la capacitación..." required></textarea>
                 </div>
-                <div class="mb-4">
-                    <label class="form-label fw-semibold">Archivo (Imagen o Video)</label>
-                    <input type="file" name="material" class="form-control" accept="image/*, video/*" required>
-                    <small class="text-muted">Formatos aceptados: JPEG, PNG, GIF, MP4, WebM</small>
-                </div>
                 <div class="text-end">
                     <button type="submit" class="btn btn-submit">
                         <i class="fas fa-upload me-2"></i> Subir Capacitación

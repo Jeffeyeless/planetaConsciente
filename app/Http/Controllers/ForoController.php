@@ -40,6 +40,35 @@ class ForoController extends Controller
         return redirect()->route('foro.index')->with('success', 'Publicación creada correctamente');
     }
 
+    public function edit($id_foro)
+    {
+        $publicacion = Foro::findOrFail($id_foro);
+        
+        if (auth()->id() !== $publicacion->user_id) {
+            return back()->with('error', 'No tienes permiso para editar esta publicación');
+        }
+
+        return view('medio_ambiente.foro_edit', compact('publicacion'));
+    }
+
+    public function update(Request $request, $id_foro)
+    {
+        $publicacion = Foro::findOrFail($id_foro);
+        
+        if (auth()->id() !== $publicacion->user_id) {
+            return back()->with('error', 'No tienes permiso para editar esta publicación');
+        }
+
+        $validated = $request->validate([
+            'titulo' => 'required|string|max:255',
+            'contenido' => 'required|string'
+        ]);
+
+        $publicacion->update($validated);
+
+        return redirect()->route('foro.index')->with('success', 'Publicación actualizada correctamente');
+    }
+
     public function destroy($id_foro)
     {
         $publicacion = Foro::findOrFail($id_foro);
@@ -50,7 +79,6 @@ class ForoController extends Controller
 
         $publicacion->delete();
 
-        return redirect()->route('foro.index')
-            ->with('success', 'Publicación eliminada exitosamente');
+        return redirect()->route('foro.index')->with('success', 'Publicación eliminada exitosamente');
     }
 }

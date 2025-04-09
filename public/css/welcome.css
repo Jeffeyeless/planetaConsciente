@@ -548,52 +548,188 @@
 }
 
     /* Estilos para el mensaje de bienvenida */
-    .welcome-message-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        animation: fadeIn 0.3s ease-out;
-    }
+    /* ============ WELCOME MESSAGE - PREMIUM STYLE ============ */
+.welcome-message-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
 
+.welcome-message-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.98) 100%);
+    border-radius: 20px;
+    padding: 3.5rem;
+    width: 90%;
+    max-width: 520px;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(26, 58, 47, 0.25);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(58, 141, 102, 0.15);
+    animation: cardEntrance 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+    transform-style: preserve-3d;
+}
+
+.welcome-message-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(58, 141, 102, 0.08) 0%, transparent 70%);
+    animation: rotateGradient 15s linear infinite;
+    z-index: 0;
+}
+
+.welcome-message-card h2 {
+    color: var(--primary);
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transform: perspective(1000px);
+}
+
+.welcome-message-card h2 span {
+    color: var(--secondary-color);
+    font-weight: 800;
+    display: inline-block;
+    position: relative;
+    animation: bounceName 0.8s cubic-bezier(0.5, 2.5, 0.7, 1) 0.3s both;
+}
+
+.welcome-message-card h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary-color));
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(58, 141, 102, 0.3);
+    z-index: -1;
+}
+
+.welcome-message-card p {
+    color: var(--text-light);
+    font-size: 1.2rem;
+    margin: 2rem 0;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50px;
+    display: inline-block;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(58, 141, 102, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transform: perspective(500px) rotateX(0deg);
+    transition: all 0.5s ease;
+}
+
+.welcome-message-card p:hover {
+    transform: perspective(500px) rotateX(5deg);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-actions {
+    display: flex;
+    gap: 1.2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 2rem 0 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Floating leaves decoration */
+.welcome-decoration {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.welcome-decoration span {
+    position: absolute;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%233a8d66"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8 0-.6.4-1 1-1s1 .4 1 1c0 3.3 2.7 6 6 6 .6 0 1 .4 1 1s-.4 1-1 1z"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.3;
+    animation: floatLeaf linear infinite;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes cardEntrance {
+    from { 
+        opacity: 0;
+        transform: translateY(50px) scale(0.95) rotateX(15deg);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0) scale(1) rotateX(0);
+    }
+}
+
+@keyframes rotateGradient {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes bounceName {
+    0% { transform: translateY(30px) scale(0.9); opacity: 0; }
+    60% { transform: translateY(-10px) scale(1.05); }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes floatLeaf {
+    0% { 
+        transform: translateY(0) rotate(0deg) translateX(0);
+        opacity: 0;
+    }
+    10% { opacity: 0.3; }
+    90% { opacity: 0.3; }
+    100% { 
+        transform: translateY(-100vh) rotate(360deg) translateX(50px);
+        opacity: 0;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
     .welcome-message-card {
-        background: var(--white);
-        border-radius: var(--border-radius);
-        padding: 2.5rem;
-        max-width: 500px;
-        width: 90%;
-        text-align: center;
-        box-shadow: var(--shadow-lg);
-        position: relative;
-        animation: slideUp 0.4s ease-out;
+        padding: 2.5rem 1.5rem;
     }
-
     .welcome-message-card h2 {
-        color: var(--primary);
-        font-family: 'Montserrat', sans-serif;
-        margin-bottom: 1rem;
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
-
     .welcome-message-card p {
-        color: var(--text-light);
-        margin-bottom: 2rem;
         font-size: 1.1rem;
     }
-
-    .welcome-actions {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-bottom: 1.5rem;
-    }
+}
 
     .btn-action {
         background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
