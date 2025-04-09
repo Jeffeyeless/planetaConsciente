@@ -47,7 +47,7 @@
         <h1 class="hero-title">Cuidando Nuestro <span>Planeta</span> Juntos</h1>
         <p class="hero-text">Únete a nuestra comunidad comprometida con la sostenibilidad y el medio ambiente.</p>
         <div class="hero-buttons">
-            <a href="/retos-eventos" class="hero-button primary">Participa en Eventos</a>
+            <a href="/eventos" class="hero-button primary">Participa en Eventos</a>
             <a href="/calculadora" class="hero-button secondary">Calcula tu Huella</a>
         </div>
     </div>
@@ -79,7 +79,7 @@
             </div>
             <h3>Retos y Eventos</h3>
             <p>Participa en nuestras actividades comunitarias para proteger el medio ambiente.</p>
-            <a href="/retos-eventos" class="feature-link">Ver eventos <i class="fas fa-arrow-right"></i></a>
+            <a href="/eventos" class="feature-link">Ver eventos <i class="fas fa-arrow-right"></i></a>
         </div>
         
         <div class="feature-card">

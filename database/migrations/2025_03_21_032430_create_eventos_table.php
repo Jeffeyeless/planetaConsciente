@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('ubicacion');
             $table->string('tipo'); // Taller, Charla, Limpieza, etc.
             $table->string('sitio_web')->nullable();
-            $table->string('imagen')->nullable();
             $table->timestamps();
         });
     }

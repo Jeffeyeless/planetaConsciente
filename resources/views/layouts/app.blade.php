@@ -15,10 +15,6 @@
     @if(Request::is('/'))
     <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
     @endif
-
-    @if(Request::is('home'))
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
-    @endif
     
     @if(Request::is('login') || Request::is('register'))
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">

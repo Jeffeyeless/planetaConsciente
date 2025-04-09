@@ -14,7 +14,6 @@ class Evento extends Model
         'ubicacion',
         'tipo',
         'sitio_web',
-        'imagen'
     ];
     
     protected $dates = ['fecha'];

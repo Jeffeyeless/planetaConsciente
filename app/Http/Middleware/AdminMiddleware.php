@@ -16,7 +16,7 @@ class AdminMiddleware
         }
 
         // Redirige con un mensaje de error (opcionalmente, puedes abortar con 403)
-        return redirect('/home')->with('error', 'Acceso restringido a administradores');
+        return redirect('/welcome')->with('error', 'Acceso restringido a administradores');
         
         // Opción alternativa (si prefieres mostrar error 403):
         // abort(403, 'Acceso no autorizado');

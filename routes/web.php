@@ -14,8 +14,6 @@ Route::get('/', function () {
     return view('welcome');  // Página de bienvenida pública
 })->name('welcome');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
 // Rutas de autenticación
 Auth::routes();
 
