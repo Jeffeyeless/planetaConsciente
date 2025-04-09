@@ -45,7 +45,9 @@ Route::middleware(['auth'])->group(function () {
     // Foro
     Route::get('/foro', [ForoController::class, 'index'])->name('foro.index');
     Route::post('/foro', [ForoController::class, 'store'])->name('foro.store');
-    
+    Route::delete('/foro/{id_foro}', [ForoController::class, 'destroy'])->name('foro.destroy');
+    Route::get('/foro/{id_foro}/edit', [ForoController::class, 'edit'])->name('foro.edit');
+    Route::put('/foro/{id_foro}', [ForoController::class, 'update'])->name('foro.update');
     // Capacitaciones
     Route::get('/capacitaciones', [CapacitacionController::class, 'index'])->name('capacitaciones.index');
     Route::post('/capacitaciones', [CapacitacionController::class, 'store'])->name('capacitaciones.store');
