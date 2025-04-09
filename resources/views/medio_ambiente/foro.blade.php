@@ -67,6 +67,9 @@
                         <button class="btn-action">
                             <i class="fas fa-ellipsis-v"></i>
                         </button>
+
+                        @auth
+                        @if(auth()->user()->isAdmin())
                         <div class="actions-menu">
                             <!-- Opción para editar publicación -->
                             <a href="{{ route('foro.edit', $post->id_foro) }}" class="edit-post">
@@ -84,6 +87,8 @@
                         </div>
                     </div>
                     @endif
+                    @endif
+                    @endauth
                 </div>
                 
                 <div class="post-content">
