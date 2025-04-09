@@ -38,24 +38,12 @@
                 @enderror
             </div>
 
-            <div class="form-group" style="display: flex; align-items: center; margin: 15px 0;">
-                <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}
-                       style="margin-right: 10px;">
-                <label for="remember" style="margin: 0;">
-                    {{ __('Recordar mis datos') }}
-                </label>
-            </div>
 
             <button type="submit" style="width: 100%;">
                 <i class="fas fa-sign-in-alt"></i> {{ __('Iniciar Sesión') }}
             </button>
 
             <div class="auth-links">
-                @if (Route::has('password.request'))
-                    <a href="{{ route('password.request') }}">
-                        <i class="fas fa-key"></i> {{ __('¿Olvidaste tu contraseña?') }}
-                    </a>
-                @endif
 
                 @if (Route::has('register'))
                     <a href="{{ route('register') }}">

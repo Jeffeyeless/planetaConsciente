@@ -95,14 +95,6 @@
                             <option value="Otro" {{ old('tipo', $evento->tipo) == 'Otro' ? 'selected' : '' }}>Otro</option>
                         </select>
                     </div>
-                    <select class="form-select" id="tipo" name="tipo" required>
-                        <option value="">Seleccione un tipo</option>
-                        @foreach($tiposEvento as $tipo)
-                            <option value="{{ $tipo }}" {{ old('tipo', $evento->tipo) == $tipo ? 'selected' : '' }}>
-                                {{ $tipo }}
-                            </option>
-                        @endforeach
-                    </select>
                 </div>
                 
                 <div class="mb-4">

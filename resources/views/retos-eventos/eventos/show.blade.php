@@ -48,7 +48,8 @@
                             <i class="fas fa-arrow-left"></i> Volver a todos los eventos
                         </a>
                         
-                        @can('admin')
+                        @auth
+                            @if(auth()->user()->isAdmin())
                             <div class="btn-group">
                                 <a href="{{ route('eventos.edit', $evento->id) }}" class="btn btn-outline-primary">
                                     <i class="fas fa-edit"></i> Editar
@@ -61,7 +62,8 @@
                                     </button>
                                 </form>
                             </div>
-                        @endcan
+                            @endif
+                        @endauth
                     </div>
                 </div>
             </div>
@@ -69,25 +71,4 @@
     </div>
 </div>
 
-@if($evento->latitud && $evento->longitud)
-    @section('scripts')
-        <script>
-            function initMap() {
-                const location = { lat: {{ $evento->latitud }}, lng: {{ $evento->longitud }} };
-                const map = new google.maps.Map(document.getElementById("map"), {
-                    zoom: 15,
-                    center: location,
-                    mapTypeId: 'terrain'
-                });
-                
-                new google.maps.Marker({
-                    position: location,
-                    map: map,
-                    title: "{{ $evento->ubicacion }}"
-                });
-            }
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_key') }}&callback=initMap" async defer></script>
-    @endsection
-@endif
 @endsection
