@@ -58,6 +58,13 @@
                     Limpiar
                 </a>
                 @endif
+
+                <!-- Botón para generar PDF (solo si hay filtros aplicados) -->
+                @if(request()->anyFilled(['busqueda', 'fuente', 'fecha_desde', 'fecha_hasta']))
+                <button type="submit" name="generar_pdf" value="1" class="btn-pdf">
+                    <i class="fas fa-file-pdf"></i> Generar PDF
+                </button>
+                @endif
             </div>
         </form>
     </div>
@@ -73,9 +80,11 @@
     @else
         @auth
             @if(auth()->user()->isAdmin())
-                <a href="{{ route('noticias.create') }}" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Crear Nueva Noticia
-                </a>
+                <div class="admin-actions">
+                    <a href="{{ route('noticias.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Crear Nueva Noticia
+                    </a>
+                </div>
             @endif
         @endauth
 
@@ -198,4 +207,33 @@ document.head.appendChild(style);
 
 @section('styles')
 <link href="{{ asset('css/noticia.css') }}" rel="stylesheet">
+<style>
+    /* Estilos adicionales para el botón PDF */
+    .btn-pdf {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        transition: background-color 0.3s;
+    }
+    
+    .btn-pdf:hover {
+        background-color: #c0392b;
+    }
+    
+    .filtro-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    
+    .admin-actions {
+        margin-bottom: 20px;
+    }
+</style>
 @endsection
