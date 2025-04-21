@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Noticia;
-use App\Models\Fuente; // Asegúrate de tener este modelo si lo usas
-use App\Models\Categoria; // Asegúrate de tener este modelo si lo usas
+use App\Models\Fuente;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use PDF;
+
 
 class NoticiaController extends Controller
 {
@@ -20,7 +21,7 @@ class NoticiaController extends Controller
             'fecha_hasta' => 'nullable|date|after_or_equal:fecha_desde',
             'palabra' => 'nullable|string|max:255',
             'fuente' => 'nullable|string|max:100',
-            'categoria' => 'nullable|string|max:100' // Si tienes categorías
+            'categoria' => 'nullable|string|max:100'
         ], [
             'fecha_hasta.after_or_equal' => 'La fecha final debe ser igual o posterior a la fecha inicial'
         ]);
@@ -38,11 +39,11 @@ class NoticiaController extends Controller
             'fuente' => $request->input('fuente'),
             'fecha_desde' => $request->input('fecha_desde'),
             'fecha_hasta' => $request->input('fecha_hasta'),
-            'categoria' => $request->input('categoria') // Si tienes categorías
+            'categoria' => $request->input('categoria')
         ];
         
-        // Consulta base con los filtros aplicados
-        $noticias = Noticia::query()
+        // Construir consulta base
+        $query = Noticia::query()
             ->when($filtros['palabra'], function($query, $palabra) {
                 return $query->where(function($q) use ($palabra) {
                     $q->where('titulo', 'like', "%$palabra%")
@@ -58,19 +59,25 @@ class NoticiaController extends Controller
                     $filtros['fecha_hasta']
                 ]);
             })
-            ->orderBy('fecha_publicacion', 'desc')
-            ->paginate(6)
-            ->appends($request->query());
+            ->orderBy('fecha_publicacion', 'desc');
 
+        // Si es solicitud de PDF
+        if ($request->has('generar_pdf')) {
+            $noticiasParaPDF = $query->get();
+            $fuentes = Noticia::select('fuente')
+                      ->whereNotNull('fuente')
+                      ->distinct()
+                      ->pluck('fuente');
+            
+            return $this->generarPDF($noticiasParaPDF, $filtros, $fuentes);
+        }
+
+        // Para vista web normal con paginación
+        $noticias = $query->paginate(6)->appends($request->query());
         $fuentes = Noticia::select('fuente')
                   ->whereNotNull('fuente')
                   ->distinct()
                   ->pluck('fuente');
-
-        // Si es una solicitud de PDF
-        if ($request->has('generar_pdf')) {
-            return $this->generarPDF($noticias->get(), $filtros, $fuentes);
-        }
 
         return view('noticias.index', compact('noticias', 'fuentes', 'filtros'));
     }
@@ -140,21 +147,18 @@ class NoticiaController extends Controller
      * Genera un PDF con las noticias filtradas
      */
     private function generarPDF($noticias, $filtros, $fuentes)
-    {
-        $pdf = PDF::loadView('noticias.reporte', [
-            'noticias' => $noticias,
-            'filtros' => $filtros,
-            'fuentes' => $fuentes,
-            'page' => 1,
-            'pageCount' => 1
-        ]);
-        
-        $pdf->setPaper('A4', 'landscape');
-        $pdf->setOption('isHtml5ParserEnabled', true);
-        $pdf->setOption('isRemoteEnabled', true);
-        
-        return $pdf->download('reporte_noticias_'.now()->format('YmdHis').'.pdf');
-    }
+{
+    $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('noticias.reporte', [
+        'noticias' => $noticias,
+        'filtros' => $filtros,
+        'fuentes' => $fuentes,
+        'page' => 1,
+        'pageCount' => 1
+    ]);
+    
+    $pdf->setPaper('A4', 'landscape');
+    return $pdf->download('reporte_noticias_'.now()->format('YmdHis').'.pdf');
+}
 
     /**
      * Valida los datos de la noticia
