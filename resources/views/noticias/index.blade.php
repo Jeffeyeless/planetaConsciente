@@ -17,7 +17,7 @@
                 <label for="busqueda">Buscar noticias</label>
                 <input type="text" name="busqueda" id="busqueda" 
                        placeholder="Ej: cambio climático" 
-                       value="{{ request('busqueda') }}">
+                       value="{{ $filtros['busqueda'] ?? request('busqueda') }}">
             </div>
             
             <!-- Fuente -->
@@ -61,7 +61,7 @@
 
                 <!-- Botón para generar PDF (solo si hay filtros aplicados) -->
                 @if(request()->anyFilled(['busqueda', 'fuente', 'fecha_desde', 'fecha_hasta']))
-                <button type="submit" name="generar_pdf" value="1" class="btn-pdf">
+                <button type="submit" name="generar_pdf" value="1" class="btn-filtrar">
                     <i class="fas fa-file-pdf"></i> Generar PDF
                 </button>
                 @endif
@@ -208,32 +208,73 @@ document.head.appendChild(style);
 @section('styles')
 <link href="{{ asset('css/noticia.css') }}" rel="stylesheet">
 <style>
-    /* Estilos adicionales para el botón PDF */
-    .btn-pdf {
-        background-color: #e74c3c;
+    /* Estilos para botones */
+    .btn-filtrar {
+        background-color: #4caf7d;
         color: white;
         border: none;
-        padding: 10px 15px;
+        padding: 8px 12px;
         border-radius: 4px;
         cursor: pointer;
         display: inline-flex;
         align-items: center;
         gap: 5px;
         transition: background-color 0.3s;
+        font-weight: 500;
+        font-size: 14px;
+        height: 36px;
     }
     
-    .btn-pdf:hover {
-        background-color: #c0392b;
+    .btn-filtrar:hover {
+        background-color: #3d8b63;
+    }
+    
+    .btn-limpiar {
+        background-color: #f8f9fa;
+        color: #495057;
+        border: 1px solid #dee2e6;
+        padding: 7px 12px;
+        border-radius: 4px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.3s;
+        font-size: 14px;
+        height: 36px;
+    }
+    
+    .btn-limpiar:hover {
+        background-color: #e9ecef;
+        text-decoration: none;
     }
     
     .filtro-actions {
         display: flex;
         gap: 10px;
         flex-wrap: wrap;
+        align-items: center;
+    }
+    
+    /* Asegurar que todos los botones tengan la misma altura */
+    .filtro-actions button, .filtro-actions a {
+        min-height: 36px;
+        box-sizing: border-box;
     }
     
     .admin-actions {
         margin-bottom: 20px;
     }
+    
+    .admin-actions .btn-primary {
+        background-color: #4caf7d;
+        border-color: #4caf7d;
+    }
+    
+    .admin-actions .btn-primary:hover {
+        background-color: #3d8b63;
+        border-color: #3d8b63;
+    }
+    
 </style>
 @endsection

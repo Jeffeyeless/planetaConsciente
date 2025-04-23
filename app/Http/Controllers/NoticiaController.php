@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 
-
 class NoticiaController extends Controller
 {
     public function index(Request $request)
@@ -19,7 +18,7 @@ class NoticiaController extends Controller
         $validator = Validator::make($request->all(), [
             'fecha_desde' => 'nullable|date',
             'fecha_hasta' => 'nullable|date|after_or_equal:fecha_desde',
-            'palabra' => 'nullable|string|max:255',
+            'busqueda' => 'nullable|string|max:255',
             'fuente' => 'nullable|string|max:100',
             'categoria' => 'nullable|string|max:100'
         ], [
@@ -35,30 +34,15 @@ class NoticiaController extends Controller
 
         // Obtener los filtros del request
         $filtros = [
-            'palabra' => $request->input('palabra'),
-            'fuente' => $request->input('fuente'),
-            'fecha_desde' => $request->input('fecha_desde'),
-            'fecha_hasta' => $request->input('fecha_hasta'),
-            'categoria' => $request->input('categoria')
+            'busqueda' => $request->input('busqueda', null),
+            'fuente' => $request->input('fuente', null),
+            'fecha_desde' => $request->input('fecha_desde', null),
+            'fecha_hasta' => $request->input('fecha_hasta', null),
+            'categoria' => $request->input('categoria', null)
         ];
         
-        // Construir consulta base
-        $query = Noticia::query()
-            ->when($filtros['palabra'], function($query, $palabra) {
-                return $query->where(function($q) use ($palabra) {
-                    $q->where('titulo', 'like', "%$palabra%")
-                      ->orWhere('contenido', 'like', "%$palabra%");
-                });
-            })
-            ->when($filtros['fuente'], function($query, $fuente) {
-                return $query->where('fuente', $fuente);
-            })
-            ->when($filtros['fecha_desde'] && $filtros['fecha_hasta'], function($query) use ($filtros) {
-                return $query->whereBetween('fecha_publicacion', [
-                    $filtros['fecha_desde'],
-                    $filtros['fecha_hasta']
-                ]);
-            })
+        // Construir consulta base usando el scope del modelo
+        $query = Noticia::filtrar($filtros)
             ->orderBy('fecha_publicacion', 'desc');
 
         // Si es solicitud de PDF
@@ -87,7 +71,8 @@ class NoticiaController extends Controller
         return view('noticias.show', compact('noticia'));
     }
 
-    public function create() {
+    public function create()
+    {
         return view('noticias.form', ['editMode' => false]);
     }
 
@@ -147,18 +132,18 @@ class NoticiaController extends Controller
      * Genera un PDF con las noticias filtradas
      */
     private function generarPDF($noticias, $filtros, $fuentes)
-{
-    $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('noticias.reporte', [
-        'noticias' => $noticias,
-        'filtros' => $filtros,
-        'fuentes' => $fuentes,
-        'page' => 1,
-        'pageCount' => 1
-    ]);
-    
-    $pdf->setPaper('A4', 'landscape');
-    return $pdf->download('reporte_noticias_'.now()->format('YmdHis').'.pdf');
-}
+    {
+        $pdf = PDF::loadView('noticias.reporte', [
+            'noticias' => $noticias,
+            'filtros' => $filtros,
+            'fuentes' => $fuentes,
+            'page' => 1,
+            'pageCount' => 1
+        ]);
+        
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->download('reporte_noticias_'.now()->format('YmdHis').'.pdf');
+    }
 
     /**
      * Valida los datos de la noticia
@@ -171,6 +156,7 @@ class NoticiaController extends Controller
             'contenido' => 'required',
             'fecha_publicacion' => 'required|date',
             'fuente' => 'nullable|max:100',
+            'categoria' => 'nullable|max:100',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
     }

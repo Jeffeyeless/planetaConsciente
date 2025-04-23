@@ -18,14 +18,14 @@ class Noticia extends Model
         'contenido',
         'fecha_publicacion',
         'fuente',
-        'imagen_url'
+        'imagen_url',
+        'categoria' // Asegúrate de que esté en fillable si existe
     ];
 
     protected $casts = [
         'fecha_publicacion' => 'date',
     ];
 
-    // TUS MÉTODOS ORIGINALES
     public function getImagenCompletaAttribute()
     {
         if (!$this->imagen_url) {
@@ -50,7 +50,6 @@ class Noticia extends Model
         });
     }
 
-    // ÚNICO AÑADIDO (FILTROS)
     public function scopeFiltrar($query, array $filtros)
     {
         $query->when($filtros['busqueda'] ?? null, function ($query, $search) {
@@ -67,6 +66,9 @@ class Noticia extends Model
         })
         ->when($filtros['fecha_hasta'] ?? null, function ($query, $fecha) {
             $query->whereDate('fecha_publicacion', '<=', $fecha);
+        })
+        ->when($filtros['categoria'] ?? null, function ($query, $categoria) {
+            $query->where('categoria', $categoria);
         });
     }
 }
